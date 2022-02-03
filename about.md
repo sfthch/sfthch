@@ -1,15 +1,6 @@
 ---
-title:
-  "github.io 블로그 시작하기 1"
-excerpt:
-  "GitHub Blog 서비스인 github.io 블로그 시작하기로 했다."
-last_modified_at:
-  2022-01-27T08:06:00-05:00
-categories:
-  - Blog
-tags:
-  - content
-  - Blog
+layout: page
+title: project
 ---
 
 ##### GitHub Blog 서비스인 github.io 블로그 시작하기로 했다.
