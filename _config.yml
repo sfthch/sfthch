@@ -1,3 +1,4 @@
+minimal_mistakes_skin: dark # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 url : https://sfthch.github.io # GitBlog 호스트 주소
 
 title: ChangHee Blog
@@ -16,7 +17,8 @@ sass:
 plainwhite:
   name: ChangHee Han
   tagline: Data Base Admin
-  date_format: "%b %-d, %Y"
+# date_format: "%b %-d, %Y"
+  date_format: "%Y.%m.%d"
   sitemap: true 
          # set to true to generate sitemap.xml content
   search: true 
@@ -26,8 +28,7 @@ plainwhite:
   portfolio_image: "assets/dbeaver256.png" 
                  # the path from the base directory of the site to the image to display (no / at the start)
   html_lang: "en" 
-           # set the lang attribute of the <html> tag for the pages. 
-	   # See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
+           # set the lang attribute of the <html> tag for the pages. # See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
   condensed_mobile:
   # - home
     - page
