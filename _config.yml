@@ -1,4 +1,4 @@
-minimal_mistakes_skin: dark # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# minimal_mistakes_skin: dark # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 url : https://sfthch.github.io # GitBlog 호스트 주소
 
 title: ChangHee Blog
