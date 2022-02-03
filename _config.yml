@@ -21,6 +21,11 @@ plainwhite:
   date_format: "%Y.%m.%d"
   sitemap: true 
          # set to true to generate sitemap.xml content
+  navigation:
+    - title: About
+      url: "about"
+    - title: Works
+      url: "works"
   search: true 
         # set to true to enable searchbar
   dark_mode: true 
