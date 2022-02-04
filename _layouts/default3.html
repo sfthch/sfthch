@@ -21,10 +21,10 @@
             <section class="post-content">
                 <a href="{{ "/" | relative_url}}">
                     {% if site.plainwhite.portfolio_image_dark and site.plainwhite.dark_mode %}
-                        <img class="light profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" />
-                        <img class="dark profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}" alt="{{ site.plainwhite.name }}" />
+                        <img class="light profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
+                        <img class="dark profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
                     {% else %}
-                        <img class="profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" />
+                        <img class="profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
                     {% endif %}
                 </a>
 
