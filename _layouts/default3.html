@@ -36,15 +36,6 @@
         </main> <!-- END top -->
         <main class="post-main">
             <section class="post-content">
-                {{ content }}
-            </section>
-            <footer class="{{condensed_class}}">
-                {{ footer }}
-            </footer>
-        </main> <!-- END main -->
-        <!-- Post list -->
-        <main class="post-footer">
-            <div class="post-content">
                 <a href="{{ "/" | relative_url}}">
                     {% if site.plainwhite.portfolio_image_dark and site.plainwhite.dark_mode %}
                         <img class="light profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
@@ -57,6 +48,18 @@
                 {%- if site.plainwhite.tagline -%}
                     <p class="tagline" style="font-size: 16px;">{{ site.plainwhite.tagline }}</p>
                 {%- endif -%}
+                <div class="div-hr"></div>
+            </section>
+            <section class="post-content">
+                {{ content }}
+            </section>
+            <footer class="{{condensed_class}}">
+                {{ footer }}
+            </footer>
+        </main> <!-- END main -->
+        <!-- Post list -->
+        <main class="post-footer">
+            <div class="post-content">
                 {%- if site.posts.size > 0 -%}
                     <ul class="post-list">
                         {%- for post in site.posts -%}
