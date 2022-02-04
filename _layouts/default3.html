@@ -4,19 +4,19 @@
 <head>
     {%- include head.html -%}
 </head>
-
+<!--
 {%- if site.plainwhite.condensed_mobile contains page.layout -%}
     {% assign condensed_class = "condensed" %}
 {% else %}
     {% assign condensed_class = "" %}
 {%- endif -%}
-
+-->
 <style>
     body { background-color: #eff3fd99; }
 </style>
 
 <body>
-    <!--div class="post-div"-->
+    <div class="post-div">
         <!--main class="post-top">
             <section class="post-content">
                 <a href="{{ "/" | relative_url}}">
@@ -103,7 +103,7 @@
                 {%- endif -%}
             </div>
         </main> <!-- END post list -->
-    <!--/div-->      <!-- END post-div -->
+    </div>      <!-- END post-div -->
 
     <!--a href="#" class="pageUp"></a-->
 
