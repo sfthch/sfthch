@@ -433,8 +433,8 @@ blockquote {
 .post-top {
 	.post-content {
 		@media screen and (min-width: $mobileW + 1) {
-      		width: 100%;
-      		max-width: calc(80% - #{$leftWidth});
+      		width: 50%;
+      		max-width: calc(50% - #{$leftWidth});
       		margin: 0px auto;      	
     	}
 	}
