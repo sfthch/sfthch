@@ -3,12 +3,12 @@ layout: default
 ---
 
 {%- if page.title -%}
-  <h1 class="page-heading">{{ page.title }}</h1>
+    <h1 class="page-heading">{{ page.title }}</h1>
 {%- endif -%}
 
-	<div class="page-index" >
-		{{ content }}
-	</div>
+<div class="page-index" >
+    {{ content }}
+</div>
 
 {%- if site.posts.size > 0 -%}
   <ul class="posts">
@@ -54,6 +54,6 @@ layout: default
   </ul>
 
   <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
-		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->
+        <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
+    </svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p> -->
 {%- endif -%}
