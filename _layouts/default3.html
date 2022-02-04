@@ -18,7 +18,7 @@
 <body>
     <div class="post-div">
         <main class="post-top">
-            <section class="about-header {{condensed_class}}">
+            <section class="post-content">
                 <a href="{{ "/" | relative_url}}">
                     {% if site.plainwhite.portfolio_image_dark and site.plainwhite.dark_mode %}
                         <img class="light profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
@@ -37,7 +37,7 @@
                 <div class="div-hr"></div>
             </section>
         </main> <!-- END top -->
-        <main class="post-main">
+        <main class="post-top">
             <section class="post-content">
                 {{ content }}
             </section>
