@@ -431,6 +431,13 @@ blockquote {
 	text-align: center;	
 }
 .post-top {
+}
+
+.post-main {}
+.post-content {
+	background-color: #fff;
+}
+.post-main, .post-footer {
 	.post-content {
 		@media screen and (min-width: $mobileW + 1) {
       		width: 100%;
@@ -438,8 +445,15 @@ blockquote {
       		margin: 0px auto;      	
     	}
 	}
+	.post-list {
+		list-style-type: none;
+		margin: 20px 20px;
+		padding-left: 1.5rem;
+		padding-bottom: 10px;
+		border-top: 1px solid #2E4DA7;
+		border-bottom: 1px solid #2E4DA7;
+	}
 }
-
 .post-title2 {
 	line-height: 1.2em;
     font-size: 2.1rem;
