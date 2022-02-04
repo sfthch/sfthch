@@ -33,7 +33,7 @@ plainwhite:
                  # the path from the base directory of the site to the image to display (no / at the start)
   html_lang: "ko" 
            # set the lang attribute of the <html> tag for the pages. See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
-  post_label: RDBMS
+  post_label: 데이타베이스
   condensed_mobile:
   # - home
     - page
