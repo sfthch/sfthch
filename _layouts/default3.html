@@ -4,13 +4,13 @@
 <head>
     {%- include head.html -%}
 </head>
-<!--
+
 {%- if site.plainwhite.condensed_mobile contains page.layout -%}
     {% assign condensed_class = "condensed" %}
 {% else %}
     {% assign condensed_class = "" %}
 {%- endif -%}
--->
+
 <style>
     body { background-color: #eff3fd99; }
 </style>
@@ -34,7 +34,7 @@
                 <div class="div-hr"></div>
             </section>
         </main> <!-- END top -->
-        <main class="post-footer">
+        <main class="post-top">
             <div class="post-content">
                 {%- if site.posts.size > 0 -%}
                     <ul class="post-list">
