@@ -34,8 +34,8 @@
                 <div class="div-hr"></div>
             </section>
         </main> <!-- END top -->
-	   	<main class="post-top">
-	    	<!--section class="post-content">
+	   	<!--main class="post-top"-->
+	    	<section class="post-content">
                 <a href="{{ "/" | relative_url}}">
                     {% if site.plainwhite.portfolio_image_dark and site.plainwhite.dark_mode %}
                         <img class="light profile-img" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
@@ -49,8 +49,8 @@
                     <p class="tagline" style="font-size: 16px;">{{ site.plainwhite.tagline }}</p>
                 {%- endif -%}
                 <div class="div-hr"></div>
-	    	</section-->
-		</main>	<!-- END top -->
+	    	</section>
+		<!--/main>	<!-- END top -->
         <main class="post-main">
             <section class="post-content">
                 {{ content }}
