@@ -430,6 +430,15 @@ blockquote {
 .post-top {
 	text-align: center;	
 }
+.post-top {
+	.post-content {
+		@media screen and (min-width: $mobileW + 1) {
+      		width: 100%;
+      		max-width: calc(100% - #{$leftWidth});
+      		margin: 0px auto;      	
+    	}
+	}
+}
 
 .post-main {}
 .post-content {
