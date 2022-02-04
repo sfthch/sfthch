@@ -416,21 +416,15 @@ blockquote {
 	}
 }
 
-.post-div {
-	@media screen and (max-width: $smallMobileW) {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  @media screen and (max-width: $mobileW) {
-    padding: 0 !important;
-    margin-top: 0;
-  }
-}
 
 .post-top {
-	text-align: center;	
-}
-.post-top {
+	.post-content {
+		@media screen and (min-width: $mobileW + 1) {
+      		width: 100%;
+      		max-width: calc(100% - #{$leftWidth});
+      		margin: 0px auto;      	
+    	}
+	}
 }
 
 .post-main {}
