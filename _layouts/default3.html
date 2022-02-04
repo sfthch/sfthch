@@ -49,23 +49,21 @@
                         {%- for post in site.posts -%}
                             <li>
                                 {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
-                                    <a class="post-link" href="{{ post.url | relative_url }}">
-                                        <h1 class="post-title">{{ post.title | escape }}</h1>
-                                    </a>
-
-                                    <div class="post-meta">
-                                        <div class="post-date">
-                                            <i class="icon-calendar"></i>{{ post.date | date: date_format }}
-                                        </div>
-
-                                        {%- if post.categories.size > 0-%}
-                                            <ul class="post-categories">
+                                <a class="post-link" href="{{ post.url | relative_url }}">
+                                    <h1 class="post-title">{{ post.title | escape }}</h1>
+                                </a>
+                                <div class="post-meta">
+                                    <div class="post-date">
+                                        <i class="icon-calendar"></i>{{ post.date | date: date_format }}
+                                    </div>
+                                    {%- if post.categories.size > 0-%}
+                                        <ul class="post-categories">
                                             {%- for tag in post.categories -%}
                                                 <li>{{ tag }}</li>
                                             {%- endfor -%}
-                                            </ul>
-                                        {%- endif -%}
-                                    </div>
+                                        </ul>
+                                    {%- endif -%}
+                                </div>
                             </li>
                         {%- endfor -%}
                     </ul>
@@ -73,13 +71,10 @@
             </div>
         </main> <!-- END post list -->
     </div>      <!-- END post-div -->
-
     <!--a href="#" class="pageUp"></a-->
-
     {% if site.plainwhite.dark_mode %}
         <script type="text/javascript" src="{{ "/assets/js/darkmode.js" | relative_url }}"></script>
     {% endif %}
-
     {%- if site.plainwhite.analytics_id -%}
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.plainwhite.analytics_id }}"></script>
         <script>
@@ -89,7 +84,6 @@
             gtag('config', '{{ site.plainwhite.analytics_id }}');
         </script>
     {%- endif -%}
-
     {% if site.plainwhite.search %}
         <script src="{{ "/assets/js/simple-jekyll-search.min.js" | relative_url }}"></script>
         <script src="{{ "/assets/js/search.js" | relative_url }}"></script>
