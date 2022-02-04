@@ -31,6 +31,24 @@
       {%- if site.plainwhite.tagline -%}
       <p class="tagline">{{ site.plainwhite.tagline }}</p>
       {%- endif -%}
+      <table class="about-table">
+        <!--<tr>
+            <th><i class="fas fa-home"></i></th>
+            <td>{{ site.inhabit }}</td>
+        </tr>-->
+        <tr>
+            <th><i class="icon-mail-alt"></i></th>
+            <td>{{ site.email }}</td>
+        </tr>
+        <!--tr>
+            <th><i class="fas fa-link"></i></th>
+            <td><a href="{{ site.blog }}" target="_blank">{{ site.blog }}</td>
+        </tr>
+        <tr>
+            <th><i class="fab fa-github-square"></i></th>
+            <td><a href="{{ site.github }}" target="_blank">{{ site.github }}</td>
+        </tr-->
+      </table>
       </div>
       {% capture footer %}
       {%- if site.plainwhite.social_links != '' -%}
