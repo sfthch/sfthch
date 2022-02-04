@@ -40,11 +40,11 @@ plainwhite:
     - post
   # generate social links in footer
   social_links:
-    twitter: # sfthch
-    github:  sfthch
-    linkedIn: # in/sfthch
+    # twitter: sfthch
+    # github: sfthch
+    # linkedIn: in/sfthch
     # dribbble: sfthch
-    # flickr:   sfthch
+    # flickr: sfthch
     # instagram: sfthch
     # pinterest: sfthch
     # youtube: sfthch
@@ -52,7 +52,7 @@ plainwhite:
     # soundcloud: sfthch
     # telegram: sfthch
     # gitlab: sfthch
-    # email: sfthch
+    email: sfthch@daum.net
 
     # Mastodon instances
     # mastodon:
