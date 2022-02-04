@@ -2,14 +2,18 @@
 <html lang="{{ site.plainwhite.html_lang }}">
 
 <head>
-  {%- include head.html -%}
+    {%- include head.html -%}
 </head>
 
 {%- if site.plainwhite.condensed_mobile contains page.layout -%}
-{% assign condensed_class = "condensed" %}
+    {% assign condensed_class = "condensed" %}
 {% else %}
-{% assign condensed_class = "" %}
+    {% assign condensed_class = "" %}
 {%- endif -%}
+
+<style>
+    body { background-color: #eff3fd99; }
+</style>
 
 <body>
   <main class="container">
@@ -18,10 +22,10 @@
       <div class="about-title">
       <a href="{{ "/" | relative_url}}">
         {% if site.plainwhite.portfolio_image_dark and site.plainwhite.dark_mode %}
-        <img class="light" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" />
-        <img class="dark" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}" alt="{{ site.plainwhite.name }}" />
+            <img class="light" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
+            <img class="dark" src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
         {% else %}
-        <img src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" />
+            <img src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}" alt="{{ site.plainwhite.name }}" style="width: 120px; height: 110px;" />
         {% endif %}
       </a>
       <h2 id="title">
