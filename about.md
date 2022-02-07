@@ -24,3 +24,11 @@ YFM은 이 YAML을 사용해서 글의 제목, 날짜, 카테고리, 태그, 레
 따라서 이 markdown 글이 표시될때는 github.io 블로그 시작하기에서 보듯이 글 제목으로 치환되어 있다.
 
 * 이렇게 YFM는 페이지 내부에서의 변수 역할을 하며, layout에 대한 오버라이딩 설정 등에도 사용된다.
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll.   
+File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh].   
+If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
