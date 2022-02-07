@@ -80,3 +80,6 @@ plainwhite:
 plugins:
   - jekyll-seo-tag
 # - jekyll-feed
+  - jekyll-paginate
+paginate: 1
+paginate_path: "/posts/page/:num"
