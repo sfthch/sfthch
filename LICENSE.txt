@@ -21,16 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-select cast(a.useTime as signed integer) as time, a.cnt as booked, a.cnt as competed, '0' sameDaylastWeek from
-		(
-			SELECT
-			SUBSTR(DATE_FORMAT(A.USE_DT, '%Y%m%d%H'), 9, 2) useTime
-			,SUM(A.PSGER_CNT) cnt
-			FROM TB_RIDEDATA A, TB_OPERATOR B			
-			WHERE A.OPERR_ID = B.OPERR_ID 
-			AND B.SYS_CLASS_CD = '02'
-			AND DATE_FORMAT(A.USE_DT, '%Y%m%d') =  #{operStartDate}
-			GROUP BY 
-			SUBSTR(DATE_FORMAT(A.USE_DT, '%Y%m%d%H'), 9, 2)
-			ORDER BY 
-			SUBSTR(DATE_FORMAT(A.USE_DT, '%Y%m%d%H'), 9, 2)
+정산	TBMSD126	126	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	5			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.06.27	컬럼삭제
+정산배분	TBMSD128	128	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	8			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.06.27	컬럼삭제
+정산수수료계산	TBMSD129	129	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	9			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.06.27	컬럼삭제
+정산조정	TBMSD130	130	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	3			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.06.27	컬럼삭제
+수수료	TBMSM224	224	수수료항목그룹ID	FEE_ITM_GRP_ID	3			Not Null		IDV20	VARCHAR(20)	2022.06.27	컬럼명변경, 도메인변경
+수수료	TBMSM224	224	사용여부	USE_YN	20			Not Null	'N'	여부	CHAR(1)	2022.06.27	신규컬럼추가, 컬럼순서변경
+
