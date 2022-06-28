@@ -21,9 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-DashBoard_getTotalPsngr
-SELECT IFNULL(SUM(ACCUM_PSNGR_CNT), 0) AS totalPsngrCnt
-		FROM 
-			TB_VEHJRNYRUNSTATUS
-		WHERE CHG_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
-		AND	 TRV_STATE_CD = '6'	
+DashBoard_getTotalRunVehicle
+
+SELECT IFNULL(COUNT(A.VEH_ID), 0) totalRunVehicle 
+		FROM
+			TB_VEHICLE A, tb_vehjrnyrunstatus B
+		WHERE
+			A.VEH_ID  = B.VEH_ID
+		AND
+			B.TRV_STATE_CD = 6	
