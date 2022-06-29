@@ -20,44 +20,38 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-DashBoard_getVehicleStatusSummary
-SELECT 
-			"Reg Vehicle Cnt" as "type", 
-			IFNULL(COUNT(VEH_ID), 0) as "count"  
-		FROM
-			TB_VEHICLE a, TB_OPERATOR b
-		WHERE A.OPERR_ID = B.OPERR_ID
-		AND B.SYS_CLASS_CD = '02'
-			
-		UNION all 
-				
-		SELECT 
-			"Run Vehicle Cnt" as "type",
-			IFNULL(COUNT(A.VEH_ID), 0) as "count"
-		FROM
-			TB_VEHICLE A, tb_vehjrnyrunstatus B, TB_OPERATOR C
-		WHERE
-			A.VEH_ID  = B.VEH_ID
-		AND
-			A.OPERR_ID  = C.OPERR_ID 
-		AND
-			B.TRV_STATE_CD = 6
-		AND
-			C.SYS_CLASS_CD  = '02'
-			
-		UNION all 
-		
-		SELECT 
-			"Abnormal Vehicle Cnt" as "type",
-			IFNULL(COUNT(A.VEH_ID), 0) as "count"
-		FROM
-			TB_VEHICLE A, tb_vehjrnyrunstatus B, TB_OPERATOR C
-		WHERE
-			A.VEH_ID  = B.VEH_ID
-		AND
-			A.OPERR_ID  = C.OPERR_ID 			
-		AND
-			B.TRV_STATE_CD = 9
-		AND
-			C.SYS_CLASS_CD  = '02'
+Report_getBoardAlgtPsngrCntByStop
+SELECT SUM(A.BOARD_PSNGR_CNT) as sumBoardPsngrCnt, SUM(A.ALGT_PSNGR_CNT) as sumaAlgtPsngrCnt, B.STOPPOINT_ID as stopPointId,
+	  		   B.STOPPOINT_NM as stopPointNm, B.X_COORD as xCoord, B.Y_COORD as yCoord
+	  	  FROM TB_PASSENGERCOUNT A, TB_STOPPOINT B, 
+		  		(SELECT A.STOPPOINT_ID
+					FROM TB_STOPPOINT A, TB_STOPINJRNYPATTRN B, TB_JRNYPATTRN C,
+					     TB_ROUTE D, TB_LINE E
+					WHERE A.STOPPOINT_ID = B.STOPPOINT_ID AND A.VER_ID = B.VER_ID
+					  AND B.JRNYPATTRN_ID = C.JRNYPATTRN_ID AND B.VER_ID = C.VER_ID
+					  AND C.ROUT_ID = D.ROUT_ID AND C.VER_ID = D.VER_ID
+					  AND D.LINE_ID = E.LINE_ID AND D.VER_ID = E.VER_ID
+				<if test="verId != null and verId != ''">
+					  AND A.VER_ID=#{verId}
+				</if>
+				<if test="lineId != null and lineId != ''">
+					  AND E.LINE_ID=#{lineId}
+				</if>
+				<if test="routId != null and routId != ''">
+					  AND D.ROUT_ID=#{routId}
+				</if>
+				<if test="jrnyPattrnId != null and jrnyPattrnId != ''">
+					  AND C.JRNYPATTRN_ID=#{jrnyPattrnId}
+				</if>
+				GROUP BY A.STOPPOINT_ID) C
+		  WHERE A.STOPPOINT_ID = B.STOPPOINT_ID AND A.VER_ID = B.VER_ID
+		    AND B.STOPPOINT_ID = C.STOPPOINT_ID
+		    AND A.UPD_DATETIME BETWEEN #{startDatetime} AND #{endDatetime}
+		    <if test="verId != null and verId != ''">
+			AND A.VER_ID=#{verId}
+			</if>
+		    <if test="jrnyPattrnId != null and jrnyPattrnId != ''">
+		    AND A.JRNYPATTRN_ID=#{jrnyPattrnId}
+		    </if>
+		GROUP BY A.STOPPOINT_ID
 	
