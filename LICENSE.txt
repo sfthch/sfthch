@@ -20,6 +20,44 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-PM이용내역	TBMSD111	111	확인여부	CNFM_YN	15			Not Null	'N'	여부	CHAR(1)	2022.06.29	컬럼명변경, 속성명변경
-차량공유결제내역	TBMSD112	112	확인여부	CNFM_YN	12			Not Null	'N'	여부	CHAR(1)	2022.06.29	신규컬럼추가, 컬럼순서변경
+DashBoard_getVehicleStatusSummary
+SELECT 
+			"Reg Vehicle Cnt" as "type", 
+			IFNULL(COUNT(VEH_ID), 0) as "count"  
+		FROM
+			TB_VEHICLE a, TB_OPERATOR b
+		WHERE A.OPERR_ID = B.OPERR_ID
+		AND B.SYS_CLASS_CD = '02'
+			
+		UNION all 
+				
+		SELECT 
+			"Run Vehicle Cnt" as "type",
+			IFNULL(COUNT(A.VEH_ID), 0) as "count"
+		FROM
+			TB_VEHICLE A, tb_vehjrnyrunstatus B, TB_OPERATOR C
+		WHERE
+			A.VEH_ID  = B.VEH_ID
+		AND
+			A.OPERR_ID  = C.OPERR_ID 
+		AND
+			B.TRV_STATE_CD = 6
+		AND
+			C.SYS_CLASS_CD  = '02'
+			
+		UNION all 
+		
+		SELECT 
+			"Abnormal Vehicle Cnt" as "type",
+			IFNULL(COUNT(A.VEH_ID), 0) as "count"
+		FROM
+			TB_VEHICLE A, tb_vehjrnyrunstatus B, TB_OPERATOR C
+		WHERE
+			A.VEH_ID  = B.VEH_ID
+		AND
+			A.OPERR_ID  = C.OPERR_ID 			
+		AND
+			B.TRV_STATE_CD = 9
+		AND
+			C.SYS_CLASS_CD  = '02'
 	
