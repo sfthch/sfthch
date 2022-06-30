@@ -20,28 +20,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-TransitNet_getRouteLinkList
-SELECT A.ROUT_LINK_ID,
-	    	   START_POINT_ID, B.X_COORD AS startPointXCoord , B.Y_COORD AS startPointYCoord, 
-			   END_POINT_ID, C.X_COORD AS endPointXCoord, C.Y_COORD AS endPointYCoord, 
-			   ROUT_LINK_LEN, LMT_SPD, B.STOPPOINT_ID, A.VER_ID			   
-	  	FROM (	
-	  			SELECT 
-					P.ROUT_LINK_ID, P.START_POINT_ID, P.END_POINT_ID, P.ROUT_LINK_LEN, P.LMT_SPD, P.VER_ID
-				FROM
-					TB_ROUTELINK P, tb_linkonroute Q
-				WHERE 
-					P.ROUT_LINK_ID = Q.ROUT_LINK_ID
-				AND 
-					Q.LAST_YN  = 'Y' 
-			) A	  	
-	  	LEFT JOIN tb_stoppoint F on A.ROUT_LINK_ID = F.ROUT_LINK_ID AND A.VER_ID=F.VER_ID,
-	  		 tb_routepoint B, tb_routepoint C
-	 	WHERE A.START_POINT_ID=B.ROUT_POINT_ID
-	   	AND A.END_POINT_ID=C.ROUT_POINT_ID
-	   	AND A.VER_ID = B.VER_ID
-	   	AND A.VER_ID = C.VER_ID
-	   	AND B.VER_ID=#{verId} 
-	   	AND C.VER_ID=#{verId}
-		ORDER BY CAST( SUBSTR(A.ROUT_LINK_ID from 8) as signed)
+TransitNet_getRouteLinkShapeList
+SELECT ROUT_LINK_ID AS routLinkId, LINK_SHAPE_SEQ AS linkShapeSeq, X_COORD AS xCoord, Y_COORD as yCoord 
+		  FROM tb_routelinkshape
+		 WHERE ROUT_LINK_ID=#{routLinkId}
+		   AND VER_ID=#{verId}
+		ORDER BY LINK_SHAPE_SEQ
 	
