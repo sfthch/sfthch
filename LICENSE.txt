@@ -20,24 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-Report_getRouteLinkForPsngrCntByStopReport
-SELECT DISTINCT A.ROUT_LINK_ID AS routLinkId, 
-	    	   A.START_POINT_ID AS startPointId, B.X_COORD AS startPointXCoord , B.Y_COORD AS startPointYCoord, 
-			   A.END_POINT_ID AS endPointId, C.X_COORD AS endPointXCoord, C.Y_COORD AS endPointYCoord, 
-			   A.ROUT_LINK_LEN AS routLinkLen, A.LMT_SPD AS lmtSpd  
-	  	FROM TB_ROUTELINK A, TB_ROUTEPOINT B, TB_ROUTEPOINT C, TB_ROUTE D, TB_LINKONROUTE E, TB_LINE F
-	 	WHERE D.ROUT_ID = E.ROUT_ID AND D.VER_ID = E.VER_ID
-	 	AND E.ROUT_LINK_ID = A.ROUT_LINK_ID AND E.VER_ID = A.VER_ID
-	 	AND A.START_POINT_ID=B.ROUT_POINT_ID AND A.VER_ID = B.VER_ID
-	    AND A.END_POINT_ID=C.ROUT_POINT_ID AND A.VER_ID = C.VER_ID
-	    AND D.LINE_ID = F.LINE_ID AND D.VER_ID =F.VER_ID
-	   <if test="verId != null and verId != ''">
-			AND F.VER_ID=#{verId}
-	   </if>
-	   <if test="lineId != null and lineId != ''">
-			  AND F.LINE_ID=#{lineId}
-		</if>
-		<if test="routId != null and routId != ''">
-			  AND D.ROUT_ID=#{routId}
-		</if>
+Report_getRouteLinkShapeList
+SELECT ROUT_LINK_ID AS routLinkId, LINK_SHAPE_SEQ AS linkShapeSeq, X_COORD AS xCoord, Y_COORD as yCoord FROM TB_ROUTELINKSHAPE
+		WHERE ROUT_LINK_ID=#{routeLinkId}
+		ORDER BY LINK_SHAPE_SEQ
 	
