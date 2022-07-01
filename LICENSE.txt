@@ -20,10 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-TransitNet_getRouteLinkShapeList
-SELECT ROUT_LINK_ID AS routLinkId, LINK_SHAPE_SEQ AS linkShapeSeq, X_COORD AS xCoord, Y_COORD as yCoord 
-		  FROM tb_routelinkshape
-		 WHERE ROUT_LINK_ID=#{routLinkId}
-		   AND VER_ID=#{verId}
-		ORDER BY LINK_SHAPE_SEQ
+TransitNet_getTimingLinkShapeList
+SELECT TIMING_LINK_ID as timingLinkId, LINK_SHAPE_SEQ as linkShapeSeq, X_COORD as xCoord, Y_COORD as yCoord
+		  FROM tb_timinglinkshape
+		 WHERE TIMING_LINK_ID = #{timingLinkId}
+		   AND VER_ID= #{verId}
 	
