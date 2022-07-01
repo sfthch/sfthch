@@ -20,9 +20,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-TransitNet_getTimingLinkShapeList
-SELECT TIMING_LINK_ID as timingLinkId, LINK_SHAPE_SEQ as linkShapeSeq, X_COORD as xCoord, Y_COORD as yCoord
-		  FROM tb_timinglinkshape
-		 WHERE TIMING_LINK_ID = #{timingLinkId}
-		   AND VER_ID= #{verId}
+MaaSData_getStopPointList
+
+SELECT 
+	  		EXTRN_STOPPOINT_ID AS stopId
+	  		,STOPPOINT_NM AS stopNm
+	  		,X_COORD AS stopX
+	  		,Y_COORD AS stopY
+	  		,EXTRN_STOPPOINT_ID AS stopNo
+	  		,IFNULL(STOPPOINT_TYPE_CODE, '') AS stopTypeCode
+	  		,USE_YN as useYn
+		FROM TB_STOPPOINT 
+		WHERE VER_ID= #{verId}
+		AND OPERR_ID = #{operrId}
+		AND EXTRN_STOPPOINT_ID IN
+				<foreach collection="stoPointIdList" item="arr" open="(" close=")" separator=",">
+				 #{arr}			
+				</foreach>
+		ORDER BY CAST( SUBSTR(STOPPOINT_ID from 8) as signed)
 	
