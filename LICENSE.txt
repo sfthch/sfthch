@@ -21,21 +21,107 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 MaaSData_getVehicleList
-SELECT
-			EXTRN_VEH_ID AS vehicleId
-			,VEH_PLATE_NUM AS vehicleNo
-			,IFNULL(VEH_DESC, '') AS vehicleNm
-			,LPAD(VEH_STATE_CD, '2', '0') AS vehicleStatusCode
-			,USE_YN as useYn
-		FROM
-			TB_VEHICLE 
-		WHERE
-			OPERR_ID = #{operrId}
-		AND 
-			LAST_YN = 'Y'
-		AND EXTRN_VEH_ID IN
-				<foreach collection="vehIdList" item="arr" open="(" close=")" separator=",">
-				 #{arr}			
-				</foreach>			
-		ORDER BY EXTRN_VEH_ID
+<select id="inquiryReservationUseBaseList" resultType="ReservationUseBase">
+	<![CDATA[
+	SELECT	
+	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationUseBaseList */
+			A.RSEV_SQNO
+	,		A.MEMB_SQNO
+	,		A.MBLT_SRVC_CLSS_CD
+	,		(
+			SELECT Y.CMMN_CD_NM
+			FROM TBMSM311 X
+			INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
+			WHERE 1 = 1
+			AND X.USE_YN = 'Y'
+			AND Y.USE_YN = 'Y'
+			AND X.CMMN_CD_GRP_ID = "MBLT_SRVC_CLSS_CD"
+			AND Y.CMMN_CD_ID = A.MBLT_SRVC_CLSS_CD
+			) AS MBLT_SRVC_CLSS_NM
+	,		A.RSEV_DTRM_NO_VAL
+	,		A.RSEV_STAT_CD
+	,		(
+			SELECT Y.CMMN_CD_NM
+			FROM TBMSM311 X
+			INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
+			WHERE 1 = 1
+			AND X.USE_YN = 'Y'
+			AND Y.USE_YN = 'Y'
+			AND X.CMMN_CD_GRP_ID = "RSEV_STAT_CD"
+			AND Y.CMMN_CD_ID = A.RSEV_STAT_CD
+			) AS RSEV_STAT_NM
+	,		A.VHCL_ID
+	,		(
+			SELECT	RENTS_NM
+	        FROM	TBMSM217
+	        WHERE	RENTS_ID = A.RENTS_ID
+	        ) AS RENTS_ID
+	,		(
+			SELECT	STN_NM
+	        FROM	TBMSM211
+	        WHERE	STN_ID = A.DPRST_ID
+	        AND		MBLT_SYSTM_CLSS_CD = A.MBLT_SYSTM_CLSS_CD
+            AND		MBLT_SRVC_CLSS_CD = A.MBLT_SRVC_CLSS_CD
+            AND		AFFI_CLSS_CD = A.AFFI_CLSS_CD
+	        ) AS DPRST_ID
+	,		A.DPRST_ARRV_SCDL_DTTM
+	,		(
+			SELECT	STN_NM
+	        FROM	TBMSM211
+	        WHERE	STN_ID = A.ARVST_ID
+	        AND		MBLT_SYSTM_CLSS_CD = A.MBLT_SYSTM_CLSS_CD
+            AND		MBLT_SRVC_CLSS_CD = A.MBLT_SRVC_CLSS_CD
+            AND		AFFI_CLSS_CD = A.AFFI_CLSS_CD
+	        ) AS ARVST_ID
+	,		DATE_FORMAT(A.ARVST_ARRV_SCDL_DTTM, '%Y-%m-%d %H:%i:%s') AS ARVST_ARRV_SCDL_DTTM
+	,		A.RSEV_SEAT_NO_VAL
+	,		DATE_FORMAT(A.RSEV_RQST_DTTM, '%Y-%m-%d %H:%i:%s') AS RSEV_RQST_DTTM
+	,		DATE_FORMAT(A.RSEV_STRT_DTTM, '%Y-%m-%d %H:%i:%s') AS RSEV_STRT_DTTM
+	,		DATE_FORMAT(A.RSEV_CNCL_DTTM, '%Y-%m-%d %H:%i:%s') AS RSEV_CNCL_DTTM
+	,		DATE_FORMAT(A.UTLZ_STRT_DTTM, '%Y-%m-%d %H:%i:%s') AS UTLZ_STRT_DTTM
+	,		DATE_FORMAT(A.UTLZ_END_DTTM, '%Y-%m-%d %H:%i:%s') AS UTLZ_END_DTTM
+	,		DATE_FORMAT(A.RSEV_END_DTTM, '%Y-%m-%d %H:%i:%s') AS RSEV_END_DTTM
+	,		B.PROD_NM AS USE_PROD_NM
+	,		B.UTLZ_VAL AS USE_PROD_CNT
+    ,		C.USE_AMT
+	FROM	TBMSD106 A
+    LEFT OUTER JOIN (
+					SELECT	AA.RSEV_SQNO
+					,		BB.PROD_NM
+					,		SUM(AA.UTLZ_VAL) AS UTLZ_VAL
+					FROM 	TBMSD114 AA
+					LEFT OUTER JOIN (
+									SELECT	A1.PROD_PUCH_SQNO
+									,		A2.PROD_NM
+									FROM	TBMSD103 A1
+									LEFT OUTER JOIN TBMSM102 A2
+									ON		A1.PROD_SQNO = A2.PROD_SQNO
+									) BB
+					ON	AA.PROD_PUCH_SQNO = BB.PROD_PUCH_SQNO
+					#WHERE	AA.RSEV_SQNO = 49
+					GROUP BY AA.RSEV_SQNO
+					,		BB.PROD_NM
+                    ) B
+	ON A.RSEV_SQNO = B.RSEV_SQNO
+    LEFT OUTER JOIN (
+					SELECT	RSEV_DTRM_NO_VAL
+					,		SUM(CASE WHEN PAYM_CLSS_CD = '1' THEN PAYM_APRV_AMT ELSE PAYM_APRV_AMT*-1 END) AS USE_AMT
+					FROM	TBMSD105 A
+					WHERE	1=1
+					AND		RSEV_DTRM_NO_VAL IS NOT NULL
+					AND		RSEV_DTRM_NO_VAL <> ""
+					AND		MBLT_SRVC_CLSS_CD IN ('10','40')
+					GROUP BY RSEV_DTRM_NO_VAL
+					) C
+    ON A.RSEV_DTRM_NO_VAL = C.RSEV_DTRM_NO_VAL
+	WHERE	1=1
+	AND		A.MEMB_SQNO 		= #{membSqno}
+	AND		A.RSEV_STAT_CD 		<> '99'
+	AND		A.RSEV_RQST_DTTM  	>= NOW() - INTERVAL 3 MONTH 
+	]]>
+	 <if test='!"".equals(mbltSrvcClssCd) and mbltSrvcClssCd!=null'>
+          AND 	A.MBLT_SRVC_CLSS_CD 	= #{mbltSrvcClssCd}
+     </if>
+	ORDER BY RSEV_SQNO DESC
+    </select>
 	
