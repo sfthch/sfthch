@@ -20,23 +20,52 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
- <select id="inquiryReservationVehicle" resultType="ReservationVehicle">
-    <![CDATA[
-    	SELECT	
-    	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationVehicle */
-				A.MBLT_SRVC_CLSS_CD
-		,		A.VHCL_ID
-		,		B.VHCL_BRND_NM 	AS VHCL_NM
-		,		B.VHCL_NO_VAL	AS VHCL_NO
-		,		B.FUEL_TYPE_NM	AS FUEL_TYPE
-		,		B.VHCL_IMG		AS VHCL_IMG
-		FROM	TBMSD106 A
-		LEFT OUTER JOIN TBMSM214 B
-		ON 		A.VHCL_ID = B.VHCL_ID
-		AND		A.MBLT_SRVC_CLSS_CD = B.MBLT_SRVC_CLSS_CD
-		WHERE	1=1
-		AND		A.RSEV_SQNO = #{rsevSqno}
-		AND		A.MEMB_SQNO = #{membSqno}
-	]]>
+ <select id="inquiryReservationScHistoryList" resultType="ReservationUseDetail">
+	<![CDATA[
+	SELECT	
+	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationScHistoryList */
+			RSEV_PRHS_SQNO
+	,		(
+			SELECT Y.CMMN_CD_NM
+			FROM TBMSM311 X
+			INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
+			WHERE 1 = 1
+			AND X.USE_YN = 'Y'
+			AND Y.USE_YN = 'Y'
+			AND X.CMMN_CD_GRP_ID = "RSEV_STAT_CD"
+			AND Y.CMMN_CD_ID = A.RSEV_STAT_CD
+			) AS USE_CLASS
+	,		DATE_FORMAT(USE_DTTM, '%Y-%m-%d %H:%i:%s') AS USE_DTTM
+	,		(
+			SELECT	RENTS_NM
+			FROM	TBMSM217
+			WHERE	RENTS_ID = A.RENTS_ID
+			) AS USE_PLACE
+	FROM	(
+			SELECT	MIN(A.RSEV_PRHS_SQNO) AS RSEV_PRHS_SQNO
+			,		A.RSEV_STAT_CD
+			,		A.USE_DTTM
+			,		A.RENTS_ID
+			FROM	(
+					SELECT 	RSEV_PRHS_SQNO AS RSEV_PRHS_SQNO
+					,		RENTS_ID
+					,		RSEV_STAT_CD
+					,		CASE WHEN RSEV_STAT_CD = '01' THEN RSEV_RQST_DTTM
+								 WHEN RSEV_STAT_CD = '02' THEN RSEV_STRT_DTTM
+								 WHEN RSEV_STAT_CD = '03' THEN RSEV_STRT_DTTM
+								 WHEN RSEV_STAT_CD = '20' THEN RSEV_END_DTTM
+								 WHEN RSEV_STAT_CD = '21' THEN RSEV_END_DTTM
+								 ELSE NULL END AS USE_DTTM
+					FROM	TBMSH106
+					WHERE	1=1
+					AND		RSEV_SQNO = #{rsevSqno}
+					AND		MEMB_SQNO = #{membSqno}
+					) A
+			GROUP BY A.RENTS_ID
+			,		A.RSEV_STAT_CD
+			,		A.USE_DTTM
+	        ) A
+	ORDER BY RSEV_PRHS_SQNO
+    ]]>
     </select>
 	
