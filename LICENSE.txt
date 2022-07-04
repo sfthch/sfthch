@@ -20,54 +20,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-MaaSData_getRouteList
-SELECT 
-		A.EXTRN_LINE_ID AS routeId
-		,A.LINE_NM AS routeNm
-		,A.LINE_LEN AS distance
-		,A.LINE_JOURNEY_RQRD_ANTC_MM AS time
-
-		,(SELECT EXTRN_STOPPOINT_ID FROM TB_STOPPOINT
-			WHERE STOPPOINT_ID = (SELECT STPT_STOPPOINT_ID FROM TB_LINE 
-											WHERE VER_ID =   #{verId} AND OPERR_ID = #{operrId}
-											AND LAST_YN = 'Y' AND LINE_ID = A.LINE_ID)
-			AND VER_ID =  #{verId} AND OPERR_ID = #{operrId} AND LAST_YN = 'Y') AS departStopId	
-		
-		,(SELECT STOPPOINT_NM  FROM TB_STOPPOINT 
-			WHERE STOPPOINT_ID = (SELECT STPT_STOPPOINT_ID FROM TB_LINE 
-											WHERE VER_ID =  #{verId} AND OPERR_ID = #{operrId}	
-											AND LAST_YN = 'Y' AND LINE_ID = A.LINE_ID)
-			AND VER_ID =  #{verId} AND OPERR_ID = #{operrId} AND LAST_YN = 'Y') AS departStopNm
-		
-		,(SELECT EXTRN_STOPPOINT_ID FROM TB_STOPPOINT
-			WHERE STOPPOINT_ID = (SELECT EDPNT_STOPPOINT_ID FROM TB_LINE 
-											WHERE VER_ID =   #{verId} AND OPERR_ID = #{operrId}
-											AND LAST_YN = 'Y' AND LINE_ID = A.LINE_ID)
-			AND VER_ID =  #{verId} AND OPERR_ID = #{operrId} AND LAST_YN = 'Y') AS arriveStopId			
-
-		,(SELECT STOPPOINT_NM  FROM TB_STOPPOINT 
-			WHERE STOPPOINT_ID = (SELECT EDPNT_STOPPOINT_ID FROM TB_LINE 
-											WHERE VER_ID =  #{verId} AND OPERR_ID = #{operrId}	
-											AND LAST_YN = 'Y' AND LINE_ID = A.LINE_ID)
-			AND VER_ID =  #{verId} AND OPERR_ID = #{operrId} AND LAST_YN = 'Y') AS arriveStopNm
-	
-		,A.WKDY_FVEHICLE_JOURNEY_DT as firstRideTime
-		,A.WKDY_LVEHICLE_JOURNEY_DT as lastRideTime
-		,A.PBHL_FVEHICLE_JOURNEY_DT as weekendFirstRideTime
-		,A.PBHL_LVEHICLE_JOURNEY_DT as weekendLastRideTime
-		
-		,A.WKDY_ALCRLNTV_MN_VAL AS intervalOnWeek
-		,A.RSHR_ALCRLNTV_MN_VAL AS intervalOnRushour
-		,A.PBHL_ALCRLNTV_MN_VAL AS intervalOnWeekend
-		,A.USE_YN AS useYn
-		FROM TB_LINE A
-		WHERE A.VER_ID = #{verId}
-		AND A.OPERR_ID = #{operrId}
-		AND A.LAST_YN = 'Y'
-		
-		AND EXTRN_LINE_ID IN
-				<foreach collection="lineIdList" item="arr" open="(" close=")" separator=",">
+MaaSData_getVehicleList
+SELECT
+			EXTRN_VEH_ID AS vehicleId
+			,VEH_PLATE_NUM AS vehicleNo
+			,IFNULL(VEH_DESC, '') AS vehicleNm
+			,LPAD(VEH_STATE_CD, '2', '0') AS vehicleStatusCode
+			,USE_YN as useYn
+		FROM
+			TB_VEHICLE 
+		WHERE
+			OPERR_ID = #{operrId}
+		AND 
+			LAST_YN = 'Y'
+		AND EXTRN_VEH_ID IN
+				<foreach collection="vehIdList" item="arr" open="(" close=")" separator=",">
 				 #{arr}			
-				</foreach>
-		ORDER BY A.EXTRN_LINE_ID
+				</foreach>			
+		ORDER BY EXTRN_VEH_ID
 	
