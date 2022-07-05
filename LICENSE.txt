@@ -20,11 +20,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
- <select id="inquiryReservationScHistoryList" resultType="ReservationUseDetail">
+ <select id="inquiryReservationUseDetailAvDrList" resultType="ReservationUseDetail">
 	<![CDATA[
 	SELECT	
-	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationScHistoryList */
-			RSEV_PRHS_SQNO
+	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationUseDetailAvDrList */
+			A.RSEV_UTLZ_SQNO					AS RSEV_UTLZ_SQNO
 	,		(
 			SELECT Y.CMMN_CD_NM
 			FROM TBMSM311 X
@@ -32,40 +32,31 @@ THE SOFTWARE.
 			WHERE 1 = 1
 			AND X.USE_YN = 'Y'
 			AND Y.USE_YN = 'Y'
-			AND X.CMMN_CD_GRP_ID = "RSEV_STAT_CD"
-			AND Y.CMMN_CD_ID = A.RSEV_STAT_CD
+			AND X.CMMN_CD_GRP_ID = "RSEV_UTLZ_CLSS_CD"
+			AND Y.CMMN_CD_ID = A.RSEV_UTLZ_CLSS_CD
 			) AS USE_CLASS
-	,		DATE_FORMAT(USE_DTTM, '%Y-%m-%d %H:%i:%s') AS USE_DTTM
+	,		DATE_FORMAT(A.RSEV_UTLZ_DTTM, '%Y-%m-%d %H:%i:%s') AS USE_DTTM
 	,		(
-			SELECT	RENTS_NM
-			FROM	TBMSM217
-			WHERE	RENTS_ID = A.RENTS_ID
-			) AS USE_PLACE
-	FROM	(
-			SELECT	MIN(A.RSEV_PRHS_SQNO) AS RSEV_PRHS_SQNO
-			,		A.RSEV_STAT_CD
-			,		A.USE_DTTM
-			,		A.RENTS_ID
-			FROM	(
-					SELECT 	RSEV_PRHS_SQNO AS RSEV_PRHS_SQNO
-					,		RENTS_ID
-					,		RSEV_STAT_CD
-					,		CASE WHEN RSEV_STAT_CD = '01' THEN RSEV_RQST_DTTM
-								 WHEN RSEV_STAT_CD = '02' THEN RSEV_STRT_DTTM
-								 WHEN RSEV_STAT_CD = '03' THEN RSEV_STRT_DTTM
-								 WHEN RSEV_STAT_CD = '20' THEN RSEV_END_DTTM
-								 WHEN RSEV_STAT_CD = '21' THEN RSEV_END_DTTM
-								 ELSE NULL END AS USE_DTTM
-					FROM	TBMSH106
-					WHERE	1=1
-					AND		RSEV_SQNO = #{rsevSqno}
-					AND		MEMB_SQNO = #{membSqno}
-					) A
-			GROUP BY A.RENTS_ID
-			,		A.RSEV_STAT_CD
-			,		A.USE_DTTM
-	        ) A
-	ORDER BY RSEV_PRHS_SQNO
+			SELECT	STN_NM
+			FROM	TBMSM211
+	        WHERE	STN_ID = A.RSEV_UTLZ_PLAC_ID
+	        AND		MBLT_SYSTM_CLSS_CD = B.MBLT_SYSTM_CLSS_CD
+            AND		MBLT_SRVC_CLSS_CD = B.MBLT_SRVC_CLSS_CD
+            AND		AFFI_CLSS_CD = B.AFFI_CLSS_CD
+	        ) 									AS USE_PLACE
+	,		SUM(IFNULL(A.UTLZ_HOUR_VAL,0)) 		AS UTLZ_HOUR_VAL
+	,		SUM(ifnull(A.UTLZ_DSTNE_VAL,0)) 	AS UTLZ_DSTNE_VAL
+	FROM	TBMSD107 A
+	,		TBMSD106 B
+	WHERE	1=1
+	AND		A.MEMB_SQNO = #{membSqno}
+	AND		A.RSEV_SQNO = #{rsevSqno}
+	AND		A.RSEV_SQNO = B.RSEV_SQNO
+	AND		A.MEMB_SQNO = B.MEMB_SQNO
+	AND		A.APP_SCRN_DSPY_YN = 'Y'
+	GROUP BY A.RSEV_UTLZ_SQNO
+	,		A.RSEV_UTLZ_CLSS_CD
+	,		DATE_FORMAT(A.RSEV_UTLZ_DTTM, '%Y-%m-%d %H:%i:%s') 
     ]]>
     </select>
 	
