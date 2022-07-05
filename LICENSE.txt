@@ -21,56 +21,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-#{token} : dfa23f497d3e4d603316083a5bf1c024ab9e9b19d8e5b934eb39a4c815e359e5
+MaaSData_selectScheduleVehicleLineDay
 
-    <select id="inquiryNotificationList" resultType="Notification">
-    <![CDATA[
-        SELECT
-        /* mrserver.mapper.memberdomain.NotificationMapper.inquiryNotificationList */
-               A.NTFC_SQNO
-             , A.MBLT_SYSTM_CLSS_CD
-             , ( SELECT Y.CMMN_CD_NM
-                   FROM TBMSM311 X
-                  INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                  WHERE 1 = 1
-                    AND X.USE_YN = 'Y'
-                    AND Y.USE_YN = 'Y'
-                    AND X.CMMN_CD_GRP_ID = "MBLT_SYSTM_CLSS_CD"
-                    AND Y.CMMN_CD_ID = A.MBLT_SYSTM_CLSS_CD
-                ) AS MBLT_SYSTM_CLSS_CD_NM
-            , A.MBLT_SRVC_CLSS_CD
-            , ( SELECT Y.CMMN_CD_NM
-                   FROM TBMSM311 X
-                  INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                  WHERE 1 = 1
-                    AND X.USE_YN = 'Y'
-                    AND Y.USE_YN = 'Y'
-                    AND X.CMMN_CD_GRP_ID = "MBLT_SRVC_CLSS_CD"
-                    AND Y.CMMN_CD_ID = A.MBLT_SRVC_CLSS_CD
-                ) AS MBLT_SRVC_CLSS_CD_NM
-            , A.AFFI_CLSS_CD
-            , ( SELECT Y.CMMN_CD_NM
-                   FROM TBMSM311 X
-                  INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                  WHERE 1 = 1
-                    AND X.USE_YN = 'Y'
-                    AND Y.USE_YN = 'Y'
-                    AND X.CMMN_CD_GRP_ID = "AFFI_CLSS_CD"
-                    AND Y.CMMN_CD_ID = A.AFFI_CLSS_CD
-                ) AS AFFI_CLSS_CD_NM
-             , A.NTFC_TITL_NM
-             , A.NTFC_CTNT
-             , DATE_FORMAT(A.NTFC_SEND_DTTM, '%Y%m%d%H%i%s') AS NTFC_SEND_DTTM
-             , CONCAT(B.LNKN_APP_URL_VAL, A.NTFC_REF_PARAM_VAL) LINK_URL
-          FROM TBMSD007 A
-         INNER JOIN TBMSD006 B ON A.PUSH_SQNO = B.PUSH_SQNO
-         INNER JOIN TBMSM001 C ON A.MEMB_SQNO = C.MEMB_SQNO
-         WHERE 1 = 1
-           AND B.NTWD_INQY_TRGT_YN = 'Y'
-           AND C.MEMB_TOKN_VAL = #{token}
-           AND C.MEMB_STAT_CD IN ('01','20')
-           AND A.NTFC_SEND_DTTM >= DATE_ADD(NOW(), INTERVAL - 10 DAY)
-         ]]>
-        ORDER BY A.NTFC_SQNO DESC
-    </select>
-	
+" #{arr}	: '4129','4130','4131','4132','4133','4134','4135','4136','4137','4138','4139','4140','4141','4142','4143','4144','4145','4146','4147','4148','4149','4150','4151','4152','4153','4154','4155','4156','4157','4158','4159','4160','4161','4162','4163','4164','4165','4166','4201','4202','4203','4204'"
+
+SELECT 
+			C.LINE_ID as routeId
+			,C.LINE_NM AS routeNm	
+			,A.OPER_DAY as autoDrvDate
+			
+			FROM tb_vehiclejourneyplanmaas A, TB_VEHICLE B, TB_LINE C
+			
+			where 	
+				a.VEH_ID = b.VEH_ID
+			AND
+				A.LINE_ID = C.LINE_ID	
+			and 
+				A.line_id = #{lineId}
+			AND
+				C.LAST_YN = 'Y'
+			AND
+				A.PLANNING_ID IN							
+				<foreach collection="planningIdList" item="arr" open="(" close=")" separator=",">
+				 #{arr}			
+				</foreach>
+				group by  C.LINE_ID, C.LINE_NM, A.OPER_DAY
