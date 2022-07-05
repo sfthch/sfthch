@@ -20,43 +20,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
- <select id="inquiryReservationUseDetailAvDrList" resultType="ReservationUseDetail">
-	<![CDATA[
-	SELECT	
-	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationUseDetailAvDrList */
-			A.RSEV_UTLZ_SQNO					AS RSEV_UTLZ_SQNO
-	,		(
-			SELECT Y.CMMN_CD_NM
-			FROM TBMSM311 X
-			INNER JOIN TBMSM312 Y ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-			WHERE 1 = 1
-			AND X.USE_YN = 'Y'
-			AND Y.USE_YN = 'Y'
-			AND X.CMMN_CD_GRP_ID = "RSEV_UTLZ_CLSS_CD"
-			AND Y.CMMN_CD_ID = A.RSEV_UTLZ_CLSS_CD
-			) AS USE_CLASS
-	,		DATE_FORMAT(A.RSEV_UTLZ_DTTM, '%Y-%m-%d %H:%i:%s') AS USE_DTTM
-	,		(
-			SELECT	STN_NM
-			FROM	TBMSM211
-	        WHERE	STN_ID = A.RSEV_UTLZ_PLAC_ID
-	        AND		MBLT_SYSTM_CLSS_CD = B.MBLT_SYSTM_CLSS_CD
-            AND		MBLT_SRVC_CLSS_CD = B.MBLT_SRVC_CLSS_CD
-            AND		AFFI_CLSS_CD = B.AFFI_CLSS_CD
-	        ) 									AS USE_PLACE
-	,		SUM(IFNULL(A.UTLZ_HOUR_VAL,0)) 		AS UTLZ_HOUR_VAL
-	,		SUM(ifnull(A.UTLZ_DSTNE_VAL,0)) 	AS UTLZ_DSTNE_VAL
-	FROM	TBMSD107 A
-	,		TBMSD106 B
-	WHERE	1=1
-	AND		A.MEMB_SQNO = #{membSqno}
-	AND		A.RSEV_SQNO = #{rsevSqno}
-	AND		A.RSEV_SQNO = B.RSEV_SQNO
-	AND		A.MEMB_SQNO = B.MEMB_SQNO
-	AND		A.APP_SCRN_DSPY_YN = 'Y'
-	GROUP BY A.RSEV_UTLZ_SQNO
-	,		A.RSEV_UTLZ_CLSS_CD
-	,		DATE_FORMAT(A.RSEV_UTLZ_DTTM, '%Y-%m-%d %H:%i:%s') 
-    ]]>
+ <select id="inquiryReservationVehiclePm" resultType="ReservationVehicle">
+    <![CDATA[
+    	SELECT	
+    	/* mrserver.mapper.reservation.ReservationUseMapper.inquiryReservationVehiclePm */
+				A.MBLT_SRVC_CLSS_CD
+		,		A.VHCL_ID
+		,		CONCAT(B.PM_TYPE_CD,CASE WHEN B.VHCL_SN_VAL LIKE '1030%' THEN "(Plus)" ELSE "(Neo)" END) AS VHCL_NM
+		,		B.VHCL_SN_VAL	AS VHCL_NO
+		,		'전기' 	AS FUEL_TYPE
+		,		B.RTRN_PHTG_URI_VAL		AS VHCL_IMG
+		FROM	TBMSD106 A
+		LEFT OUTER JOIN TBMSM218 B
+		ON 		A.VHCL_ID = B.VHCL_SN_VAL
+		WHERE	1=1
+		AND		A.MBLT_SRVC_CLSS_CD LIKE '1%'
+		AND		A.RSEV_SQNO = #{rsevSqno}
+		AND		A.MEMB_SQNO = #{membSqno}
+	]]>
     </select>
 	
