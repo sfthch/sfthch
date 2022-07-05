@@ -20,7 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-<mapper namespace="com.sejong.mrserver.mapper.memberdomain.NotificationMapper">
+
+#{token} : dfa23f497d3e4d603316083a5bf1c024ab9e9b19d8e5b934eb39a4c815e359e5
 
     <select id="inquiryNotificationList" resultType="Notification">
     <![CDATA[
