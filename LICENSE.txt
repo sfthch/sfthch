@@ -21,28 +21,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MaaSData_selectScheduleVehicleLineDay
+MaaSData_selectScheduleVehicleLineDayCar
 
 " #{arr}	: '4129','4130','4131','4132','4133','4134','4135','4136','4137','4138','4139','4140','4141','4142','4143','4144','4145','4146','4147','4148','4149','4150','4151','4152','4153','4154','4155','4156','4157','4158','4159','4160','4161','4162','4163','4164','4165','4166','4201','4202','4203','4204'"
-
 SELECT 
-			C.LINE_ID as routeId
-			,C.LINE_NM AS routeNm	
-			,A.OPER_DAY as autoDrvDate
-			
-			FROM tb_vehiclejourneyplanmaas A, TB_VEHICLE B, TB_LINE C
-			
-			where 	
-				a.VEH_ID = b.VEH_ID
-			AND
-				A.LINE_ID = C.LINE_ID	
-			and 
-				A.line_id = #{lineId}
-			AND
-				C.LAST_YN = 'Y'
-			AND
-				A.PLANNING_ID IN							
-				<foreach collection="planningIdList" item="arr" open="(" close=")" separator=",">
-				 #{arr}			
-				</foreach>
-				group by  C.LINE_ID, C.LINE_NM, A.OPER_DAY
+		A.PLANNING_ID as allocateCarId
+		,B.EXTRN_VEH_ID as vehicleId
+		,B.VEH_PLATE_NUM as vehicleNo
+		,CONCAT(UNIX_TIMESTAMP(A.TRIP_START_DATETIME), '000') as autoDrvStartDtime
+		,CONCAT(UNIX_TIMESTAMP(A.TRIP_END_DATETIME), '000') as autoDrvEndDtime
+		,A.DRIVER_ID as driverId
+		,A.PLANNING_STATE_CD as autoDrvStatusCode
+		,A.PLANNING_STATE_CD_NM as autoDrvStatusCodeNm
+		,A.USE_YN as useYn
+	FROM tb_vehiclejourneyplanmaas A, TB_VEHICLE B
+	where 	
+		a.VEH_ID = b.VEH_ID
+	and 
+		A.line_id = #{lineId}
+	and 
+		A.OPER_DAY = #{operDay}
+	AND
+		A.PLANNING_ID IN							
+		<foreach collection="planningIdList" item="arr" open="(" close=")" separator=",">
+		 #{arr}			
+		</foreach>
+	ORDER BY
+		A.PLANNING_ID
