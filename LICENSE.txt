@@ -21,54 +21,59 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MaaSData_selectScheduleVehicleLineDayCar
+MaaSData_selectVehicleLocationForMaaS
 
-" #{arr}	: '4129','4130','4131','4132','4133','4134','4135','4136','4137','4138','4139','4140','4141','4142','4143','4144','4145','4146','4147','4148','4149','4150','4151','4152','4153','4154','4155','4156','4157','4158','4159','4160','4161','4162','4163','4164','4165','4166','4201','4202','4203','4204'"
-SELECT 
-		A.PLANNING_ID as allocateCarId
-		,B.EXTRN_VEH_ID as vehicleId
-		,B.VEH_PLATE_NUM as vehicleNo
-		,CONCAT(UNIX_TIMESTAMP(A.TRIP_START_DATETIME), '000') as autoDrvStartDtime
-		,CONCAT(UNIX_TIMESTAMP(A.TRIP_END_DATETIME), '000') as autoDrvEndDtime
-		,A.DRIVER_ID as driverId
-		,A.PLANNING_STATE_CD as autoDrvStatusCode
-		,A.PLANNING_STATE_CD_NM as autoDrvStatusCodeNm
-		,A.USE_YN as useYn
-	FROM tb_vehiclejourneyplanmaas A, TB_VEHICLE B
-	where 	
-		a.VEH_ID = b.VEH_ID
-	and 
-		A.line_id = #{lineId}
-	and 
-		A.OPER_DAY = #{operDay}
-	AND
-		A.PLANNING_ID IN							
-		<foreach collection="planningIdList" item="arr" open="(" close=")" separator=",">
-		 #{arr}			
-		</foreach>
-	ORDER BY
-		A.PLANNING_ID
-		
-안녕하세요. 민 재훈 책임입니다.
+SELECT
+			(SELECT EXTRN_LINE_ID FROM TB_LINE WHERE OPERR_ID =  #{operrId} AND LINE_ID =  #{lineId}) as routeId
+			,(SELECT EXTRN_VEH_ID FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleId
+			,(SELECT VEH_PLATE_NUM FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleNo
+			
+			,REM_SEAT_CNT as remainSeatCnt
+			
+			,REM_SEAT_CNT as remainSeatCnt
+			
+			,VEH_CNGST_STATE as statusNm
+			
 
-MaaS Backend Monitoring Tool (Tuna / Prometheus) 설정 완료되어 URL 및 계정 공유드립니다.
-
-Tuna
-URL : http://172.16.30.29:8080/#/login
-ID : admin
-PWD : !Xbsk2022
-
-Prometheus
-URL : https://grafana.sejong-smartcity.playcekube.local/login    <== local hosts 파일에 설정 필요 (미설정자는 주위 설정하신 분들께 문의하세요)
-ID : admin
-PWD : !Xbsk2022
-
-오픈 후 운영 시 모니터링 / 튜닝을 위해 필요한 사항으로
-차주까지 성능시험 시 병목현상을 확인/조치 요청드립니다.
-
-감사합니다.
-
-
-예약	TBMSD106	106	예약지불수단순번	RSEV_PAYM_MEAN_SQNO	7					순번N15	BIGINT(15)	2022.07.06	신규컬럼추가, 컬럼순서변경
-예약이력	TBMSH106	106	예약지불수단순번	RSEV_PAYM_MEAN_SQNO	8					순번N15	BIGINT(15)	2022.07.06	신규컬럼추가, 컬럼순서변경
+			,(
+				SELECT 
+					PRV_STOPPOINT 
+				FROM TB_VEHICLELOCATION 
+				WHERE OPERR_ID = #{operrId}
+				AND LINE_ID = #{lineId}
+				AND VEH_ID = #{vehId}
+			) as departStopId
+			
+			,CASE WHEN (PRV_STOPPOINT_IDX = 0 ) then null 
+				ELSE PRV_STOPPOINT_IDX
+				END as departStopIndex
+			
+					
+			,CONCAT(UNIX_TIMESTAMP(PRV_STOPPOINT_ARRI_DT), '000') as  departStopArriveDtime
+			
+			,NEXT_STOPPOINT_ID as nextStopId
+			
+			,CASE WHEN (NEXT_STOPPOINT_IDX = 0 ) then null 
+				ELSE NEXT_STOPPOINT_IDX
+				END as nextStopIndex
+			
+			,CASE WHEN (NEXT_STOPPOINT_DIST = 0 ) then null 
+				ELSE NEXT_STOPPOINT_DIST
+				END as nextStopDistnace			
+			
+			
+			,CONCAT(UNIX_TIMESTAMP(NEXT_STOPPOINT_ARRIV_DT), '000') as nextStopArriveDtime
+			
+			,XCOORD as vehicleX
+			,YCOORD as vehicleY
+			
+			,CONCAT(UNIX_TIMESTAMP(REAL_JOURNEY_START_DT), '000') as drvStartDtime
+			,CONCAT(UNIX_TIMESTAMP(REAL_JOURNEY_END_DT), '000') as drvEndDtime
+			,PLAINING_ID as allocateCarId
+		FROM
+			TB_VEHICLELOCATION 
+		WHERE
+			OPERR_ID = #{operrId}
+		AND		 
+			VEH_ID = #{vehId}	
 
