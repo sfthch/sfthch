@@ -21,59 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MaaSData_selectVehicleLocationForMaaS
+MonitoringMap_getEvchargingStationForMon
 
-SELECT
-			(SELECT EXTRN_LINE_ID FROM TB_LINE WHERE OPERR_ID =  #{operrId} AND LINE_ID =  #{lineId}) as routeId
-			,(SELECT EXTRN_VEH_ID FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleId
-			,(SELECT VEH_PLATE_NUM FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleNo
-			
-			,REM_SEAT_CNT as remainSeatCnt
-			
-			,REM_SEAT_CNT as remainSeatCnt
-			
-			,VEH_CNGST_STATE as statusNm
-			
-
-			,(
-				SELECT 
-					PRV_STOPPOINT 
-				FROM TB_VEHICLELOCATION 
-				WHERE OPERR_ID = #{operrId}
-				AND LINE_ID = #{lineId}
-				AND VEH_ID = #{vehId}
-			) as departStopId
-			
-			,CASE WHEN (PRV_STOPPOINT_IDX = 0 ) then null 
-				ELSE PRV_STOPPOINT_IDX
-				END as departStopIndex
-			
-					
-			,CONCAT(UNIX_TIMESTAMP(PRV_STOPPOINT_ARRI_DT), '000') as  departStopArriveDtime
-			
-			,NEXT_STOPPOINT_ID as nextStopId
-			
-			,CASE WHEN (NEXT_STOPPOINT_IDX = 0 ) then null 
-				ELSE NEXT_STOPPOINT_IDX
-				END as nextStopIndex
-			
-			,CASE WHEN (NEXT_STOPPOINT_DIST = 0 ) then null 
-				ELSE NEXT_STOPPOINT_DIST
-				END as nextStopDistnace			
-			
-			
-			,CONCAT(UNIX_TIMESTAMP(NEXT_STOPPOINT_ARRIV_DT), '000') as nextStopArriveDtime
-			
-			,XCOORD as vehicleX
-			,YCOORD as vehicleY
-			
-			,CONCAT(UNIX_TIMESTAMP(REAL_JOURNEY_START_DT), '000') as drvStartDtime
-			,CONCAT(UNIX_TIMESTAMP(REAL_JOURNEY_END_DT), '000') as drvEndDtime
-			,PLAINING_ID as allocateCarId
-		FROM
-			TB_VEHICLELOCATION 
-		WHERE
-			OPERR_ID = #{operrId}
-		AND		 
-			VEH_ID = #{vehId}	
+SELECT A.EVCHST_ID AS evchstId, A.EVCHST_NM AS evchstNm, A.EVCHST_ADD AS evchstAdd, A.EVCHST_DESC as evchstDesc, 
+		A.EVCHST_ERROR_CD as evchstErrorCd, A.X_COORD as xCoord,  A.Y_COORD As yCoord
+		 FROM tb_evchargingstation A
+		WHERE SITE_ID=#{siteId}	
 
