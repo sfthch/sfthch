@@ -21,10 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MonitoringMap_getEvchargingStationForMon
+MonitoringMap_getVehJrnyRunStatusForMon
 
-SELECT A.EVCHST_ID AS evchstId, A.EVCHST_NM AS evchstNm, A.EVCHST_ADD AS evchstAdd, A.EVCHST_DESC as evchstDesc, 
-		A.EVCHST_ERROR_CD as evchstErrorCd, A.X_COORD as xCoord,  A.Y_COORD As yCoord
-		 FROM tb_evchargingstation A
-		WHERE SITE_ID=#{siteId}	
+SELECT  A.VEH_ID as vehId, X_COORD as xCoord, Y_COORD as yCoord, TRV_STATE_CD as trvStateCd, 
+				(SELECT COMMON_DETAIL_CD_NM FROM TB_DETAILCODE WHERE COMMON_CD_ID='MON001' AND COMMON_DETAIL_CD=TRV_STATE_CD AND USE_YN_CD='0') as trvStateNm,
+				TRV_TYPE_CD as trvTypeCd,
+				VEH_HEADING_ANGLE as vehHeadingAngle, VEH_CURR_SPD as vehCurrSpd, TRIP_SEQ as tripSeq,
+				E.LINE_NM as lineNm, E.LINE_ID as lineId, A.JRNYPATTRN_ID as jrnyPattrnId, A.DOOR_OPEN_YN as doorOpenYn,
+				F.VEH_PLATE_NUM as vehPlateNum,
+				F.EXTRN_VEH_ID  as extrnVehId
+		FROM TB_VEHJRNYRUNSTATUS A, TB_JRNYPATTRN C, TB_ROUTE D, TB_LINE E, TB_VEHICLE F, TB_NETVER G
+		WHERE A.JRNYPATTRN_ID = C.JRNYPATTRN_ID AND A.VER_ID = C.VER_ID
+		  		AND C.ROUT_ID = D.ROUT_ID AND C.VER_ID = D.VER_ID
+		  		AND D.LINE_ID = E.LINE_ID AND D.VER_ID = E.VER_ID
+		  		AND A.VEH_ID = F.VEH_ID
+		  		AND A.VER_ID = G.VER_ID
+		  		AND G.SITE_ID = #{siteId}
+		 		AND A.CHG_DATETIME >= DATE_SUB(NOW(), INTERVAL 30 minute)	
 
