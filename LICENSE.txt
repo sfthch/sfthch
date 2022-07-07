@@ -21,23 +21,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MonitoringMap_getVehJrnyRunStatusForMonWithOperrId
+MonitoringMap_getVehicleDetailForPopup
 
-SELECT  A.VEH_ID as vehId, A.X_COORD as xCoord, A.Y_COORD as yCoord, TRV_STATE_CD as trvStateCd, 
-				(SELECT COMMON_DETAIL_CD_NM FROM TB_DETAILCODE WHERE COMMON_CD_ID='MON001' AND COMMON_DETAIL_CD=TRV_STATE_CD AND USE_YN_CD='0') as trvStateNm,
-				TRV_TYPE_CD as trvTypeCd,
-				VEH_HEADING_ANGLE as vehHeadingAngle, VEH_CURR_SPD as vehCurrSpd, TRIP_SEQ as tripSeq,
-				E.LINE_NM as lineNm, E.LINE_ID as lineId, A.JRNYPATTRN_ID as jrnyPattrnId, A.DOOR_OPEN_YN as doorOpenYn,
-				F.VEH_PLATE_NUM as vehPlateNum
-		FROM TB_VEHJRNYRUNSTATUS A, TB_JRNYPATTRN C, TB_ROUTE D, TB_LINE E, TB_VEHICLE F, TB_NETVER G, TB_GARAGE H
-		WHERE A.JRNYPATTRN_ID = C.JRNYPATTRN_ID AND A.VER_ID = C.VER_ID
-		  		AND C.ROUT_ID = D.ROUT_ID AND C.VER_ID = D.VER_ID
-		  		AND D.LINE_ID = E.LINE_ID AND D.VER_ID = E.VER_ID
-		  		AND A.VEH_ID = F.VEH_ID
-		  		AND A.VER_ID = G.VER_ID
-		  		AND G.SITE_ID = #{siteId}
-		  		AND F.GARAGE_ID = H.GARAGE_ID
-		  		AND H.SITE_ID = #{siteId}
-		  		AND H.OPERR_ID = #{operrId}
-		  		AND A.CHG_DATETIME >= DATE_SUB(NOW(), INTERVAL 30 minute)	
+SELECT A.VEH_ID as vehId, B.EXTRN_VEH_ID as extrnVehId,  B.VEH_PLATE_NUM as vehPlateNum,
+			   E.LINE_NM as lineNm, E.LINE_ID as lineId, E.EXTRN_LINE_ID  as extrnLineId,
+			   F.GARAGE_ID as garageId, F.EXTRN_GARAGE_ID as extrnGarageId, F.GARAGE_NM as garageNm, 
+			   A.ACCUM_PSNGR_CNT as accumPsngrCnt, G.PSNGR_CAPA as psngrCapa,
+		       A.BATT_REM_AMT/G.BATT_CAPA*100 as battRemPcnt, A.VEH_CURR_SPD as vehCurrSpd, A.TRV_STATE_CD as trvStateCd
+		       		       
+		  FROM TB_VEHJRNYRUNSTATUS A, TB_VEHICLE B,
+		       TB_JRNYPATTRN C, TB_ROUTE D, TB_LINE E, TB_GARAGE F,
+			   TB_TYPEOFVEH G
+		WHERE A.VEH_ID = B.VEH_ID
+		  AND A.JRNYPATTRN_ID = C.JRNYPATTRN_ID AND A.VER_ID = C.VER_ID
+		  AND C.ROUT_ID = D.ROUT_ID AND C.VER_ID = D.VER_ID
+		  AND D.LINE_ID = E.LINE_ID AND D.VER_ID = E.VER_ID
+		  AND B.GARAGE_ID = F.GARAGE_ID
+		  AND B.VEH_TYPE_ID = G.VEH_TYPE_ID
+		  AND A.VEH_ID=#{vehId}	
 
