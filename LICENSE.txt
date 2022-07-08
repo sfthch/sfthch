@@ -21,22 +21,76 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-MonitoringMap_getVehicleDetailForPopup
+VehicleDetail_getVehicleAlarmStatus
 
-SELECT A.VEH_ID as vehId, B.EXTRN_VEH_ID as extrnVehId,  B.VEH_PLATE_NUM as vehPlateNum,
-			   E.LINE_NM as lineNm, E.LINE_ID as lineId, E.EXTRN_LINE_ID  as extrnLineId,
-			   F.GARAGE_ID as garageId, F.EXTRN_GARAGE_ID as extrnGarageId, F.GARAGE_NM as garageNm, 
-			   A.ACCUM_PSNGR_CNT as accumPsngrCnt, G.PSNGR_CAPA as psngrCapa,
-		       A.BATT_REM_AMT/G.BATT_CAPA*100 as battRemPcnt, A.VEH_CURR_SPD as vehCurrSpd, A.TRV_STATE_CD as trvStateCd
-		       		       
-		  FROM TB_VEHJRNYRUNSTATUS A, TB_VEHICLE B,
-		       TB_JRNYPATTRN C, TB_ROUTE D, TB_LINE E, TB_GARAGE F,
-			   TB_TYPEOFVEH G
-		WHERE A.VEH_ID = B.VEH_ID
-		  AND A.JRNYPATTRN_ID = C.JRNYPATTRN_ID AND A.VER_ID = C.VER_ID
-		  AND C.ROUT_ID = D.ROUT_ID AND C.VER_ID = D.VER_ID
-		  AND D.LINE_ID = E.LINE_ID AND D.VER_ID = E.VER_ID
-		  AND B.GARAGE_ID = F.GARAGE_ID
-		  AND B.VEH_TYPE_ID = G.VEH_TYPE_ID
-		  AND A.VEH_ID=#{vehId}	
+SELECT
+			a.VEH_ID                                        			AS 'vehId',
+			a.alarm_id 													AS 'alarmId',
+			a.ALARM_STATE_TPCD 									AS 'alarmStateTpcd',
+			ifnull(max(b.react_seq), '') 							AS 'reactSeq',
+			(SELECT common_detail_cd_nm
+			FROM tb_detailcode
+			WHERE common_detail_cd = a.ALARM_STATE_TPCD
+			AND common_cd_id ='MON009'
+			) 																AS 'alarmState',
+			(SELECT common_detail_cd_nm
+			FROM tb_detailcode
+			WHERE common_detail_cd = a.ALARM_MSG_TPCD
+			AND common_cd_id ='MON013'
+			) 																AS 'alarmMsgType',
+			'-' AS 'userId',
+			DATE_FORMAT(a.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') 		AS 'evtDatetime',
+			
+			(select ifnull(b1.REACT_DATETIME, '-') from tb_alarm a1			
+			inner JOIN tb_alarm_reaction b1 ON a1.ALARM_ID = b1.ALARM_ID
+			, tb_vehicle c1
+			where a1.VEH_ID = #{vehId}
+			and  a1.VEH_ID = c1.VEH_ID
+			and a1.ALARM_STATE_TPCD IN ('0', '1')) as  'completeDt',
+			
+			c.VEH_PLATE_NUM as vehPlateNum
+			FROM tb_alarm a
+			LEFT OUTER JOIN tb_alarm_reaction b ON a.ALARM_ID = b.ALARM_ID
+			, tb_vehicle c
+			WHERE a.VEH_ID = #{vehId}
+			AND a.VEH_ID = c.VEH_ID
+			AND a.ALARM_STATE_TPCD IN ('0', '1')
+			GROUP BY alarmId, alarmStateTpcd
+			
+		UNION ALL
+		SELECT
+			a.VEH_ID                                        			AS 'vehId',
+			a.alarm_id 													AS 'alarmId',
+			a.ALARM_STATE_TPCD 									AS 'alarmStateTpcd',
+			ifnull(max(b.react_seq), '') 							AS 'reactSeq',
+			(SELECT common_detail_cd_nm
+			FROM tb_detailcode
+			WHERE common_detail_cd = a.ALARM_STATE_TPCD
+			AND common_cd_id ='MON009'
+			) 																AS 'alarmState',
+			(SELECT common_detail_cd_nm
+			FROM tb_detailcode
+			WHERE common_detail_cd = a.ALARM_MSG_TPCD
+			AND common_cd_id ='MON013'
+			) 																AS 'alarmMsgType',
+			'-' AS 'userId',
+			DATE_FORMAT(a.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') 		AS 'evtDatetime',
+			
+			(select ifnull(b1.REACT_DATETIME, '-') from tb_alarm a1			
+			inner join tb_alarm_reaction b1 ON a1.ALARM_ID = b1.ALARM_ID
+			, tb_vehicle c1
+			where a1.VEH_ID = 'VH_SJA_0000025'
+			and  a1.VEH_ID = c1.VEH_ID
+			and a1.ALARM_STATE_TPCD IN ('0', '1')) as  'completeDt',			
+
+			c.VEH_PLATE_NUM as vehPlateNum
+			FROM tb_alarm a
+			LEFT OUTER JOIN tb_alarm_reaction b ON a.ALARM_ID = b.ALARM_ID
+			, tb_vehicle c
+			WHERE a.VEH_ID = #{vehId}
+			AND a.VEH_ID = c.VEH_ID
+			AND a.ALARM_STATE_TPCD = '2'
+			AND b.REACT_DATETIME Between DATE_ADD(CURDATE(), INTERVAL 2 HOUR) AND DATE_ADD(DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 2 HOUR)
+			GROUP BY alarmId, alarmStateTpcd
+			ORDER BY alarmId	
 
