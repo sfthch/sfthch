@@ -23,74 +23,94 @@ THE SOFTWARE.
 
 VehicleDetail_getVehicleAlarmStatus
 
-SELECT
-			a.VEH_ID                                        			AS 'vehId',
-			a.alarm_id 													AS 'alarmId',
-			a.ALARM_STATE_TPCD 									AS 'alarmStateTpcd',
-			ifnull(max(b.react_seq), '') 							AS 'reactSeq',
-			(SELECT common_detail_cd_nm
-			FROM tb_detailcode
-			WHERE common_detail_cd = a.ALARM_STATE_TPCD
-			AND common_cd_id ='MON009'
-			) 																AS 'alarmState',
-			(SELECT common_detail_cd_nm
-			FROM tb_detailcode
-			WHERE common_detail_cd = a.ALARM_MSG_TPCD
-			AND common_cd_id ='MON013'
-			) 																AS 'alarmMsgType',
-			'-' AS 'userId',
-			DATE_FORMAT(a.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') 		AS 'evtDatetime',
-			
-			(select ifnull(b1.REACT_DATETIME, '-') from tb_alarm a1			
-			inner JOIN tb_alarm_reaction b1 ON a1.ALARM_ID = b1.ALARM_ID
-			, tb_vehicle c1
-			where a1.VEH_ID = #{vehId}
-			and  a1.VEH_ID = c1.VEH_ID
-			and a1.ALARM_STATE_TPCD IN ('0', '1')) as  'completeDt',
-			
-			c.VEH_PLATE_NUM as vehPlateNum
-			FROM tb_alarm a
-			LEFT OUTER JOIN tb_alarm_reaction b ON a.ALARM_ID = b.ALARM_ID
-			, tb_vehicle c
-			WHERE a.VEH_ID = #{vehId}
-			AND a.VEH_ID = c.VEH_ID
-			AND a.ALARM_STATE_TPCD IN ('0', '1')
-			GROUP BY alarmId, alarmStateTpcd
-			
-		UNION ALL
-		SELECT
-			a.VEH_ID                                        			AS 'vehId',
-			a.alarm_id 													AS 'alarmId',
-			a.ALARM_STATE_TPCD 									AS 'alarmStateTpcd',
-			ifnull(max(b.react_seq), '') 							AS 'reactSeq',
-			(SELECT common_detail_cd_nm
-			FROM tb_detailcode
-			WHERE common_detail_cd = a.ALARM_STATE_TPCD
-			AND common_cd_id ='MON009'
-			) 																AS 'alarmState',
-			(SELECT common_detail_cd_nm
-			FROM tb_detailcode
-			WHERE common_detail_cd = a.ALARM_MSG_TPCD
-			AND common_cd_id ='MON013'
-			) 																AS 'alarmMsgType',
-			'-' AS 'userId',
-			DATE_FORMAT(a.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') 		AS 'evtDatetime',
-			
-			(select ifnull(b1.REACT_DATETIME, '-') from tb_alarm a1			
-			inner join tb_alarm_reaction b1 ON a1.ALARM_ID = b1.ALARM_ID
-			, tb_vehicle c1
-			where a1.VEH_ID = 'VH_SJA_0000025'
-			and  a1.VEH_ID = c1.VEH_ID
-			and a1.ALARM_STATE_TPCD IN ('0', '1')) as  'completeDt',			
+				
+1. selectVehicleByExtrnVehId
+		SELECT 
+			VEH_ID AS vehId
+			,VEH_PLATE_NUM AS vehPlateNum
+		FROM TB_VEHICLE 
+		WHERE 
+			EXTRN_VEH_ID ='9001'		
+		AND 
+			OPERR_ID = 'OP_SJA_0000003'			
 
-			c.VEH_PLATE_NUM as vehPlateNum
-			FROM tb_alarm a
-			LEFT OUTER JOIN tb_alarm_reaction b ON a.ALARM_ID = b.ALARM_ID
-			, tb_vehicle c
-			WHERE a.VEH_ID = #{vehId}
-			AND a.VEH_ID = c.VEH_ID
-			AND a.ALARM_STATE_TPCD = '2'
-			AND b.REACT_DATETIME Between DATE_ADD(CURDATE(), INTERVAL 2 HOUR) AND DATE_ADD(DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 2 HOUR)
-			GROUP BY alarmId, alarmStateTpcd
-			ORDER BY alarmId	
+2. selectLineIdByExtrnLineId
+		SELECT 
+			LINE_ID 
+		FROM TB_LINE
+		WHERE
+			EXTRN_LINE_ID = '1'
+		AND
+			OPERR_ID ='OP_SJA_0000003'
+		AND
+			LAST_YN = 'Y'
+
+3. selectMaasSchedule - #1
+    SELECT
+        LINE_ID
+        ,OPER_DAY
+        ,PLANNING_ID
+        ,VEH_ID
+        ,DRIVER_ID
+        ,TRIP_START_DATETIME
+        ,TRIP_END_DATETIME
+        ,JOURNEY_INTVAL
+        ,JOURNEY_PATTRN_CD
+        ,JOURNEY_PATTRN_CD_NM
+        ,USE_YN
+        ,DB_REG_DT
+        ,USER_ID
+    FROM
+            tb_vehiclejourneyplanmaas
+    WHERE
+        LINE_ID = 'LE_SJA_0000087'
+    AND
+        OPER_DAY = '20220707'
+    AND
+        PLANNING_ID = '9061'
+    
+
+
+4. selectMaasSchedule - #2
+    SELECT
+        LINE_ID
+        ,OPER_DAY
+        ,PLANNING_ID
+        ,VEH_ID
+        ,DRIVER_ID
+        ,TRIP_START_DATETIME
+        ,TRIP_END_DATETIME
+        ,JOURNEY_INTVAL
+        ,JOURNEY_PATTRN_CD
+        ,JOURNEY_PATTRN_CD_NM
+        ,USE_YN
+        ,DB_REG_DT
+        ,USER_ID
+    FROM
+            tb_vehiclejourneyplanmaas
+    WHERE
+        LINE_ID = 'LE_SJA_0000087'
+    AND
+        OPER_DAY = '20220707'
+    AND
+        PLANNING_ID = '9061'
+    
+    AND VEH_ID = 'VH_SJA_0000147'
+
+        
+
+5. retrieveSiteId
+SELECT	
+    A.OPERR_ID as operrId
+    ,A.SITE_ID as siteId
+    ,A.OPERR_SHORT_NM as operrShortNm
+    ,A.USER_ID as userId
+    ,A.SYS_CLASS_CD as systemCode
+    ,A.SVC_CLASS_CD as serviceCode
+    ,A.AFFICMPNY_CD as affiliateCode
+FROM	TB_OPERATOR A, TB_USER B
+WHERE A.USER_ID = B.USER_ID
+AND	A.SYS_CLASS_CD = '02'
+AND	A.SVC_CLASS_CD = '20'
+AND	A.AFFICMPNY_CD = '04'	
 
