@@ -21,110 +21,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehicleDetail_getVehicleAlarmStatus
-
-				
-1. selectVehicleByExtrnVehId
-		SELECT 
-			VEH_ID AS vehId
-			,VEH_PLATE_NUM AS vehPlateNum
-		FROM TB_VEHICLE 
-		WHERE 
-			EXTRN_VEH_ID ='9001'		
-		AND 
-			OPERR_ID = 'OP_SJA_0000003'			
-
-2. selectLineIdByExtrnLineId
-		SELECT 
-			LINE_ID 
-		FROM TB_LINE
-		WHERE
-			EXTRN_LINE_ID = '1'
-		AND
-			OPERR_ID ='OP_SJA_0000003'
-		AND
-			LAST_YN = 'Y'
-
-3. selectMaasSchedule - #1
-    SELECT
-        LINE_ID
-        ,OPER_DAY
-        ,PLANNING_ID
-        ,VEH_ID
-        ,DRIVER_ID
-        ,TRIP_START_DATETIME
-        ,TRIP_END_DATETIME
-        ,JOURNEY_INTVAL
-        ,JOURNEY_PATTRN_CD
-        ,JOURNEY_PATTRN_CD_NM
-        ,USE_YN
-        ,DB_REG_DT
-        ,USER_ID
-    FROM
-            tb_vehiclejourneyplanmaas
-    WHERE
-        LINE_ID = 'LE_SJA_0000087'
-    AND
-        OPER_DAY = '20220707'
-    AND
-        PLANNING_ID = '9061'
-    
-
-
-4. selectMaasSchedule - #2
-    SELECT
-        LINE_ID
-        ,OPER_DAY
-        ,PLANNING_ID
-        ,VEH_ID
-        ,DRIVER_ID
-        ,TRIP_START_DATETIME
-        ,TRIP_END_DATETIME
-        ,JOURNEY_INTVAL
-        ,JOURNEY_PATTRN_CD
-        ,JOURNEY_PATTRN_CD_NM
-        ,USE_YN
-        ,DB_REG_DT
-        ,USER_ID
-    FROM
-            tb_vehiclejourneyplanmaas
-    WHERE
-        LINE_ID = 'LE_SJA_0000087'
-    AND
-        OPER_DAY = '20220707'
-    AND
-        PLANNING_ID = '9061'
-    
-    AND VEH_ID = 'VH_SJA_0000147'
-
-        
-
-5. retrieveSiteId
-SELECT	
-    A.OPERR_ID as operrId
-    ,A.SITE_ID as siteId
-    ,A.OPERR_SHORT_NM as operrShortNm
-    ,A.USER_ID as userId
-    ,A.SYS_CLASS_CD as systemCode
-    ,A.SVC_CLASS_CD as serviceCode
-    ,A.AFFICMPNY_CD as affiliateCode
-FROM	TB_OPERATOR A, TB_USER B
-WHERE A.USER_ID = B.USER_ID
-AND	A.SYS_CLASS_CD = '02'
-AND	A.SVC_CLASS_CD = '20'
-AND	A.AFFICMPNY_CD = '04'
-
-6. SELECT C.JRNYPATTRN_ID
-    FROM tb_route A
-        INNER JOIN TB_LINE B
-            ON A.LINE_ID = B.LINE_ID 
-        INNER JOIN TB_JRNYPATTRN C 
-            ON A.ROUT_ID = C.ROUT_ID 
-    WHERE 
-        B.OPERR_ID = 'OP_SJA_0000003'
-    AND
-        B.EXTRN_LINE_ID = '1'
-    AND
-        B.LAST_YN = 'Y'
-    AND 
-        C.VER_ID = 'NV_SJA_0000002'
+VehicleDetail_getVehicleAlarmStatistics
+SELECT
+			VEH_ID								AS "vehId",
+			ALARM_STATE_TPCD 			AS "alarmStateTpcd",
+			COMMON_DETAIL_CD_NM 	AS "alarmType",
+			CNT 									AS "count"
+		FROM (
+			SELECT A.VEH_ID, A.ALARM_STATE_TPCD, COUNT(*) AS CNT
+			FROM TB_ALARM A
+			WHERE A.VEH_ID = #{vehId}
+				AND A.ALARM_STATE_TPCD IN ('0', '1')
+			GROUP BY A.ALARM_STATE_TPCD
+		UNION ALL
+		SELECT A.VEH_ID, A.ALARM_STATE_TPCD, COUNT(*) AS CNT
+		FROM TB_ALARM A
+		JOIN (
+				SELECT
+					MAX(REACT_SEQ),
+					ALARM_ID,
+					MAX(REACT_DATETIME) AS 'REACT_DATETIME'
+				FROM TB_ALARM_REACTION
+				GROUP BY ALARM_ID
+			) B ON A.ALARM_ID = B.ALARM_ID
+			WHERE B.REACT_DATETIME BETWEEN DATE_ADD(CURDATE(), INTERVAL 2 HOUR) AND DATE_ADD(DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 2 HOUR)
+			  	AND A.VEH_ID = #{vehId}
+			  	AND A.ALARM_STATE_TPCD = '2'
+			GROUP BY A.ALARM_STATE_TPCD
+		) A
+		JOIN (
+			SELECT
+				COMMON_DETAIL_CD,
+				COMMON_DETAIL_CD_NM
+			FROM TB_DETAILCODE
+			WHERE COMMON_CD_ID ='MON009'
+		) B ON A.ALARM_STATE_TPCD=B.COMMON_DETAIL_CD
