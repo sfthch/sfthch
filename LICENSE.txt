@@ -21,20 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-EVChargingStationDetail_getEVChargerStatusListByStationId
-SELECT 
-			A.EVCHGR_ID as evchgrId
-			, A.EVCHGR_TRCK_ID as evchgrTrckId
-			, A.EVCHGR_STATUS_CD as evchgrStatusCd
-			, BATTCG_RSQN_VAL as battcgRsqnVal 
-			, DATE_FORMAT(A.EVCH_START_DATETIME, '%Y-%m-%d %H:%i:%s') as evchStartDatetime
-			, DATE_FORMAT(A.EVCH_END_DATETIME, '%Y-%m-%d %H:%i:%s') as evchEndDatetime
-			, DATE_FORMAT(A.REG_DATETIME, '%Y-%m-%d %H:%i:%s') as regDatetime
-		FROM
-			tb_evchargerstatus a, tb_evcharger b 
-		where 
-			b.EVCHST_ID =  #{ evchstId }
-		and 
-			a.EVCHGR_ID = b.EVCHGR_ID 
-		order by 
-			a.EVCHGR_ID  + 0 , a.EVCHGR_TRCK_ID + 0 AS
+EVChargingStationDetail_getEVChargingStationInfo
+SELECT
+	b.evch_operr_nm as evchOperrNm
+	, a.evchst_id as evchstId
+	, a.extl_evchst_id as extlEvchstId
+	, a.evchst_nm as evchstNm
+	, a.evchst_add as evchstAdd
+	, a.evchst_desc as evchstDesc
+	,(
+		select msg_desc from tb_langmsgset where MSG_CD in
+		(
+		select
+			COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU004' and  COMMON_DETAIL_CD = a.evchst_tpcd
+		) AND lang_tpcd = '1'
+	) as evchstTpcd
+	,(
+		select msg_desc from tb_langmsgset where MSG_CD in
+		(
+			select COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU006' and  COMMON_DETAIL_CD = a.evchst_clss_cd
+		) and lang_tpcd = '1'
+	) as evchstClssCd
+	, a.op_strt_time_val as opStrtTimeVal
+	, a.op_end_time_val as opEndTimeVal
+	,(
+		select msg_desc from tb_langmsgset where MSG_CD in
+		(
+			select COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU007' and  COMMON_DETAIL_CD = a.use_yn
+		) and lang_tpcd = '1'
+	) as useYn
+	FROM
+		tb_evchargingstation a, tb_evchargcmpny b 
+	WHERE a.EVCH_OPERR_ID  = b.EVCH_OPERR_ID 
+	AND a.evchst_id = #{ evchstId }
