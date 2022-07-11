@@ -21,36 +21,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-EVChargingStationDetail_getEVChargingStationInfo
-SELECT
-	b.evch_operr_nm as evchOperrNm
-	, a.evchst_id as evchstId
-	, a.extl_evchst_id as extlEvchstId
-	, a.evchst_nm as evchstNm
-	, a.evchst_add as evchstAdd
-	, a.evchst_desc as evchstDesc
-	,(
-		select msg_desc from tb_langmsgset where MSG_CD in
-		(
-		select
-			COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU004' and  COMMON_DETAIL_CD = a.evchst_tpcd
-		) AND lang_tpcd = '1'
-	) as evchstTpcd
-	,(
-		select msg_desc from tb_langmsgset where MSG_CD in
-		(
-			select COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU006' and  COMMON_DETAIL_CD = a.evchst_clss_cd
-		) and lang_tpcd = '1'
-	) as evchstClssCd
-	, a.op_strt_time_val as opStrtTimeVal
-	, a.op_end_time_val as opEndTimeVal
-	,(
-		select msg_desc from tb_langmsgset where MSG_CD in
-		(
-			select COMMON_DETAIL_CD_NM from tb_detailcode where COMMON_CD_ID = 'EQU007' and  COMMON_DETAIL_CD = a.use_yn
-		) and lang_tpcd = '1'
-	) as useYn
+EVChargingStationDetail_getEVChargerInfo
+SELECT 
+		EVCHGR_ID as evchgrId
+		, EXTL_EVCHGR_ID as extlEvchgrId
+		, EVCHGR_TPCD as evchgrTpcd
+		, EVCHGR_CPCT_VAL as evchgrCpctVal
+		, EVCH_UNPR_ID as evchUnprId
+		, EVCHGR_TRCK_CNT as evchgrTrckCnt
+		, DCOM_SUPT_YN as dcomSuptYn
+		, DCDEM_SUPT_YN as dcdemSuptYn
+		, ACTP_SUPT_YN as actpSuptYn
+		, SLCHR_SUPT_YN as slchrSuptYn
+		, SUCHR_SUPT_YN as suchrSuptYn
+		, DSCHR_SUPT_YN as dschrSuptYn
+		, 'N' as pmChSuptYn
 	FROM
-		tb_evchargingstation a, tb_evchargcmpny b 
-	WHERE a.EVCH_OPERR_ID  = b.EVCH_OPERR_ID 
-	AND a.evchst_id = #{ evchstId }
+		TB_EVCHARGER 
+	WHERE  
+		EVCHST_ID = #{ evchstId }
+	ORDER BY EXTL_EVCHGR_ID 
