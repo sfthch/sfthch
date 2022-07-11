@@ -21,18 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-EVChargingStationDetail_getEVChargerStatus
+EVChargingStationDetail_getEVChargerStatusListByStationId
 SELECT 
-			EVCHGR_ID as evchgrId
-			, EVCHGR_TRCK_ID as evchgrTrckId
-			, EVCHGR_STATUS_CD as evchgrStatusCd
+			A.EVCHGR_ID as evchgrId
+			, A.EVCHGR_TRCK_ID as evchgrTrckId
+			, A.EVCHGR_STATUS_CD as evchgrStatusCd
 			, BATTCG_RSQN_VAL as battcgRsqnVal 
-			, DATE_FORMAT(EVCH_START_DATETIME, '%Y-%m-%d %H:%i:%s') as evchStartDatetime
-			, DATE_FORMAT(EVCH_END_DATETIME, '%Y-%m-%d %H:%i:%s') as evchEndDatetime
-			, DATE_FORMAT(REG_DATETIME, '%Y-%m-%d %H:%i:%s') as regDatetime
-		FROM 
-			tb_evchargerstatus 
-		WHERE 
-			EVCHGR_ID = #{ evChargerId }
-		ORDER BY 
-			EVCHGR_TRCK_ID
+			, DATE_FORMAT(A.EVCH_START_DATETIME, '%Y-%m-%d %H:%i:%s') as evchStartDatetime
+			, DATE_FORMAT(A.EVCH_END_DATETIME, '%Y-%m-%d %H:%i:%s') as evchEndDatetime
+			, DATE_FORMAT(A.REG_DATETIME, '%Y-%m-%d %H:%i:%s') as regDatetime
+		FROM
+			tb_evchargerstatus a, tb_evcharger b 
+		where 
+			b.EVCHST_ID =  #{ evchstId }
+		and 
+			a.EVCHGR_ID = b.EVCHGR_ID 
+		order by 
+			a.EVCHGR_ID  + 0 , a.EVCHGR_TRCK_ID + 0 AS
