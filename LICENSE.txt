@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehJrnyTransaction_getVehJrnyRunStatus
+VehJrnyTransaction_getVehJrnyRunStatusList
 SELECT 
     			VEH_CURR_SPD as vehCurrSpd,
     			VEH_HEADING_ANGLE as vehHeadingAngle,
@@ -43,6 +43,4 @@ SELECT
     			DRIVE_SERIES_NUM as driveSeriesNum,
     			VER_ID as verId
     	FROM 
-    			tb_vehjrnyrunstatus 
-    	WHERE 
-    			VEH_ID = #{vehId}
+    			tb_vehjrnyrunstatus
