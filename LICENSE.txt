@@ -21,26 +21,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehJrnyTransaction_getVehJrnyRunStatusList
-SELECT 
-    			VEH_CURR_SPD as vehCurrSpd,
-    			VEH_HEADING_ANGLE as vehHeadingAngle,
-    			ACCUM_PSNGR_CNT as accumPsngrCnt,
-    			CHG_DATETIME as chgDatetime,
-    			JRNYPATTRN_ID as jrnypattrnId,
-    			VEH_ID as vehId, 
-    			TRV_STATE_CD as trvStateCd,
-    			X_COORD as xCoord, 
-    			Y_COORD as yCoord, 
-    			TRIP_SEQ as tripSeq,
-    			TRV_START_DATETIME as trvStartDatetime,
-    			TRV_END_DATETIME as trvEndDatetime,
-    			ACCUM_TRV_DIST as accumTrvDist,
-    			ACCUM_TRV_TM as accumTrvTm,
-    			TRV_TYPE_CD as trvTypeCd,
-    			BATT_REM_AMT as battRemAmt,
-    			DOOR_OPEN_YN as doorOpenYn,
-    			DRIVE_SERIES_NUM as driveSeriesNum,
-    			VER_ID as verId
-    	FROM 
-    			tb_vehjrnyrunstatus
+VehJrnyTransaction_selectVehicleLocation
+SELECT
+			'' as reserveId
+			,(SELECT EXTRN_LINE_ID FROM TB_LINE WHERE OPERR_ID =  #{operrId} AND LINE_ID =  #{lineId}) as routeId
+			,(SELECT EXTRN_VEH_ID FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleId
+			,(SELECT VEH_PLATE_NUM FROM TB_VEHICLE WHERE OPERR_ID =  #{operrId} AND VEH_ID = #{vehId}) as vehicleNo
+			
+			,REM_SEAT_CNT as remainSeatCnt
+			,VEH_CNGST_STATE as vehCngstState
+
+			,(SELECT B.EXTRN_STOPPOINT_ID as departStopId FROM TB_VEHICLELOCATION A INNER JOIN
+			TB_STOPPOINT B
+			ON A.PRV_STOPPOINT = B.STOPPOINT_ID
+			) as departStopId
+			
+			,PRV_STOPPOINT_IDX as departStopIndex		
+			,PRV_STOPPOINT_ARRI_DT as  departStopArriveDtime
+			
+			,NEXT_STOPPOINT_ID as nextStopId
+			,NEXT_STOPPOINT_IDX as nextStopIndex
+			,NEXT_STOPPOINT_DIST as nextStopDistnace
+			,NEXT_STOPPOINT_ARRIV_DT as nextStopArriveDtime
+			
+			,XCOORD as vehicleX
+			,YCOORD as vehicleY
+			
+			,REAL_JOURNEY_START_DT as drvStartDtime
+			,REAL_JOURNEY_END_DT as drvEndDtime
+			,PLAINING_ID as allocateCarId
+		FROM
+			TB_VEHICLELOCATION 
+		WHERE
+			OPERR_ID = #{operrId}
+		AND
+			VEH_ID =  #{vehId}
