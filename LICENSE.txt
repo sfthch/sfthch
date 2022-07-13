@@ -21,41 +21,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-alarm_retrieve
-SELECT A.ALARM_ID AS alarmId,
-		        DATE_FORMAT(A.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') AS evtDatetime,
-				A.ALARM_DETAIL_DESC AS alarmDetailDesc,
-				A.X_COORD AS xCoord,
-				A.Y_COORD AS yCoord,
-				A.ALARM_STATE_TPCD AS alarmStateTpcd,
-				B.COMMON_DETAIL_CD_NM AS alarmState,
-				A.APPLY_DT AS applyDt,
-				DATE_FORMAT(A.REG_DATETIME, '%Y-%m-%d %H:%i:%s') AS regDatetime,
-				A.ALARM_TPCD AS alarmTpcd,
-				C.COMMON_DETAIL_CD_NM AS alarmType,
-				A.VEH_ID AS vehId,
-				E.VEH_PLATE_NUM as vehPlateNum,
-				A.VER_ID AS verId,
-				A.LINE_ID AS lineId,
-				A.ALARM_MSG_TPCD AS alarmMsgTpcd,
-				SUBSTRING_INDEX(D.COMMON_DETAIL_CD_DESC, ': ', -1) AS alarmMsgType,
-				A.SITE_ID as siteId
-		FROM `tb_alarm` A
-		LEFT JOIN tb_vehicle E ON A.VEH_ID=E.VEH_ID,
-		`tb_detailcode` B , `tb_detailcode` C , `tb_detailcode` D
-		WHERE (B.COMMON_CD_ID = 'MON009' AND B.COMMON_DETAIL_CD = A.ALARM_STATE_TPCD)
-		AND (C.COMMON_CD_ID = 'MON012' AND C.COMMON_DETAIL_CD = A.ALARM_TPCD)
-		AND (D.COMMON_CD_ID = 'MON013' AND D.COMMON_DETAIL_CD = A.ALARM_MSG_TPCD)
+AlarmReaction_retrieve
+SELECT A.ALARM_ID AS alarmId
+		, A.REACT_SEQ AS reactSeq
+		, DATE_FORMAT(A.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') AS evtDatetime
+		, DATE_FORMAT(A.REACT_DATETIME, '%Y-%m-%d %H:%i:%s') AS reactDatetime
+		, A.ALARM_STATE_TPCD AS alarmStateTpcd
+		, B.COMMON_DETAIL_CD_NM AS alarmState
+		, DATE_FORMAT(A.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS applyDate
+		, DATE_FORMAT(A.REG_DATETIME, '%Y-%m-%d %H:%i:%s') AS regDatetime
+		, A.REACT_DETAIL_DESC AS reactDetailDesc
+		, A.USER_ID AS userId
+		FROM `tb_alarm_reaction` A, `tb_detailcode` B
+		WHERE 1 = 1
+		AND (B.COMMON_CD_ID = 'MON009' AND B.COMMON_DETAIL_CD = A.ALARM_STATE_TPCD)
 		<if test="alarmId != null and alarmId != ''">
-		AND A.ALARM_ID = #{alarmId}
+			AND A.ALARM_ID = #{alarmId}
 		</if>
-		<if test="statusTpcdParam != null">
-			AND A.ALARM_STATE_TPCD IN
-			<foreach collection="statusTpcdParam" item="status" index="index" open="(" separator="," close=")">
-				#{status}
-			</foreach>
+		<if test="reactSeq != null and reactSeq != ''">
+			AND A.REACT_SEQ = #{reactSeq}
 		</if>
-		<if test="siteId != null and siteId != ''">
-			AND A.SITE_ID = #{siteId}
-		</if>
-		ORDER BY evtDateTime DESC
+		ORDER BY A.ALARM_ID, A.REACT_SEQ ASC
