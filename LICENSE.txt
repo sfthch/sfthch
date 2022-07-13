@@ -21,17 +21,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-Common_retrieveSiteId
-SELECT	
-					A.OPERR_ID as operrId
-					,A.SITE_ID as siteId
-					,A.OPERR_SHORT_NM as operrShortNm
-					,A.USER_ID as userId
-					,A.SYS_CLASS_CD as systemCode
-					,A.SVC_CLASS_CD as serviceCode
-					,A.AFFICMPNY_CD as affiliateCode
-		FROM	TB_OPERATOR A, TB_USER B
-		WHERE A.USER_ID = B.USER_ID
-		AND	A.SYS_CLASS_CD = #{sysClassCd}
-		AND	A.SVC_CLASS_CD = #{svcClassCd}
-		AND	A.AFFICMPNY_CD = #{affiCmpnyCd}
+Common_selectApiStatus
+SELECT 
+			API_NM
+			,PROS_START_DT
+			,PROS_CMPT_DT
+			,PROS_STEP_NUM
+			,PROS_STEP_CD
+			,API_CLSFC
+			,API_DATA
+			,ERR_MSG
+		FROM tb_apistatus
+		WHERE 
+			API_NM =  #{apiNm}
+		AND
+			API_CLSFC = #{apiClsfc} 
