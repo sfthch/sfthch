@@ -21,58 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehJrnyTransaction_getJourneyStatus
-SELECT 
-			JOURNEY_UNQ_NO as journeyUnqNo
-			,OPERR_ID as operrId
-			,PLANNING_ID as planningId
-			,LINE_ID as lineId 
-			,PLAN_JOURNEY_VEH_ID as planJourneyVehId
-			,PLAN_JOURNEY_DAY as planJourneyDay
-			,PLAN_JOURNEY_START_DT as planJourneyStartDt
-			,PLAN_JOURNEY_END_DT as planJourneyEndDt
-			,REAL_JOURNEY_VEH_ID as realJourneyVehId
-			,REAL_JOURNEY_START_DT as realJourneyStartDt
-			,REAL_JOURNEY_END_DT as realJoruneyEndDt
-			,JOURNEY_STATE_CD as journeyStateCd
-			,DB_REG_DT as dbRegDt
-		FROM
-			TB_JOURNEYSTATUS	
-		WHERE	
-		  OPER_DAY = #{operDay}
-	  AND
-	  	VEH_ID = #{vehId}
-	  AND
-			JOURNEY_UNQ_NO = #{journeyUnqNo}
-		AND
-			OPERR_ID = #{operrId}
-
-
-#{sysClassCd}	'02'
-#{svcClassCd}	'20'
-#{affiCmpnyCd}	'04'
-#{apiNm}	'vehicleLocation'
-#{apiClsfc}	'RECV'
-#{alarmId}	'00001'
-#{siteId}	'ST_COM_0000002'
-#{reactSeq}	'00001'
-#{operStartDateTime}	'20220628'
-#{operStartDate}	'20220628'
-#{verId}	'NV_SJA_0000002'
-#{lineId}	'LE_SJA_0000087'
-#{routId}	'RT_SJA_0000135'
-#{jrnyPattrnId}	'JP_SJA_0000091'
-#{routeLinkId}	''
-#{timingLinkId}	''
-#{extrnLineId}	'1'
-#{operrId}	'OP_SJA_0000003'
-"#{extrnStopPointId}		"	'1', '2', '15'
-"#{extrnVehId}	"	'1425'
-#{evchOperrId}	'1', '2'
-#{operDay}	'20220627'
-#{vehId}	'VH_SJA_0000114'
-#{ evChargerId }	'EC_SJA_0000027'
-#{ evchstId }	 'ES_SJA_0000036'
-#{journeyUnqNo}	'1', '2', '3', '4', '5'
-#{startDatetime}	2022-05-17 00:00:00
-#{endDatetime}	2022-06-28 23:59:59
+Common_retrieveSiteId
+SELECT	
+					A.OPERR_ID as operrId
+					,A.SITE_ID as siteId
+					,A.OPERR_SHORT_NM as operrShortNm
+					,A.USER_ID as userId
+					,A.SYS_CLASS_CD as systemCode
+					,A.SVC_CLASS_CD as serviceCode
+					,A.AFFICMPNY_CD as affiliateCode
+		FROM	TB_OPERATOR A, TB_USER B
+		WHERE A.USER_ID = B.USER_ID
+		AND	A.SYS_CLASS_CD = #{sysClassCd}
+		AND	A.SVC_CLASS_CD = #{svcClassCd}
+		AND	A.AFFICMPNY_CD = #{affiCmpnyCd}
