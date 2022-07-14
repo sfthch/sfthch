@@ -21,24 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-AlarmReaction_retrieve
-SELECT A.ALARM_ID AS alarmId
-		, A.REACT_SEQ AS reactSeq
-		, DATE_FORMAT(A.EVT_DATETIME, '%Y-%m-%d %H:%i:%s') AS evtDatetime
-		, DATE_FORMAT(A.REACT_DATETIME, '%Y-%m-%d %H:%i:%s') AS reactDatetime
-		, A.ALARM_STATE_TPCD AS alarmStateTpcd
-		, B.COMMON_DETAIL_CD_NM AS alarmState
-		, DATE_FORMAT(A.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS applyDate
-		, DATE_FORMAT(A.REG_DATETIME, '%Y-%m-%d %H:%i:%s') AS regDatetime
-		, A.REACT_DETAIL_DESC AS reactDetailDesc
-		, A.USER_ID AS userId
-		FROM `tb_alarm_reaction` A, `tb_detailcode` B
-		WHERE 1 = 1
-		AND (B.COMMON_CD_ID = 'MON009' AND B.COMMON_DETAIL_CD = A.ALARM_STATE_TPCD)
-		<if test="alarmId != null and alarmId != ''">
-			AND A.ALARM_ID = #{alarmId}
-		</if>
-		<if test="reactSeq != null and reactSeq != ''">
-			AND A.REACT_SEQ = #{reactSeq}
-		</if>
-		ORDER BY A.ALARM_ID, A.REACT_SEQ ASC
+DashBoard_getAlarmStatus
+SELECT ALM.ALARM_STATE_TPCD AS "stateCd"
+		     , (SELECT COMMON_DETAIL_CD_NM FROM TB_DETAILCODE WHERE COMMON_CD_ID ='MON009' AND COMMON_DETAIL_CD = ALM.ALARM_STATE_TPCD) AS "alarmType"
+		     , IFNULL(COUNT(ALM.ALARM_STATE_TPCD), '0') AS "count"
+		  FROM TB_ALARM ALM
+		 WHERE ALM.SITE_ID = #{siteId}
+		   AND ALM.EVT_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
+		 GROUP BY ALM.ALARM_STATE_TPCD
