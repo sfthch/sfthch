@@ -21,21 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-TransitNetwork_getTimingPointListForGarageList
-SELECT A.TIMING_POINT_ID, MAX_WAIT_TM, A.VER_ID,  
-	    	   TIMING_POINT_TPCD, A.X_COORD, A.Y_COORD, STOPPOINT_ID, B.GARAGE_ID, B.GARAGE_NM
-	  	FROM tb_timingpoint A
-	  	LEFT JOIN TB_GARAGE B on A.GARAGE_ID = B.GARAGE_ID
-	 	WHERE A.VER_ID=#{verId} 
-	 	  AND TIMING_POINT_TPCD ='0'
-		ORDER BY CAST( SUBSTR(A.TIMING_POINT_ID from 8) as signed)　	　	　
-create table  tb_apicall
-(
-ID BIGINT,
-API_NM VARCHAR(50),
-OPER_DAY VARCHAR(8),
-LINE_ID VARCHAR(14),
-VEH_ID VARCHAR(14),
-API_DATA longtext,
-DB_REG_DT TIMESTAMP
-)
+TransitNetwork_getTimingLinkList
+SELECT TIMING_LINK_ID as timingLinkId, TIMING_LINK_ID as name, START_TIMING_POINT_ID as startTimingPointId, 
+			   B.TIMING_POINT_TPCD as startTimingPointTpcd, B.STOPPOINT_ID as startStopPointId, 
+			   C.TIMING_POINT_TPCD as endTimingPointTpcd, C.STOPPOINT_ID as endStopPointId,
+		       END_TIMING_POINT_ID as endTimingPointId,  TIMING_LINK_LEN as timingLinkLen,
+		       A.VER_ID as verId
+		  FROM tb_timinglink A, tb_timingpoint B, tb_timingpoint C   
+		 WHERE A.START_TIMING_POINT_ID = B.TIMING_POINT_ID
+		   AND A.END_TIMING_POINT_ID = C.TIMING_POINT_ID
+		   AND A.VER_ID = B.VER_ID 
+		   AND A.VER_ID = C.VER_ID
+		   AND B.VER_ID=#{verId}
+		   AND C.VER_ID=#{verId} 
+	  ORDER BY CAST( SUBSTR(TIMING_LINK_ID from 8) as signed)
