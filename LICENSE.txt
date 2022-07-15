@@ -21,54 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-DashBoard_getEtcStatics
-SELECT "alarm veh" as "type"
-		     , IFNULL(COUNT(DISTINCT ALM.VEH_ID), 0) AS "count"
-		  FROM TB_ALARM ALM
-		 WHERE ALM.SITE_ID = #{siteId}
-		   AND ALM.ALARM_TPCD = '0'
-		   AND ALM.EVT_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
-		   AND ALM.ALARM_STATE_TPCD IN ('0', '1')
-		UNION ALL
-		SELECT "abnormal veh" as "type"
-		     , IFNULL(COUNT(DISTINCT ALM.VEH_ID), 0) AS "count"
-		  FROM TB_ALARM ALM
-		     , TB_DETAILCODE DCD
-		 WHERE ALM.SITE_ID = #{siteId}
-		   AND ALM.EVT_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
-		   AND DCD.COMMON_CD_ID = 'MON013'
-		   AND DCD.COMMON_DETAIL_CD_NM LIKE 'ABNORMAL_%'
-		   AND ALM.ALARM_STATE_TPCD IN ('0', '1')
-		   AND ALM.ALARM_MSG_TPCD = DCD.COMMON_DETAIL_CD
-		UNION ALL
-		SELECT "malfunction veh" as "type"
-		     , IFNULL(COUNT(DISTINCT ALM.VEH_ID), 0) AS "count"
-		  FROM TB_ALARM ALM
-		     , TB_DETAILCODE DCD
-		 WHERE ALM.SITE_ID = #{siteId}
-		   AND ALM.EVT_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
-		   AND DCD.COMMON_CD_ID = 'MON013'
-		   AND DCD.COMMON_DETAIL_CD_NM LIKE 'MALFUNC_%'
-		   AND ALM.ALARM_STATE_TPCD IN ('0', '1')
-		   AND ALM.ALARM_MSG_TPCD = DCD.COMMON_DETAIL_CD
-		UNION ALL
-		SELECT "inactive veh" as "type"
-		     , IFNULL(COUNT(DISTINCT ALM.VEH_ID), 0) AS "count"
-		  FROM TB_ALARM ALM
-		     , TB_DETAILCODE DCD
-		 WHERE ALM.SITE_ID = #{siteId}
-		   AND ALM.EVT_DATETIME BETWEEN STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i') AND DATE_ADD(STR_TO_DATE(#{operStartDateTime},'%Y%m%d%H%i'), INTERVAL 1 DAY)
-		   AND DCD.COMMON_CD_ID = 'MON013'
-		   AND DCD.COMMON_DETAIL_CD_NM LIKE 'VEH_INACTV_%'
-		   AND ALM.ALARM_STATE_TPCD IN ('0', '1')
-		   AND ALM.ALARM_MSG_TPCD = DCD.COMMON_DETAIL_CD
-
-
-94	신규	2022.07.14	민재훈	TBMSD206	예약경로구간좌표	1	CRTR_SQNO	　	ix_TBMSD206_03	신청
-　	　	　	　	　	　	2	CRET_DTTM	　	　	　
-95	신규	2022.07.14	민재훈	TBMSD207	예약경로구간이동좌표	1	CRTR_SQNO	　	ix_TBMSD207_03	신청
-　	　	　	　	　	　	2	CRET_DTTM	　	　	　
-96	신규	2022.07.14	민재훈	TBMSD236	트래킹경로구간좌표	1	CRTR_SQNO	　	ix_TBMSD236_03	신청
-　	　	　	　	　	　	2	CRET_DTTM	　	　	　
-97	신규	2022.07.14	민재훈	TBMSD237	트래킹경로구간이동좌표	1	CRTR_SQNO	　	ix_TBMSD237_03	신청
-　	　	　	　	　	　	2	CRET_DTTM	　	　	　
+TransitNetwork_getTimingPointListForGarageList
+SELECT A.TIMING_POINT_ID, MAX_WAIT_TM, A.VER_ID,  
+	    	   TIMING_POINT_TPCD, A.X_COORD, A.Y_COORD, STOPPOINT_ID, B.GARAGE_ID, B.GARAGE_NM
+	  	FROM tb_timingpoint A
+	  	LEFT JOIN TB_GARAGE B on A.GARAGE_ID = B.GARAGE_ID
+	 	WHERE A.VER_ID=#{verId} 
+	 	  AND TIMING_POINT_TPCD ='0'
+		ORDER BY CAST( SUBSTR(A.TIMING_POINT_ID from 8) as signed)　	　	　
