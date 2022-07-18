@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-TransitNetwork_getTimingLinkList
+TransitNetwork_getRoutePointForLineList
 SELECT distinct A.ROUT_POINT_ID AS name, A.ROUT_POINT_ID AS routPointId, A.X_COORD AS xCoord, A.Y_COORD AS yCoord, D.VER_ID AS verId 
 		FROM tb_routepoint A, tb_routelink B, tb_linkonroute C, tb_route D
 		WHERE D.VER_ID=#{verId}
