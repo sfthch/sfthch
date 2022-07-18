@@ -21,18 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-TransitNetwork_selectJrnyPattrnIdByExtrnLineId
-SELECT C.JRNYPATTRN_ID
-		FROM tb_route A
-			INNER JOIN TB_LINE B
-				ON A.LINE_ID = B.LINE_ID 
-			INNER JOIN TB_JRNYPATTRN C 
-				ON A.ROUT_ID = C.ROUT_ID 
+TransitNetwork_selectVehicleByExtrnVehId
+SELECT 
+			VEH_ID AS vehId
+			,VEH_PLATE_NUM AS vehPlateNum
+		FROM TB_VEHICLE 
 		WHERE 
-			B.OPERR_ID = #{operrId}
-		AND
-			B.EXTRN_LINE_ID = #{extrnLineId}
-		AND
-			B.LAST_YN = 'Y'
+			EXTRN_VEH_ID = #{extrnVehId}			
 		AND 
-			C.VER_ID = #{verId}
+			OPERR_ID = #{operrId}
