@@ -21,14 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-TransitNetwork_selectRouteIdByExtrnLineId
-SELECT A.ROUT_ID
-		FROM	TB_ROUTE A 
-		INNER JOIN TB_LINE B
-		ON	A.LINE_ID = B.LINE_ID 
+TransitNetwork_selectStopIdByExtrnStopPointId
+SELECT STOPPOINT_ID 
+		FROM TB_STOPPOINT 
 		WHERE
-			A.VER_ID = #{verId} 	
+			OPERR_ID = #{operrId}
 		AND
-			B.LAST_YN = 'Y'		
-		AND 
-			B.EXTRN_LINE_ID = #{extrnLineId}
+			EXTRN_STOPPOINT_ID  = #{extrnStopPointId}		
+		AND
+			VER_ID = #{verId}
