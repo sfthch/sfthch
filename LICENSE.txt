@@ -21,19 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-TransitNetwork_getRouteLinkForLineList
-SELECT DISTINCT A.ROUT_LINK_ID AS name,  A.ROUT_LINK_ID AS routLinkId, 
-	    	   A.START_POINT_ID AS startPointId, B.X_COORD AS startPointXCoord , B.Y_COORD AS startPointYCoord, 
-			   A.END_POINT_ID AS endPointId, C.X_COORD AS endPointXCoord, C.Y_COORD AS endPointYCoord, 
-			   A.ROUT_LINK_LEN AS routLinkLen, A.LMT_SPD AS lmtSpd, G.STOPPOINT_ID as relatedStopPointId,
-			   A.VER_ID AS verId
-	  	FROM tb_routelink A 
-	  	LEFT JOIN tb_stoppoint G on (A.ROUT_LINK_ID = G.ROUT_LINK_ID AND A.VER_ID = G.VER_ID), 
-	  	      tb_routepoint B, tb_routepoint C, tb_route D, tb_linkonroute E
-	 	WHERE D.ROUT_ID = E.ROUT_ID AND D.VER_ID = E.VER_ID
-	 	and B.LAST_YN = 'Y'
-	 	and E.LAST_YN = 'Y'
-	 	AND E.ROUT_LINK_ID = A.ROUT_LINK_ID AND E.VER_ID = A.VER_ID 
-	 	AND A.START_POINT_ID=B.ROUT_POINT_ID AND A.VER_ID =B.VER_ID
-	   	AND A.END_POINT_ID=C.ROUT_POINT_ID AND A.VER_ID=C.VER_ID
-	   	AND D.VER_ID=#{verId}
+TransitNetwork_selectRouteIdByExtrnLineId
+SELECT A.ROUT_ID
+		FROM	TB_ROUTE A 
+		INNER JOIN TB_LINE B
+		ON	A.LINE_ID = B.LINE_ID 
+		WHERE
+			A.VER_ID = #{verId} 	
+		AND
+			B.LAST_YN = 'Y'		
+		AND 
+			B.EXTRN_LINE_ID = #{extrnLineId}
