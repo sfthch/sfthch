@@ -21,48 +21,141 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehicleDetail_getCurrentStatus
+VehicleDetail_getVehicleOperPerf
 SELECT
-			a.VEH_ID														AS 'vehId',
-			a.VEH_PLATE_NUM                                           		AS 'vehPlateNum',
-			b.MODEL_NUM 													AS 'vehNo',
-			IFNULL(g.LINE_ID, '')															AS 'lineId',
-			IFNULL(g.LINE_NM, '')															AS 'lineNm',
-			CONCAT(b.VEH_TYPE_NM, ' | ', a.VEH_ID) 	AS 'vehDesc',
-			IFNULL(a.VEH_STATE_CD, '1')								AS 'opStateCd',
-			(
-				SELECT common_detail_cd_nm
-				FROM tb_detailcode
-				WHERE common_detail_cd = IFNULL(a.VEH_STATE_CD, '1')
-				AND common_cd_id ='VEH002'
-			) 																		AS 'opStateNm',
-			IFNULL(d.TRV_STATE_CD, '0') 												AS 'vehStateCd',
-			IFNULL((
-				SELECT common_detail_cd_nm
-				FROM tb_detailcode
-				WHERE common_detail_cd = d.TRV_STATE_CD
-				AND common_cd_id ='MON001'
-			), 'OFF')																		AS 'vehStateNm',
-			b.VEH_TYPE_NM 													AS 'vehType',
-			IFNULL(a.MNFCTUR_DATE, '') 								AS 'mnfcturYear',
-			IFNULL(a.VEH_PLATE_NUM, '') 								AS 'plateNo',
-			IFNULL(b.MODEL_NUM, '') 									AS 'modelNo',
-			c.GARAGE_ID														AS 'depotId',
-			c.GARAGE_NM 													AS 'depotNm',
-			IFNULL(d.TRV_TYPE_CD,'')													AS 'trvTypeCd',
-			IFNULL((
-				SELECT common_detail_cd_nm
-				FROM tb_detailcode
-				WHERE common_detail_cd = d.TRV_TYPE_CD
-				AND common_cd_id = 'MON015'
-			),'Undefined') 																		AS 'trvTypeNm',
-			h.STRM_URL                                                       AS 'strmUrl'
-		FROM tb_vehicle a
-		LEFT JOIN tb_typeofveh b ON a.VEH_TYPE_ID = b.VEH_TYPE_ID
-		LEFT JOIN tb_garage c ON a.GARAGE_ID = c.GARAGE_ID
-		LEFT JOIN tb_vehjrnyrunstatus d ON a.VEH_ID = d.VEH_ID
-		LEFT JOIN tb_jrnypattrn e ON d.JRNYPATTRN_ID = e.JRNYPATTRN_ID AND d.VER_ID = e.VER_ID
-		LEFT JOIN tb_route f ON e.ROUT_ID = f.ROUT_ID AND e.VER_ID = f.VER_ID
-		LEFT JOIN tb_line g ON g.LINE_ID = f.LINE_ID AND g.VER_ID = f.VER_ID
-		LEFT OUTER JOIN tb_camerastatus h ON a.VEH_ID = h.VEH_ID
-		WHERE a.VEH_ID = #{vehId}
+	TRV.VEH_ID AS 'vehId',
+	IF( TRV.VEH_ID IS NOT NULL,(SELECT veh_plate_num FROM tb_vehicle WHERE VEH_ID =TRV.VEH_ID),"") AS 'vehPlateNum',
+	IF( BEHIND.VEH_ID IS NOT NULL,(SELECT veh_plate_num FROM tb_vehicle WHERE VEH_ID =BEHIND.VEH_ID),"") AS 'beforeVehId',
+	IF(
+		BEHIND.VEH_ID IS NOT NULL,
+		ROUND(
+			IF(
+				TRV.HEADER_DIST > BEHIND.HEADER_DIST, 
+				TRV.HEADER_DIST - BEHIND.HEADER_DIST, 
+				RT.ROUT_LEN - BEHIND.HEADER_DIST + TRV.HEADER_DIST
+			) / 1000,
+			1
+		),
+		''
+	) AS 'beforeVehDist',
+	IF( AHEAD.VEH_ID IS NOT NULL,(SELECT veh_plate_num FROM tb_vehicle WHERE VEH_ID =AHEAD.VEH_ID),"") AS 'nextVehId',
+	IF(
+		AHEAD.VEH_ID IS NOT NULL,
+		ROUND(
+			IF(
+				TRV.HEADER_DIST < AHEAD.HEADER_DIST, 
+				AHEAD.HEADER_DIST - TRV.HEADER_DIST, 
+				RT.ROUT_LEN - TRV.HEADER_DIST + AHEAD.HEADER_DIST
+			) / 1000,
+			1
+		),
+		''
+	) AS 'nextVehDist',
+	IFNULL(TRV.NEXT_STOPPOINT_ID, "") AS 'nextStopId',
+	IFNULL((
+		SELECT STOPPOINT_NM
+		FROM tb_stoppoint NXTSP
+		WHERE NXTSP.STOPPOINT_ID = TRV.NEXT_STOPPOINT_ID 
+		  AND NXTSP.VER_ID = TRV.VER_ID
+	), "") AS 'nextStopNm',
+	IFNULL((TRV.PRV_STOPPOINT_ID), "") AS 'prvStopId',
+	IFNULL((
+		SELECT STOPPOINT_NM
+		FROM tb_stoppoint PRVSP
+		WHERE PRVSP.STOPPOINT_ID = TRV.PRV_STOPPOINT_ID
+		  AND PRVSP.VER_ID = TRV.VER_ID
+	), "") AS 'prvStopNm',
+	IFNULL(DATE_FORMAT(TRV.PRV_STOPPOINT_ARRI_TM, '%Y-%m-%d %H:%i:%s'),"") AS 'prvStopArriTm',
+	IFNULL(DATE_FORMAT(TRV.NEXT_STOPPOINT_ARRI_EXPC_TM, '%Y-%m-%d %H:%i:%s'),"") AS 'nextStopArriExpcTm'
+
+FROM
+	tb_trvinfoforveh TRV
+	
+LEFT JOIN
+	tb_route RT
+	ON RT.ROUT_ID = (
+		SELECT JP.ROUT_ID
+		FROM tb_jrnypattrn JP
+		WHERE TRV.JRNYPATTRN_ID = JP.JRNYPATTRN_ID
+		  AND TRV.VER_ID = JP.VER_ID
+		LIMIT 1
+	)
+	
+LEFT JOIN 
+	tb_trvinfoforveh BEHIND
+	ON BEHIND.VEH_ID =
+	IFNULL(
+		(
+			SELECT RUN.VEH_ID
+			FROM tb_vehjrnyrunstatus RUN
+			JOIN tb_trvinfoforveh T1
+				ON T1.VEH_ID = RUN.VEH_ID
+			WHERE TRV.JRNYPATTRN_ID = T1.JRNYPATTRN_ID
+			    AND TRV.VER_ID = T1.VER_ID
+				AND TRV.VEH_ID != T1.VEH_ID
+				AND T1.HEADER_DIST < TRV.HEADER_DIST
+				AND RUN.TRV_TYPE_CD='0'
+				AND (NOW() - T1.UPD_DATETIME) < 60
+				AND T1.NEXT_STOPPOINT_ID NOT LIKE 'GR_%'
+				AND T1.PRV_STOPPOINT_ID NOT LIKE 'GR_%'
+			ORDER BY T1.HEADER_DIST DESC
+			LIMIT 1
+		)
+		,
+		(
+			SELECT RUN2.VEH_ID
+			FROM tb_vehjrnyrunstatus RUN2
+			JOIN tb_trvinfoforveh T2
+				ON T2.VEH_ID = RUN2.VEH_ID
+			WHERE TRV.JRNYPATTRN_ID = T2.JRNYPATTRN_ID
+			    AND TRV.VER_ID = T2.VER_ID
+				AND TRV.VEH_ID != T2.VEH_ID
+				AND T2.HEADER_DIST > TRV.HEADER_DIST
+				AND RUN2.TRV_TYPE_CD='0'
+				AND (NOW() - T2.UPD_DATETIME) < 60
+				AND T2.NEXT_STOPPOINT_ID NOT LIKE 'GR_%'
+				AND T2.PRV_STOPPOINT_ID NOT LIKE 'GR_%'
+			ORDER BY T2.HEADER_DIST DESC
+			LIMIT 1
+		)
+		)
+
+LEFT JOIN
+	tb_trvinfoforveh AHEAD
+	ON AHEAD.VEH_ID = IFNULL(
+		(
+			SELECT T3.VEH_ID
+			FROM tb_vehjrnyrunstatus RUN3
+			JOIN tb_trvinfoforveh T3
+				ON T3.VEH_ID=RUN3.VEH_ID
+			WHERE TRV.JRNYPATTRN_ID = T3.JRNYPATTRN_ID
+			    AND TRV.VER_ID = T3.VER_ID
+				AND TRV.VEH_ID != T3.VEH_ID
+				AND T3.HEADER_DIST > TRV.HEADER_DIST
+				AND RUN3.TRV_TYPE_CD='0'
+				AND (NOW() - T3.UPD_DATETIME) < 60
+				AND T3.NEXT_STOPPOINT_ID NOT LIKE 'GR_%'
+				AND T3.PRV_STOPPOINT_ID NOT LIKE 'GR_%'
+			ORDER BY T3.HEADER_DIST ASC
+			LIMIT 1
+		),
+		(
+			SELECT T4.VEH_ID
+			FROM tb_vehjrnyrunstatus RUN4
+			JOIN tb_trvinfoforveh T4
+				ON T4.VEH_ID=RUN4.VEH_ID
+			WHERE TRV.JRNYPATTRN_ID = T4.JRNYPATTRN_ID
+			    AND TRV.VER_ID = T4.VER_ID
+				AND TRV.VEH_ID != T4.VEH_ID
+				AND T4.HEADER_DIST < TRV.HEADER_DIST
+				AND RUN4.TRV_TYPE_CD='0'
+				AND (NOW() - T4.UPD_DATETIME) < 60
+				AND T4.NEXT_STOPPOINT_ID NOT LIKE 'GR_%'
+				AND T4.PRV_STOPPOINT_ID NOT LIKE 'GR_%'
+			ORDER BY T4.HEADER_DIST ASC
+			LIMIT 1
+		)
+	)
+
+WHERE
+	TRV.VEH_ID=#{vehId}
