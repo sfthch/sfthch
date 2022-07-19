@@ -21,49 +21,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-VehicleDetail_getVehicleDetailStatus
+VehicleDetail_getCurrentStatus
 SELECT
-			a.VEH_ID 																				AS 'vehId',
-			ifnull(d.ACCUM_PSNGR_CNT, 0) 												AS PSNGR_CNT,
-			c.PSNGR_CAPA																		AS PSNGR_CAPA,
-			ROUND((4 * ifnull(d.ACCUM_PSNGR_CNT, 0) / c.PSNGR_CAPA), 1) 	AS PSNGR_RATIO,
-			ifnull(d.BATT_REM_AMT, 0) 														AS BATT_LV,
-			ifnull(c.BATT_CAPA, 100) 															AS BATT_CAPA,
-			ifnull(d.DOOR_OPEN_YN, '1') 												AS DOOR_OPEN_YN,
-			ifnull((
+			a.VEH_ID														AS 'vehId',
+			a.VEH_PLATE_NUM                                           		AS 'vehPlateNum',
+			b.MODEL_NUM 													AS 'vehNo',
+			IFNULL(g.LINE_ID, '')															AS 'lineId',
+			IFNULL(g.LINE_NM, '')															AS 'lineNm',
+			CONCAT(b.VEH_TYPE_NM, ' | ', a.VEH_ID) 	AS 'vehDesc',
+			IFNULL(a.VEH_STATE_CD, '1')								AS 'opStateCd',
+			(
 				SELECT common_detail_cd_nm
 				FROM tb_detailcode
-				WHERE  common_detail_cd = d.DOOR_OPEN_YN AND common_cd_id ='MON016'
-			), 'Door Close') 															AS DOOR_OPEN_STATUS,
-			ifnull(d.VEH_CURR_SPD, 0)  																	AS SPEED,
-			ifnull(ADAS_REAR_LDR, '00') 													AS ADAS_REAR_LDR,
-			ifnull(ADAS_INTRR_CAM_1, '00') 												AS ADAS_INTRR_CAM_1,
-			ifnull(ADAS_INTRR_CAM_2, '00') 												AS ADAS_INTRR_CAM_2,
-			ifnull(ADAS_INTRR_TEMPRT_SNSR, '00') 										AS ADAS_INTRR_TEMPRT_SNSR,
-			ifnull(ADAS_GNSS_STATUS, '00') 												AS ADAS_GNSS_STATUS,
-			ifnull(ADAS_WHEEL_SPD_SNSR_FL, '00') 									AS ADAS_WHEEL_SPD_SNSR_FL,
-			ifnull(ADAS_WHEEL_SPD_SNSR_FR, '00') 									AS ADAS_WHEEL_SPD_SNSR_FR,
-			ifnull(ADAS_WHEEL_SPD_SNSR_RL, '00') 									AS ADAS_WHEEL_SPD_SNSR_RL,
-			ifnull(ADAS_WHEEL_SPD_SNSR_RR, '00') 									AS ADAS_WHEEL_SPD_SNSR_RR,
-			ifnull(ADAS_SUSP_ROTATN_SNSR_F, '00') 									AS ADAS_SUSP_ROTATN_SNSR_F,
-			ifnull(ADAS_SUSP_ROTATN_SNSR_R, '00') 									AS ADAS_SUSP_ROTATN_SNSR_R,
-			ifnull(ADAS_FWD_LDR_L, '00') 													AS ADAS_FWD_LDR_L,
-			ifnull(ADAS_FWD_LDR_M, '00') 													AS ADAS_FWD_LDR_M,
-			ifnull(ADAS_FWD_LDR_R, '00') 													AS ADAS_FWD_LDR_R,
-			ifnull(ADAS_TRFSIGN_RECOG_CAM, '00') 									AS ADAS_TRFSIGN_RECOG_CAM,
-			ifnull(ADAS_EXTRR_TEMPRT_SNSR, '00') 										AS ADAS_EXTRR_TEMPRT_SNSR,
-			ifnull(ADAS_WIN_FOG_SNSR_1, '00') 											AS ADAS_WIN_FOG_SNSR_1,
-			ifnull(ADAS_WIN_FOG_SNSR_2, '00') 											AS ADAS_WIN_FOG_SNSR_2,
-			ifnull(ADAS_ODM_SNSR_FL, '00') 												AS ADAS_ODM_SNSR_FL,
-			ifnull(ADAS_ODM_SNSR_FR, '00') 												AS ADAS_ODM_SNSR_FR,
-			ifnull(ADAS_ODM_SNSR_RL, '00') 												AS ADAS_ODM_SNSR_RL,
-			ifnull(ADAS_ODM_SNSR_RR, '00') 												AS ADAS_ODM_SNSR_RR,
-			ifnull(ADAS_IMPACT_SNSR_F, '00') 											AS ADAS_IMPACT_SNSR_F,
-			ifnull(ADAS_IMPACT_SNSR_R, '00') 											AS ADAS_IMPACT_SNSR_R,
-			ifnull(ADAS_SUSP_HEIGHT_SNSR_LFT, '00') 								AS ADAS_SUSP_HEIGHT_SNSR_L,
-			ifnull(ADAS_SUSP_HEIGHT_SNSR_RGHT, '00') 								AS ADAS_SUSP_HEIGHT_SNSR_R
+				WHERE common_detail_cd = IFNULL(a.VEH_STATE_CD, '1')
+				AND common_cd_id ='VEH002'
+			) 																		AS 'opStateNm',
+			IFNULL(d.TRV_STATE_CD, '0') 												AS 'vehStateCd',
+			IFNULL((
+				SELECT common_detail_cd_nm
+				FROM tb_detailcode
+				WHERE common_detail_cd = d.TRV_STATE_CD
+				AND common_cd_id ='MON001'
+			), 'OFF')																		AS 'vehStateNm',
+			b.VEH_TYPE_NM 													AS 'vehType',
+			IFNULL(a.MNFCTUR_DATE, '') 								AS 'mnfcturYear',
+			IFNULL(a.VEH_PLATE_NUM, '') 								AS 'plateNo',
+			IFNULL(b.MODEL_NUM, '') 									AS 'modelNo',
+			c.GARAGE_ID														AS 'depotId',
+			c.GARAGE_NM 													AS 'depotNm',
+			IFNULL(d.TRV_TYPE_CD,'')													AS 'trvTypeCd',
+			IFNULL((
+				SELECT common_detail_cd_nm
+				FROM tb_detailcode
+				WHERE common_detail_cd = d.TRV_TYPE_CD
+				AND common_cd_id = 'MON015'
+			),'Undefined') 																		AS 'trvTypeNm',
+			h.STRM_URL                                                       AS 'strmUrl'
 		FROM tb_vehicle a
-		LEFT JOIN tb_connautovehstatus b ON a.VEH_ID = b.VEH_ID
-		LEFT JOIN tb_typeofveh c ON a.VEH_TYPE_ID = c.VEH_TYPE_ID
+		LEFT JOIN tb_typeofveh b ON a.VEH_TYPE_ID = b.VEH_TYPE_ID
+		LEFT JOIN tb_garage c ON a.GARAGE_ID = c.GARAGE_ID
 		LEFT JOIN tb_vehjrnyrunstatus d ON a.VEH_ID = d.VEH_ID
+		LEFT JOIN tb_jrnypattrn e ON d.JRNYPATTRN_ID = e.JRNYPATTRN_ID AND d.VER_ID = e.VER_ID
+		LEFT JOIN tb_route f ON e.ROUT_ID = f.ROUT_ID AND e.VER_ID = f.VER_ID
+		LEFT JOIN tb_line g ON g.LINE_ID = f.LINE_ID AND g.VER_ID = f.VER_ID
+		LEFT OUTER JOIN tb_camerastatus h ON a.VEH_ID = h.VEH_ID
 		WHERE a.VEH_ID = #{vehId}
