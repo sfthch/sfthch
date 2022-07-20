@@ -21,7 +21,53 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-139	테이블	변경	백종민	2022-07-19	회원(TBMSM001)	컬럼1개(회원탈퇴일시) 신규추가 및 컬럼순서변경
-140	테이블	변경	백종민	2022-07-19	회원이력(TBMSH001)	컬럼1개(회원탈퇴일시) 신규추가 및 컬럼순서변경
-회원이력	TBMSH001	001	회원탈퇴일시	MEMB_SIGNOUT_DTTM	33					일시TS3	TIMESTAMP(3)	2022.07.19	신규컬럼추가, 컬럼순서변경
-회원	TBMSM001	001	회원탈퇴일시	MEMB_SIGNOUT_DTTM	32					일시TS3	TIMESTAMP(3)	2022.07.19	신규컬럼추가, 컬럼순서변경
+정산	TBMSD126	126	지불승인금액	PAYM_APRV_AMT	20					금액N15	BIGINT(15)		
+정산	TBMSD126	126	지불부가가치세금액	PAYM_VAT_AMT	21					금액N15	BIGINT(15)	2022.07.20	신규컬럼추가
+정산	TBMSD126	126	지불요청금액	PAYM_RQST_AMT						금액N15	BIGINT(15)	2022.07.20	컬럼삭제
+정산	TBMSD126	126	지불상태코드	PAYM_STAT_CD	22			Not Null		지불상태코드	VARCHAR(10)		
+정산	TBMSD126	126	거래대사상태값	TR_RECON_RSLT_VAL	23					값V6	VARCHAR(6)		
+정산	TBMSD126	126	승인지연일수	APRV_DELY_DAYS	24					수N3	INT(3)	2022.07.20	신규컬럼추가
+정산	TBMSD126	126	정산예정일자	SETTM_SCDL_DATES	25					연월일V8	VARCHAR(8)		
+정산	TBMSD126	126	정산지연일수	SETTM_DELY_DAYS	26					수N3	INT(3)		
+정산	TBMSD126	126	정산대금지급일자	SETTM_MNPB_PYMN_DATES	27					연월일V8	VARCHAR(8)	2022.07.20	신규컬럼추가
+정산	TBMSD126	126	정산계정코드	SETTM_ACIT_CD	28					정산계정코드	VARCHAR(10)		
+정산	TBMSD126	126	정산결과코드	SETTM_RSLT_CD	29			Not Null		정산결과코드	VARCHAR(10)		
+정산	TBMSD126	126	생성자순번	CRTR_SQNO	30			Not Null		순번N15	BIGINT(15)		
+정산	TBMSD126	126	생성일시	CRET_DTTM	31			Not Null		일시TS3	TIMESTAMP(3)		
+정산	TBMSD126	126	수정자순번	MODFR_SQNO	32			Not Null		순번N15	BIGINT(15)		
+정산	TBMSD126	126	수정일시	ALTR_DTTM	33			Not Null		일시TS3	TIMESTAMP(3)		
+정산배분	TBMSD128	128	정산배분순번	SETTM_DTBT_SQNO	1	Y		Not Null		순번N15	BIGINT(15)		
+정산배분	TBMSD128	128	정산순번	SETTM_SQNO	2					순번N15	BIGINT(15)		
+정산배분	TBMSD128	128	대상모빌리티시스템코드	TRGT_MBLT_SYSTM_CD	3			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.07.20	속성및 컬럼명 변경
+정산배분	TBMSD128	128	대상제휴사코드	TRGT_AFFI_CD	4			Not Null		제휴사구분코드	VARCHAR(10)	2022.07.20	속성및 컬럼명 변경
+정산배분	TBMSD128	128	대상모빌리티서비스코드	TRGT_MBLT_SRVC_CD	5			Not Null		모빌리티서비스구분코드	VARCHAR(10)	2022.07.20	속성및 컬럼명 변경
+정산배분	TBMSD128	128	배분대상금액	DTBT_TRGT_AMT	6					금액N15	BIGINT(15)		
+정산배분	TBMSD128	128	배분대상부가가치세금액	DTBT_TRGT_VAT_AMT	7					금액N15	BIGINT(15)	2022.07.20	신규컬럼추가
+정산배분	TBMSD128	128	배분규칙ID	DTBT_RULE_ID	8					IDV20	VARCHAR(20)		
+정산배분	TBMSD128	128	배분율	DTBT_RT	9					율N6,3	DECIMAL(6,3)		
+정산배분	TBMSD128	128	배분금액	DTBT_AMT	10					금액N15	BIGINT(15)		
+정산배분	TBMSD128	128	배분부가가치세금액	DTBT_VAT_AMT	11					금액N15	BIGINT(15)	2022.07.20	신규컬럼추가
+정산배분	TBMSD128	128	정산일자	SETTM_DATES				Not Null		연월일V8	VARCHAR(8)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	정산구분코드	SETTM_CLSS_CD				Not Null		정산구분코드	VARCHAR(10)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	지불순번	PAYM_SQNO				Not Null		순번N15	BIGINT(15)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	지불항목ID	PAYM_ITM_ID						IDV20	VARCHAR(20)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	지불상품ID	PAYM_PROD_ID						IDV50	VARCHAR(50)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	수수료금액	FEE_AMT						금액N15	BIGINT(15)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	배분결과금액	DTBT_RSLT_AMT						금액N15	BIGINT(15)	2022.07.20	컬럼삭제
+정산배분	TBMSD128	128	생성자순번	CRTR_SQNO	12			Not Null		순번N15	BIGINT(15)		
+정산배분	TBMSD128	128	생성일시	CRET_DTTM	13			Not Null		일시TS3	TIMESTAMP(3)		
+정산배분	TBMSD128	128	수정자순번	MODFR_SQNO	14			Not Null		순번N15	BIGINT(15)		
+정산배분	TBMSD128	128	수정일시	ALTR_DTTM	15			Not Null		일시TS3	TIMESTAMP(3)		
+정산수수료계산	TBMSD129	129	수수료계산순번	FEE_CALC_SQNO	1	Y		Not Null		순번N15	BIGINT(15)		
+정산수수료계산	TBMSD129	129	정산순번	SETTM_SQNO	2					순번N15	BIGINT(15)		
+정산수수료계산	TBMSD129	129	정산배분순번	SETTM_DTBT_SQNO	3					순번N15	BIGINT(15)		
+정산수수료계산	TBMSD129	129	정산일자	SETTM_DATES				Not Null		연월일V8	VARCHAR(8)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	정산구분코드	SETTM_CLSS_CD				Not Null		정산구분코드	VARCHAR(10)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	지불순번	PAYM_SQNO				Not Null		순번N15	BIGINT(15)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	지불항목ID	PAYM_ITM_ID						IDV20	VARCHAR(20)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	지불상품ID	PAYM_PROD_ID						IDV50	VARCHAR(50)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD				Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	제휴사구분코드	AFFI_CLSS_CD				Not Null		제휴사구분코드	VARCHAR(10)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	모빌리티서비스구분코드	MBLT_SRVC_CLSS_CD				Not Null		모빌리티서비스구분코드	VARCHAR(10)	2022.07.20	컬럼삭제
+정산수수료계산	TBMSD129	129	대상금액	TRGT_AMT	4					금액N15	BIGINT(15)		
+정산수수료계산	TBMSD129	129	수수료항목ID	FEE_ITM_ID	5					IDV100	VARCHAR(100)	2022.07.20	도메인변경
