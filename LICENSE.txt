@@ -21,66 +21,106 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
--- 정류장 초기화
-DELETE FROM tb_vehiclejourneytimetabledetail
-DELETE FROM tb_stoppoint 
-DELETE FROM tb_stoppointhistory 
+
+-- 정류장 초기화 
+DELETE FROM mspdb.tb_vehiclejourneytimetabledetail;
+DELETE FROM mspdb.tb_vehiclejourneytimetabledetailhistory;
+DELETE FROM mspdb.tb_stoppoint;
+DELETE FROM mspdb.tb_stoppointhistory;
 
 -- Route point 최기화
-DELETE FROM tb_linkonroute
-DELETE FROM tb_routelink
-DELETE FROM tb_routepoint
-DELETE FROM tb_routepointhistory
+DELETE FROM mspdb.tb_linkonroute;
+DELETE FROM mspdb.tb_routelink;
+DELETE FROM mspdb.tb_routepoint;
+DELETE FROM mspdb.tb_routepointhistory;
 
 -- line / 배차 초기화
-delete from tb_vehiclejourneytimetable
-delete from tb_vehiclejourneytimetablehistory
-delete from tb_stopinjrnypattrn
-delete from tb_jrnypattrn
-delete from tb_jrnypattrnhistory 
-delete from tb_route
-delete from tb_routehistory
-delete from tb_vehiclejourneyplanmaas
-delete from tb_vehiclejourneyplanmaashistory
-delete from tb_line
-delete from tb_trvinfoforveh
-delete from tb_planningfrequency
+DELETE FROM mspdb.tb_vehiclejourneytimetable;
+DELETE FROM mspdb.tb_vehiclejourneytimetablehistory;
+DELETE FROM mspdb.tb_stopinjrnypattrn;
+DELETE FROM mspdb.tb_jrnypattrn;
+DELETE FROM mspdb.tb_jrnypattrnhistory;
+DELETE FROM mspdb.tb_route;
+DELETE FROM mspdb.tb_routehistory;
+DELETE FROM mspdb.tb_vehiclejourneyplanmaas;
+DELETE FROM mspdb.tb_vehiclejourneyplanmaashistory;
+DELETE FROM mspdb.tb_line;
+DELETE FROM mspdb.tb_trvinfoforveh;
+DELETE FROM mspdb.tb_planningfrequency;
 
 -- 차량
-delete from tb_logicunitstatus
+DELETE FROM mspdb.tb_logicunitstatus;
 
 
-delete from tb_alarm
-delete from tb_mobileticketing
-delete from tb_planningassignjourneyrun
-delete from tb_planningfrequency
-delete from tb_planningfrequencyhistory
-delete from tb_planninglinejourneyrun
-delete from tb_planningresultexporthistory
-delete from tb_planningtraveltime
-delete from tb_planningtraveltimehistory
-delete from tb_resultjourneyrun
-delete from tb_vehiclejourneyplanmaas
-delete from tb_vehiclejourneyplanmaashistory 
-delete from tb_vehiclelocation
-delete from tb_vehiclelocationhistory
+DELETE FROM mspdb.tb_alarm;
+DELETE FROM mspdb.tb_mobileticketing;
+DELETE FROM mspdb.tb_planningassignjourneyrun;
+DELETE FROM mspdb.tb_planningfrequency;
+DELETE FROM mspdb.tb_planningfrequencyhistory;
+DELETE FROM mspdb.tb_planninglinejourneyrun;
+DELETE FROM mspdb.tb_planningresultexporthistory;
+DELETE FROM mspdb.tb_planningtraveltime;
+DELETE FROM mspdb.tb_planningtraveltimehistory;
+DELETE FROM mspdb.tb_resultjourneyrun;
+DELETE FROM mspdb.tb_vehiclejourneyplanmaas;
+DELETE FROM mspdb.tb_vehiclejourneyplanmaashistory;
+DELETE FROM mspdb.tb_vehiclelocation;
+DELETE FROM mspdb.tb_vehiclelocationhistory;
 
-delete from tb_logicunitdspext
-delete from tb_logicunit 
-delete from tb_logicunithistory 
-delete from tb_vehjrnyrunstatus
-delete from tb_vehloceventhist
-delete from tb_vehicle
-delete from tb_vehiclehistory
+DELETE FROM mspdb.tb_logicunitdspext;
+DELETE FROM mspdb.tb_logicunit;
+DELETE FROM mspdb.tb_logicunithistory;
+DELETE FROM mspdb.tb_vehjrnyrunstatus;
+DELETE FROM mspdb.tb_vehiclejourneyrunstatushistory
+DELETE FROM mspdb.tb_vehloceventhist;
+DELETE FROM mspdb.tb_vehicle;
+DELETE FROM mspdb.tb_vehiclehistory;
 
 -- 차고지
-delete from tb_garage
-delete from tb_garagehistory
+DELETE FROM mspdb.tb_garage;
+DELETE FROM mspdb.tb_garagehistory;
+
+-- Link shape
+DELETE FROM tb_timingpoint 
+DELETE FROM tb_timingpointhistory 
+DELETE FROM tb_timinglink 
+DELETE FROM tb_timinglinkhistory 
+DELETE FROM tb_timingpoly 
+DELETE FROM tb_timingpolyhistory 
+DELETE FROM tb_timinglinkshape 
+DELETE FROM tb_timinglinkshapehistory 
+DELETE FROM tb_timingpolyhistory 
 
 
--- 참조하고 있는 전체 Table 목록
--- select * from information_schema.KEY_COLUMN_USAGE kcu 
--- where REFERENCED_TABLE_NAME = 'tb_vehicle'
+-- Seq 데이터 초기화
+update tb_idseq set ID_SEQ = 0 
+where ID_TPCD in 
+(
+'TL',
+'AL',
+'SR',
+'EC',
+'ES',
+'GR',
+'TP',
+'LE',
+'JP',
+'RT',
+'FC',
+'DR',
+'VH',
+'SP',
+'RL',
+'RP',
+'TG',
+'TT'
+)
+and SITE_ID = 'ST_COM_0000002'
+
+
+-- 미사용 테이블
+DROP TABLE TB_VEHICLELOCATION
+DROP TABLE TB_VEHICLELOCATIONHISTORY
 
 
 
