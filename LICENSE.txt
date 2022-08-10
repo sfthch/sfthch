@@ -23,111 +23,16 @@ THE SOFTWARE.
 
 
 
--- 정류장 초기화 
-DELETE FROM mspdb.tb_vehiclejourneytimetabledetail;
-DELETE FROM mspdb.tb_vehiclejourneytimetabledetailhistory;
-DELETE FROM mspdb.tb_stoppoint;
-DELETE FROM mspdb.tb_stoppointhistory;
+SOURCE SYSTEM : 개발DB
+DESTINATION(TARGET) SYSTEM :  운영DB
+이관대상 테이블 : tbmsd009
+상세조건(쿼리)
+대상 : SELECT * FROM tbmsd009 WHERE AFFI_CLSS_CD IN ('01','03')
+건수
+AFFI_CLSS_CD = '01' => 21건
+AFFI_CLSS_CD = '03' => 42건
+이관사유 : 해당 데이터는 통합 모빌리티 FAQ,  차량공유FAQ 데이터로써 제휴사와 연계를 통해 데이터를 적재하지 않고, 직접 생성하거나 오프라인으로 IMPORT 를 하는 데이터이기에 개발데이터를 운영으로 이관요청 드립니다. 참고로 개발 db에는 AFFI_CLSS_CD = '02' 인 나인투원 데이터도 있지만, 이는 운영에서 연계를 통해 생성될 것 이므로 이관대상에서 제외시켰습니다.
 
--- Route point 최기화
-DELETE FROM mspdb.tb_linkonroute;
-DELETE FROM mspdb.tb_routelink;
-DELETE FROM mspdb.tb_routepoint;
-DELETE FROM mspdb.tb_routepointhistory;
-
--- line / 배차 초기화
-DELETE FROM mspdb.tb_vehiclejourneytimetable;
-DELETE FROM mspdb.tb_vehiclejourneytimetablehistory;
-DELETE FROM mspdb.tb_stopinjrnypattrn;
-DELETE FROM mspdb.tb_jrnypattrn;
-DELETE FROM mspdb.tb_jrnypattrnhistory;
-DELETE FROM mspdb.tb_route;
-DELETE FROM mspdb.tb_routehistory;
-DELETE FROM mspdb.tb_vehiclejourneyplanmaas;
-DELETE FROM mspdb.tb_vehiclejourneyplanmaashistory;
-DELETE FROM mspdb.tb_line;
-DELETE FROM mspdb.tb_trvinfoforveh;
-DELETE FROM mspdb.tb_planningfrequency;
-
--- 차량
-DELETE FROM mspdb.tb_logicunitstatus;
-
-
-DELETE FROM mspdb.tb_alarm;
-DELETE FROM mspdb.tb_mobileticketing;
-DELETE FROM mspdb.tb_planningassignjourneyrun;
-DELETE FROM mspdb.tb_planningfrequency;
-DELETE FROM mspdb.tb_planningfrequencyhistory;
-DELETE FROM mspdb.tb_planninglinejourneyrun;
-DELETE FROM mspdb.tb_planningresultexporthistory;
-DELETE FROM mspdb.tb_planningtraveltime;
-DELETE FROM mspdb.tb_planningtraveltimehistory;
-DELETE FROM mspdb.tb_resultjourneyrun;
-DELETE FROM mspdb.tb_vehiclejourneyplanmaas;
-DELETE FROM mspdb.tb_vehiclejourneyplanmaashistory;
-DELETE FROM mspdb.tb_vehiclelocation;
-DELETE FROM mspdb.tb_vehiclelocationhistory;
-
-DELETE FROM mspdb.tb_logicunitdspext;
-DELETE FROM mspdb.tb_logicunit;
-DELETE FROM mspdb.tb_logicunithistory;
-DELETE FROM mspdb.tb_vehjrnyrunstatus;
-DELETE FROM mspdb.tb_vehiclejourneyrunstatushistory
-DELETE FROM mspdb.tb_vehloceventhist;
-DELETE FROM mspdb.tb_vehicle;
-DELETE FROM mspdb.tb_vehiclehistory;
-
--- 차고지
-DELETE FROM mspdb.tb_garage;
-DELETE FROM mspdb.tb_garagehistory;
-
--- Link shape
-DELETE FROM tb_timingpoint 
-DELETE FROM tb_timingpointhistory 
-DELETE FROM tb_timinglink 
-DELETE FROM tb_timinglinkhistory 
-DELETE FROM tb_timingpoly 
-DELETE FROM tb_timingpolyhistory 
-DELETE FROM tb_timinglinkshape 
-DELETE FROM tb_timinglinkshapehistory 
-DELETE FROM tb_timingpolyhistory 
-
-
--- Seq 데이터 초기화
-update tb_idseq set ID_SEQ = 0 
-where ID_TPCD in 
-(
-'TL',
-'AL',
-'SR',
-'EC',
-'ES',
-'GR',
-'TP',
-'LE',
-'JP',
-'RT',
-'FC',
-'DR',
-'VH',
-'SP',
-'RL',
-'RP',
-'TG',
-'TT'
-)
-and SITE_ID = 'ST_COM_0000002'
-
--- 충전소
-delete from tb_evchargerstatushistory
-delete from tb_evchargerstatus
-delete from tb_evcharger
-delete from tb_evchargingstation
-delete from tb_evchargcmpny
-
--- 미사용 테이블
-DROP TABLE TB_VEHICLELOCATION
-DROP TABLE TB_VEHICLELOCATIONHISTORY
 
 
 
