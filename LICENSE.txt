@@ -23,28 +23,7 @@ THE SOFTWARE.
 
 
 
-INSERT INTO 'tb_user' ('USER_ID', 'NOTF_MEDIA_TPCD', 'USER_NM', 'PASSWD', 'EMAIL', 'TELNO', 'USER_DESC',
-
-'REG_DT', 'LAST_PASSWD_CHG_DT', 'USER_PHOTO', 'USE_YN_CD', 'LANG_TPCD', 'SITE_ID', 'OPERR_ID', 'USER_TPCD',
-
-'VEH_ID', 'LOGIN_FAIL_CNT')
-
-VALUES ('MasterAdmin', '', '최종 Admin', '8111010fe4762abddb6370b7e21ccd38425c053b13d8c30311bd31a7e836020b009b216dbae769c6', '', '', 'System Master',
-
-'20200101', '20200721', NULL, '0', '1', 'ST_COM_0000002', NULL, '0', NULL, 0);
-
-
-INSERT INTO 'tb_userrole' ('ROLE_ID', 'USER_ID') VALUES ('1', 'MasterAdmin');
-
-INSERT INTO 'tb_userrole' ('ROLE_ID', 'USER_ID') VALUES ('2', 'MasterAdmin');
-
-INSERT INTO 'tb_userrole' ('ROLE_ID', 'USER_ID') VALUES ('3', 'MasterAdmin');
-
-INSERT INTO 'tb_userrole' ('ROLE_ID', 'USER_ID') VALUES ('4', 'MasterAdmin');
-
-INSERT INTO 'tb_userrole' ('ROLE_ID', 'USER_ID') VALUES ('8', 'MasterAdmin');
-
-INSERT INTO `tb_userrole` (`ROLE_ID`, `USER_ID`) VALUES ('10', 'MasterAdmin');
+update tb_systemparam set sys_param_val = '' where  sys_param_id= 'SR_MAS_0000024'
 
 
 
