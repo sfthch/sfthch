@@ -20,23 +20,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-선수금원장내역	TBMSD502	502	선수금원장이력순번	ADV_LDGR_PRHS_SQNO	1	Y		Not Null		순번N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	처리시간	PROS_DTTM	2			Not Null		일시TS3	TIMESTAMP(3)	2022.08.19	신규컬럼추가 및 순서변경
-선수금원장내역	TBMSD502	502	거래ID	TR_ID	3			Not Null		IDV30	VARCHAR(30)		
-선수금원장내역	TBMSD502	502	정산대상ID	SETTM_TRGT_ID	4			Not Null		IDV50	VARCHAR(50)		
-선수금원장내역	TBMSD502	502	회원순번	MEMB_SQNO	5			Not Null		순번N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	지불순번	PAYM_SQNO	6			Not Null		순번N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	원지불순번	ORI_PAYM_SQNO	7					순번N15	BIGINT(15)	2022.08.19	Not null -> nullable 로 변경
-선수금원장내역	TBMSD502	502	상품구매순번	PROD_PUCH_SQNO	8			Not Null		순번N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	상품순번	PROD_SQNO	9			Not Null		순번N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	상품코드	PROD_CD	10			Not Null		상품코드	VARCHAR(10)		
-선수금원장내역	TBMSD502	502	상품명	PROD_NM	11					명V100	VARCHAR(100)		
-선수금원장내역	TBMSD502	502	상품금액	PROD_AMT	12			Not Null	0	금액N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	상품상태코드	PROD_STAT_CD	13			Not Null		상품상태코드	VARCHAR(10)		
-선수금원장내역	TBMSD502	502	처리구분코드	PROS_CLSS_CD	14			Not Null		처리구분코드	VARCHAR(10)		
-선수금원장내역	TBMSD502	502	처리사유코드	PROS_RESN_CD	15			Not Null		처리사유코드	VARCHAR(10)		
-선수금원장내역	TBMSD502	502	처리수	PROS_CNT	16			Not Null	0	수N2	INT(2)		
-선수금원장내역	TBMSD502	502	처리금액	PROS_AMT	17			Not Null	0	금액N15	BIGINT(15)		
-선수금원장내역	TBMSD502	502	예약순번	RSEV_SQNO	18					순번N15	BIGINT(15)	2022.08.19	신규컬럼추가 및 순서변경
+PM이용내역	TBMSD111	111	예약일시	RSEV_STRT_DTTM	7					일시TS3	TIMESTAMP(3)		
+PM이용내역	TBMSD111	111	이용종료일시	UTLZ_END_DTTM	8					일시TS3	TIMESTAMP(3)	2022.08.22	신규컬럼 및 컬럼순서변경
+
+수요응답승차시간	TBDRD003	003	승차경로내용	RIDE_PATH_CTNT	12					내용CL	LONGTEXT	2022.08.22	테이블 삭제
+PM이용내역	TBMSD111	111	이용종료일시	UTLZ_END_DTTM	8					일시TS3	TIMESTAMP(3)	2022.08.22	신규컬럼 및 컬럼순서변경
+파티션백업삭제	TBMSD317	317	파티션백업순번	PTTN_BCKP_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	파티션테이블순번	PTTN_TBL_SQNO	2			Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	파티션백업시작일시	PTTN_BCKP_STRT_DTTM	3			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	파티션백업종료일시	PTTN_BCKP_END_DTTM	4			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	파티션백업상태코드	PTTN_BCKP_STAT_CD	5			Not Null		파티션백업상태코드	VARCHAR(10)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	파티션백업수	PTTN_BCKP_CNT	6			Not Null	0	수N10	INT(10)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	생성자순번	CRTR_SQNO	7			Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	생성일시	CRET_DTTM	8			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	수정자순번	MODFR_SQNO	9			Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션백업삭제	TBMSD317	317	수정일시	ALTR_DTTM	10			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션테이블순번	PTTN_TBL_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션테이블ID	PTTN_TBL_ID	2			Not Null		IDV10	VARCHAR(10)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션테이블명	PTTN_TBL_NM	3			Not Null		명V50	VARCHAR(50)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션백업테이블ID	PTTN_BCKP_TBL_ID	4			Not Null		IDV10	VARCHAR(10)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션백업테이블명	PTTN_BCKP_TBL_NM	5			Not Null		명V50	VARCHAR(50)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션키컬럼명	PTTN_KEY_CLMN_NM	6			Not Null		명V50	VARCHAR(50)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션시작일자	PTTN_STRT_DATES	7			Not Null		연월일V8	VARCHAR(8)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션기간값	PTTN_TERM_VAL	8			Not Null		값V10	VARCHAR(10)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	파티션보관주기값	PTTN_KPNG_CYCL_VAL	9			Not Null		값V10	VARCHAR(10)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	사용여부	USE_YN	10			Not Null	N'	여부	CHAR(1)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	생성자순번	CRTR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	생성일시	CRET_DTTM	12			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	수정자순번	MODFR_SQNO	13			Not Null		순번N15	BIGINT(15)	2022.08.22	테이블 추가
+파티션관리테이블	TBMSM317	317	수정일시	ALTR_DTTM	14			Not Null		일시TS3	TIMESTAMP(3)	2022.08.22	테이블 추가
+
 
 
