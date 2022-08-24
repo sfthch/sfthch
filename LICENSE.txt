@@ -20,61 +20,42 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-예약경로	TBMSD204	204	경로구간수	PATH_SECT_CNT	14				0	수N3	INT(3)	2022.08.23	도메인변경 (수N15 > 수N3), Default 0
-예약경로	TBMSD204	204	예약경로구간수	RSEV_PATH_SECT_CNT	15				0	수N3	INT(3)	2022.08.23	컬럼추가
-예약경로	TBMSD204	204	미확인예약경로구간수	UIDNT_RSEV_PATH_SECT_CNT	16				0	수N3	INT(3)	2022.08.23	컬럼추가
-예약경로	TBMSD204	204	자율주행예약경로구간수	AUTODR_RSEV_PATH_SECT_CNT	17				0	수N3	INT(3)	2022.08.23	컬럼추가
-트래킹경로	TBMSD234	234	경로구간수	PATH_SECT_CNT	13				0	수N3	INT(3)	2022.08.23	도메인변경 (수N15 > 수N3), Default 0
-거래원장내역	TBMSD501	501	거래원장내역순번	TR_LDGR_LIST_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.23	속성및 컬럼명 변경
-거래원장이력	TBMSH501	501	거래원장이력순번	TR_LDGR_PRHS_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	거래원장순번	TR_LDGR_SQNO	2			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	거래ID	TR_ID	3			Not Null		IDV30	VARCHAR(30)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	회원순번	MEMB_SQNO	4			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불수단순번	PAYM_MEAN_SQNO	5			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산구분코드	SETTM_CLSS_CD	6			Not Null		정산구분코드	VARCHAR(10)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산대상ID	SETTM_TRGT_ID	7					IDV50	VARCHAR(50)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불승인일시	PAYM_APRV_DTTM	8					일시TS3	TIMESTAMP(3)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불승인번호값	PAYM_APRV_NO_VAL	9					값V50	VARCHAR(50)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불승인금액	PAYM_APRV_AMT	10			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불취소금액	PAYM_CNCL_AMT	11			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	지불취소수	PAYM_CNCL_CNT	12			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	최종취소일자	LSTTM_CNCL_DATES	13					연월일V8	VARCHAR(8)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	최종승인금액	LSTTM_APRV_AMT	14			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	최종정산일자	LSTTM_SETTM_DATES	15					연월일V8	VARCHAR(8)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산금액	SETTM_AMT	16			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산부가가치세	SETTM_VAT	17			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산수수료금액	SETTM_FEE_AMT	18			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	미정산금액	NTPD_SETTM_AMT	19			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	미정산부가가치세	UNSETTM_VAT	20			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	미정산수수료금액	UNSETTM_FEE_AMT	21			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	거래상태코드	TR_STAT_CD	22			Not Null		거래상태코드	VARCHAR(10)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	정산결과코드	SETTM_RSLT_CD	23			Not Null		정산결과코드	VARCHAR(10)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	거래수	TR_CNT	24			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	최종지불순번	LSTTM_PAYM_SQNO	25			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	생성자순번	CRTR_SQNO	26			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	생성일시	CRET_DTTM	27			Not Null		일시TS3	TIMESTAMP(3)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	수정자순번	MODFR_SQNO	28			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-거래원장이력	TBMSH501	501	수정일시	ALTR_DTTM	29			Not Null		일시TS3	TIMESTAMP(3)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	선수금원장이력순번	ADV_LDGR_PRHS_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	선수금원장순번	ADV_LDGR_SQNO	1			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	거래원장순번	TR_LDGR_SQNO	2			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	거래ID	TR_ID	3			Not Null		IDV30	VARCHAR(30)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	회원순번	MEMB_SQNO	4			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	정산대상ID	SETTM_TRGT_ID	5					IDV50	VARCHAR(50)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	입고일자	WRHS_DATES	6			Not Null		연월일V8	VARCHAR(8)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	상품코드	PROD_CD	7			Not Null		상품코드	VARCHAR(10)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	상품명	PROD_NM	8					명V100	VARCHAR(100)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	상품금액	PROD_AMT	9			Not Null		금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	입고상품수	WRHS_PROD_CNT	10			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	입고금액	WRHS_AMT	11			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	최종출고일	LSTTM_TKWR_DATES	12					연월일V8	VARCHAR(8)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	출고수	TKWR_CNT	13			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	출고금액	TKWR_AMT	14			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	출고상품수	TKWR_PROD_CNT	15			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	잔고금액	BAL_AMT	16			Not Null	0	금액N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	상품잔고수	PROD_BAL_CNT	17			Not Null	0	수N2	INT(2)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	잔고상태코드	BAL_STAT_CD	18			Not Null		잔고상태코드	VARCHAR(10)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	생성자순번	CRTR_SQNO	19			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	생성일시	CRET_DTTM	20			Not Null		일시TS3	TIMESTAMP(3)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	수정자순번	MODFR_SQNO	21			Not Null		순번N15	BIGINT(15)	2022.08.23	신규테이블 생성
-선수금원장이력	TBMSH502	502	수정일시	ALTR_DTTM	22			Not Null		일시TS3	TIMESTAMP(3)	2022.08.23	신규테이블 생성
+예약경로미완료거래	TBMSD208	208	미완료거래순번	NTFN_TR_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	경로순번	PATH_SQNO	2			Not Null		순번N20	BIGINT(20)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	경로구간순번	PATH_SECT_SQNO	3			Not Null		순번N20	BIGINT(20)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간예약순번	SECT_RSEV_SQNO	4			Not Null		순번N15	BIGINT(15)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	회원순번	MEMB_SQNO	5			Not Null		순번N15	BIGINT(15)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	6			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	모빌리티서비스구분코드	MBLT_SRVC_CLSS_CD	7			Not Null		모빌리티서비스구분코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	제휴사구분코드	AFFI_CLSS_CD	8			Not Null		제휴사구분코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	통합예약구분코드	INTG_RSEV_CLSS_CD	9			Not Null		통합예약구분코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	경로상태코드	PATH_STAT_CD	10			Not Null		경로상태코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간이용구분코드	SECT_UTLZ_CLSS_CD	11			Not Null		구간이용구분코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약상태코드	RSEV_STAT_CD	12			Not Null		예약상태코드	VARCHAR(10)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	출발지명	DPRPL_NM	13					명V100	VARCHAR(100)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	도착지명	DSTN_NM	14					명V100	VARCHAR(100)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	출발일시	DPRTR_DTTM	15					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	도착일시	ARRV_DTTM	16					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간출발지명	SECT_DPRPL_NM	17					명V100	VARCHAR(100)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간도착지명	SECT_DSTN_NM	18					명V100	VARCHAR(100)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간이용차량명	SECT_UTLZ_VHCL_NM	19					명V50	VARCHAR(50)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간출발일시	SECT_DPRTR_DTTM	20					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	구간도착일시	SECT_ARRV_DTTM	21					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	통합예약일시	INTG_RSEV_DTTM	22					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	통합예약취소일시	INTG_RSEV_CNCL_DTTM	23					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	경로구간수	PATH_SECT_CNT	24				0	수N3	INT(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약경로구간수	RSEV_PATH_SECT_CNT	25				0	수N3	INT(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	미확인예약경로구간수	UIDNT_RSEV_PATH_SECT_CNT	26				0	수N3	INT(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	자율주행예약경로구간수	AUTODR_RSEV_PATH_SECT_CNT	27				0	수N3	INT(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약요청일시	RSEV_RQST_DTTM	28					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약시작일시	RSEV_STRT_DTTM	29					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약종료일시	RSEV_END_DTTM	30					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	예약취소일시	RSEV_CNCL_DTTM	31					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	이용시작일시	UTLZ_STRT_DTTM	32					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	이용종료일시	UTLZ_END_DTTM	33					일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	완료여부	CMPT_YN	34					여부	CHAR(1)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	생성자순번	CRTR_SQNO	35			Not Null		순번N15	BIGINT(15)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	생성일시	CRET_DTTM	36			Not Null		일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	수정자순번	MODFR_SQNO	37			Not Null		순번N15	BIGINT(15)	2022.08.24	신규 테이블
+예약경로미완료거래	TBMSD208	208	수정일시	ALTR_DTTM	38			Not Null		일시TS3	TIMESTAMP(3)	2022.08.24	신규 테이블
+
