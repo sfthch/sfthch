@@ -20,4 +20,70 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-najongdae
+delete from tb_rolehistory;
+delete from tb_role;
+INSERT INTO tb_role (ROLE_ID,ROLE_NM,ROLE_DESC,MNU_AUTH,MAIN_PAGE_URL) VALUES
+	 ('1','ROLE_SYSTEM_ADMIN','admin','All','/dtmng'),
+	 ('10','ROLE_LGCNS_ADMIN','lgcns admin rolee','All',''),
+	 ('2','ROLE_MONITORING_STAFF','Monitoring','Monitoring','/mon'),
+	 ('3','ROLE_DATA_MANAGING_STAFF','Data managing','Dispatch, Report','/dtmng'),
+	 ('4','ROLE_DASHBOARD','Only for Dashboard','Dashboard','/dshbrd'),
+	 ('5','ROLE_FIELD_ENGINEER','field engineer','Dispatch, Report, Monitoring, Dashboard','/mon/mobile'),
+	 ('6','ROLE_3DMONITORING_STAFF','3d Monitoring Staff','','/'),
+	 ('7','ROLE_MOBILE_USER','mobile user','','/mobile'),
+	 ('8','ROLE_REPLAY','Replay','Replay','/replay'),
+	 ('9','ROLE_VIDEOCALL','video call role of vheicle','','/videocall');
+
+
+delete from tb_rolemenu;
+INSERT INTO tb_rolemenu (MNU_ID,ROLE_ID,BTTN_AUTH) VALUES
+	 ('1','1','111'),
+	 ('2','1','111'),
+	 ('3','1','111'),
+	 ('3','3','110'),
+	 ('3','5','000'),
+	 ('4','1','111'),
+	 ('4','3','110'),
+	 ('4','5','110'),
+	 ('5','1','111'),
+	 ('6','1','111');
+	 ('6','2','111'),
+	 ('6','5','000'),
+	 ('7','1','111'),
+	 ('7','4','111'),
+	 ('7','5','000'),
+	 ('8','1','111'),
+	 ('8','8','000');
+
+delete from tb_userrolehistory;
+delete from tb_userrole;
+INSERT INTO tb_userrole (ROLE_ID,USER_ID) VALUES
+	 ('1','MasterAdmin'),
+	 ('10','MasterAdmin'),
+	 ('2','MasterAdmin'),
+	 ('3','MasterAdmin'),
+	 ('4','MasterAdmin'),
+	 ('8','MasterAdmin'),
+	 ('4','dashboard'),
+	 ('1','dtmng'),
+	 ('2','dtmng'),
+	 ('3','dtmng');
+	 ('4','dtmng'),
+	 ('8','dtmng'),
+	 ('1','minjaehoon'),
+	 ('2','minjaehoon'),
+	 ('3','minjaehoon'),
+	 ('4','minjaehoon'),
+	 ('8','minjaehoon'),
+	 ('2','monitoring'),
+	 ('3','skleecns'),
+	 ('1','tester');
+	 ('2','tester'),
+	 ('3','tester'),
+	 ('4','tester'),
+	 ('8','tester'),
+	 ('1','tester2'),
+	 ('2','tester2'),
+	 ('3','tester2'),
+	 ('4','tester2'),
+	 ('8','tester2');
