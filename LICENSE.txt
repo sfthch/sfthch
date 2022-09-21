@@ -20,27 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-"select batchexechistory.batch_exec_sqno
-     , batchexechistory.batch_nm
-     , batchexechistory.batch_strt_dttm
-     , batchexechistory.batch_end_dttm
-     , batchexechistory.batch_exec_rslt_val
-     , batchexechistory.batch_exec_mistk_ctnt
-     , batchinfo.batch_systm_cd
-     , batchinfo.mblt_systm_clss_cd
-     , batchinfo.batch_exec_cycl_val
-  from tbmsd319 batchexechistory 
-  inner join tbmsm319 batchinfo 
-    on (batchexechistory.batch_nm=batchinfo.batch_nm)
- where batchexechistory.batch_strt_dttm >= #{fromDates}
-   and batchexechistory.batch_strt_dttm <= #{toDates} 
-   and batchinfo.batch_systm_cd=#{batchSystmCd}
-   and batchinfo.mblt_systm_clss_cd=#{mbltSystmClssCd} 
-   and batchexechistory.batch_nm like '%#{batchNm}%'
-   and batchexechistory.batch_exec_rslt_val like '%#{batchExecRsltVal}%'
- order by batchexechistory.batch_exec_sqno desc "	"#{fromDates} : 2022-09-02 00:00:00.000 (필수)
-#{toDates} : 2022-09-16 23:59:59.000 (필수)
-#{batchSystmCd} : 01 (옵션)
-#{mbltSystmClssCd} : 07 (옵션)
-#{batchNm} : MemberScheduler (옵션)
-#{batchExecRsltVal} : 성공 (옵션)"
+alter table TB_OPERDAYHISTORY drop PRMIARY
+
+update tb_netver set use_yn = '1' where site_id = 'ST_COM_0000002';
+
+update tb_netver set use_yn = '0', ver_nm = '세종자율주행' where site_id = 'ST_COM_0000002' and ver_id = 'NV_SJA_0000002'
