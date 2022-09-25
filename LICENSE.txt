@@ -20,8 +20,52 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-alter table TB_OPERDAYHISTORY drop PRMIARY
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Ready', 'Ready', 0, 0, 0)
 
-update tb_netver set use_yn = '1' where site_id = 'ST_COM_0000002';
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Ready', '대기중', 1, 0, 0)
 
-update tb_netver set use_yn = '0', ver_nm = '세종자율주행' where site_id = 'ST_COM_0000002' and ver_id = 'NV_SJA_0000002'
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV In Use', 'In Use', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV In Use', '충전중', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Complete', 'Completed', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Complete', ' 충전완료', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Abnormal', 'OutofService', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Abnormal', ' 고장점검', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Unknown', 'Unknown', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Unknown', ' 상태미확인', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Not Usable', 'NotUsable', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Not Usable', ' 최대전력초과_사용불가', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV No Data', 'No Data', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV No Data', '상태미수신', 1, 0, 0)
+
+ 
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Charger Status', 'No Data', 0, 0, 0)
+
+insert into tb_langmsgset  (msg_cd, msg_desc, lang_tpcd, msg_tpcd, USE_YN_CD) values ( 'EV Charger Status', '충전기 상태', 1, 0, 0)
+
+ 
+
+update tb_menu set mnu_nm = 'Monitoring' where mnu_id = 6 and mnu_url = '/mon'
