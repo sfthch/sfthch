@@ -20,4 +20,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-SET @@SQL_MODE='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+181	테이블	변경	백종민	2022-10-11	오류발생내역(TBMSD090)	신규테이블생성, System Management에 추가
+182	테이블	변경	백종민	2022-10-11	오류조치내역(TBMSD091)	신규테이블생성, System Management에 추가
+183	테이블	변경	백종민	2022-10-11	배치실행현황(TBMOM001)	신규테이블생성, ERD Diagram 추가(monitoring)
+184	테이블	변경	백종민	2022-10-11	시스템오류현황(TBMOM002)	신규테이블생성, ERD Diagram 추가(monitoring)
+185	테이블	변경	백종민	2022-10-11	회원현황(TBMOM011)	신규테이블생성, ERD Diagram 추가(monitoring)
+186	테이블	변경	백종민	2022-10-11	공지사항현황(TBMOM012)	신규테이블생성, ERD Diagram 추가(monitoring)
+187	테이블	변경	백종민	2022-10-11	민원처리현황(TBMOM013)	신규테이블생성, ERD Diagram 추가(monitoring)
+188	테이블	변경	백종민	2022-10-11	민원미완료현황(TBMOM014)	신규테이블생성, ERD Diagram 추가(monitoring)
+189	테이블	변경	백종민	2022-10-11	차량현황(TBMOM021)	신규테이블생성, ERD Diagram 추가(monitoring)
+190	테이블	변경	백종민	2022-10-11	대여소차량현황(TBMOM022)	신규테이블생성, ERD Diagram 추가(monitoring)
+191	테이블	변경	백종민	2022-10-11	예약현황(TBMOM031)	신규테이블생성, ERD Diagram 추가(monitoring)
+192	테이블	변경	백종민	2022-10-11	시간대별예약현황(TBMOM032)	신규테이블생성, ERD Diagram 추가(monitoring)
+193	테이블	변경	백종민	2022-10-11	시간대별결제금액현황(TBMOM041)	신규테이블생성, ERD Diagram 추가(monitoring)
+194	테이블	변경	백종민	2022-10-11	시간대별상품사용현황(TBMOM042)	신규테이블생성, ERD Diagram 추가(monitoring)
