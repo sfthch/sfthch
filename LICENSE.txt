@@ -21,9 +21,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-회원의 평가항목 메시지를 관리
-통합모빌리티 센터시스템에서 사용하는 공용파라미터 정보를 관리
-파티션대상 정보를 관리
-통합모빌리티 시스템의 배치정보를 관리
+시험 및 운영을 위해 사용자등록 관리
+실행된 알림Task를 관리
+센터시스템의 일괄처리를 위해 사용하는 파라미터정보를 관리
+
 
 
