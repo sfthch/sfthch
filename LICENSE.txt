@@ -20,9 +20,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+공지사항	TBMSD008	008	최상위팝업표출여부	HGHS_POPP_DSPY_YN	13			Not Null	'N'	여부	CHAR(1)	2022.10.12	컬럼추가 및 순서변경
 
-공유차량의 반납사진정보를 관리
-파티션 삭제 및 백업내역을 관리
-통합모빌리티 시스템의 배치수행이력을 관리
+앱운영서비스	TBMSM320	320	앱운영서비스순번	APP_OP_SRVC_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	모빌리티시스템구분코드	MBLT_SYSTM_CLSS_CD	2			Not Null		모빌리티시스템구분코드	VARCHAR(10)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	앱운영서비스코드	APP_OP_SRVC_CD	3			Not Null		앱운영서비스코드	VARCHAR(10)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	제휴사구분코드	AFFI_CLSS_CD	4			Not Null		제휴사구분코드	VARCHAR(10)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	이용가능여부	UTLZ_ABLE_YN	5			Not Null	Y'	여부	CHAR(1)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	사용여부	USE_YN	6			Not Null	N'	여부	CHAR(1)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	생성자순번	CRTR_SQNO	7			Not Null		순번N15	BIGINT(15)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	생성일시	CRET_DTTM	8			Not Null		일시TS3	TIMESTAMP(3)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	수정자순번	MODFR_SQNO	9			Not Null		순번N15	BIGINT(15)	2022.10.12	테이블 신규
+앱운영서비스	TBMSM320	320	수정일시	ALTR_DTTM	10			Not Null		일시TS3	TIMESTAMP(3)	2022.10.12	테이블 신규
 
 
