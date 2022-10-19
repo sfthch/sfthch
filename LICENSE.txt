@@ -19,8 +19,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+부가서비스상태현황	TBMOM003	003	부가서비스상태순번	ANXT_SRVC_STAT_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	조회일시	INQY_DTTM	2			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	이용일자	UTLZ_DATES	3					연월일V8	VARCHAR(8)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	부가서비스코드	ANXT_SRVC_CD	4			Not Null		부가서비스코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	부가서비스명	ANXT_SRVC_NM	5					부가서비스명	VARCHAR(10)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	이용수	UTLZ_CNT	6			Not Null	0	수N10	INT(10)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	최근성공일시	NRST_SUCS_DTTM	7					일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	부가서비스상태코드	ANXT_SRVC_STAT_CD	8			Not Null		부가서비스상태코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	생성자순번	CRTR_SQNO	9			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	생성일시	CRET_DTTM	10			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	수정자순번	MODFR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+부가서비스상태현황	TBMOM003	003	수정일시	ALTR_DTTM	12			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송순번	SEND_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송용도구분코드	SEND_USAG_CLSS_CD	2			Not Null		발송용도구분코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	우선순위	PRRTY_RNKG	5					수N1	INT(1)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송자명	SNDR_NM	6					명V20	VARCHAR(20)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송자휴대번호	SNDR_CPNO	7					암호화값V64	VARCHAR(64)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송유형코드	SEND_TYPE_CD	8			Not Null		발송유형코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송대상채널명	SEND_TRGT_CHNL_NM	9					명V100	VARCHAR(100)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	수신자유형코드	RECVR_TYPE_CD	10			Not Null		수신자유형코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	수신자순번	RECVR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송메시지내용	SEND_MSG_CTNT	14			Not Null		내용V1000	VARCHAR(1000)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송요청구분코드	SEND_RQST_CLSS_CD	15			Not Null		발송요청구분코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송예정일시	SEND_SCDL_DTTM	15					일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	발송상태코드	SEND_STAT_CD	16			Not Null		발송상태코드	VARCHAR(10)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	생성자순번	CRTR_SQNO	17			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	생성일시	CRET_DTTM	18			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	수정자순번	MODFR_SQNO	19			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
+알림발송	TBMSD072	072	수정일시	ALTR_DTTM	20			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
+알람발송이력	TBMSH072	072	발송유형코드	SEND_TYPE_CD	8					발송유형코드	VARCHAR(10)	2022-10-19	도메인변경
+알람발송이력	TBMSH072	072	수신자유형코드	RECVR_TYPE_CD	10			Not Null		수신자유형코드	VARCHAR(10)	2022-10-19	도메인변경
 
-알림실행이력	TBMSH072	072	발송용도구분코드	SEND_USAG_CLSS_CD	2			Not Null		발송용도구분코드	VARCHAR(10)	2022-10-19	신규컬럼추가
-알림실행이력	TBMSH072	072	실행순번	EXEC_SQNO	3					순번N15	BIGINT(15)	2022-10-19	nullable로 변경
-알림실행이력	TBMSH072	072	과업순번	TASK_SQNO	4					순번N15	BIGINT(15)	2022-10-19	nullable로 변경
-알림실행이력	TBMSH072	072	발송대상채널명	SEND_TRGT_CHNL_NM	9					명V100	VARCHAR(100)	2022-10-19	신규컬럼추가
