@@ -21,43 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-안녕하세요. 조정국입니다. 
+알람발송이력	TBMSH072	072	응답키값	RSPN_KEY_VAL	17					값V100	VARCHAR(100)	2022-10-20
+알람발송이력	TBMSH072	072	SMS잔여수량	SMS_RESDL_CNT	18					수N10	INT(10)	2022-10-20
 
-대시보드 모니터링 서비스 구성 중에 시간이 오래 걸리는 조회 쿼리가 있어서 튜닝검토를 요청들입니다. 
-
-[대상쿼리]
-
-SELECT /* mwserver.mapper.monitoring.BatchErrorCollectMapper.getHourlyBatchExecResult */
-       STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s') EXEC_STRT_TIME
-     , BATCH_NM BSWR_CLSS_CD
-     , BATCH_EXEC_RSLT_VAL
-     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL='성공', BATCH_EXEC_RSLT_VAL, null)) SUCS_CNT
-     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL='실패', BATCH_EXEC_RSLT_VAL, null)) FALR_CNT
-     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL=''   , BATCH_EXEC_RSLT_VAL, null)) NULL_CNT
-  FROM TBMSD319 A
- GROUP BY STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s') /* 배치프로그램시작일시 */
-        , BATCH_NM /* 배치프로그램명 */
-        , BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
-;
-쿼리실행시간 : 5.6s
-
-배치프로그램시작일시에서 분, 초 정보를 제거한 조회기준정보로 가공(gorup by)하여 조회하는 과정에서
-연산작업이 필요하여 풀스켄이 불가피해 보입니다. 
-서비스 초기 테스트데이터만으로 5초가 넘어가는 상황이라 조치가 필요해 보입니다. 
-
-검토1. 인덱스 : 계산정보를 포함한 index 설정
- - STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s')
- - BATCH_NM /* 배치프로그램명 */
- - BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
-
-검토2. 가공데이터를 별도 필드로 추가하고 추가필드를 포함한 index 설정
- - BATCH_DTTM /* 가공데이터(추가) */
- - BATCH_NM /* 배치프로그램명 */
- - BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
-
-
-짧은 소건으로 검토한 두가지 방안 외에 더 효율적인 대응방안을 검토해주시면 더욱 좋을 것 같습니다. 
-쿼리 말도고 서비스 관점에서 개선방안의 의견을 주시면 참고하겠습니다 .
-
-(메일로 이슈요청한 방법에도 보완이 필요하면 피드백 부탁드립니다.)
 
