@@ -19,35 +19,45 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-부가서비스상태현황	TBMOM003	003	부가서비스상태순번	ANXT_SRVC_STAT_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	조회일시	INQY_DTTM	2			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	이용일자	UTLZ_DATES	3					연월일V8	VARCHAR(8)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	부가서비스코드	ANXT_SRVC_CD	4			Not Null		부가서비스코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	부가서비스명	ANXT_SRVC_NM	5					부가서비스명	VARCHAR(10)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	이용수	UTLZ_CNT	6			Not Null	0	수N10	INT(10)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	최근성공일시	NRST_SUCS_DTTM	7					일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	부가서비스상태코드	ANXT_SRVC_STAT_CD	8			Not Null		부가서비스상태코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	생성자순번	CRTR_SQNO	9			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	생성일시	CRET_DTTM	10			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	수정자순번	MODFR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-부가서비스상태현황	TBMOM003	003	수정일시	ALTR_DTTM	12			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송순번	SEND_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송용도구분코드	SEND_USAG_CLSS_CD	2			Not Null		발송용도구분코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	우선순위	PRRTY_RNKG	5					수N1	INT(1)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송자명	SNDR_NM	6					명V20	VARCHAR(20)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송자휴대번호	SNDR_CPNO	7					암호화값V64	VARCHAR(64)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송유형코드	SEND_TYPE_CD	8			Not Null		발송유형코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송대상채널명	SEND_TRGT_CHNL_NM	9					명V100	VARCHAR(100)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	수신자유형코드	RECVR_TYPE_CD	10			Not Null		수신자유형코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	수신자순번	RECVR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송메시지내용	SEND_MSG_CTNT	14			Not Null		내용V1000	VARCHAR(1000)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송요청구분코드	SEND_RQST_CLSS_CD	15			Not Null		발송요청구분코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송예정일시	SEND_SCDL_DTTM	15					일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	발송상태코드	SEND_STAT_CD	16			Not Null		발송상태코드	VARCHAR(10)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	생성자순번	CRTR_SQNO	17			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	생성일시	CRET_DTTM	18			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	수정자순번	MODFR_SQNO	19			Not Null		순번N15	BIGINT(15)	2022-10-19	신규테이블 생성
-알림발송	TBMSD072	072	수정일시	ALTR_DTTM	20			Not Null		일시TS3	TIMESTAMP(3)	2022-10-19	신규테이블 생성
-알람발송이력	TBMSH072	072	발송유형코드	SEND_TYPE_CD	8					발송유형코드	VARCHAR(10)	2022-10-19	도메인변경
-알람발송이력	TBMSH072	072	수신자유형코드	RECVR_TYPE_CD	10			Not Null		수신자유형코드	VARCHAR(10)	2022-10-19	도메인변경
+
+
+안녕하세요. 조정국입니다. 
+
+대시보드 모니터링 서비스 구성 중에 시간이 오래 걸리는 조회 쿼리가 있어서 튜닝검토를 요청들입니다. 
+
+[대상쿼리]
+
+SELECT /* mwserver.mapper.monitoring.BatchErrorCollectMapper.getHourlyBatchExecResult */
+       STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s') EXEC_STRT_TIME
+     , BATCH_NM BSWR_CLSS_CD
+     , BATCH_EXEC_RSLT_VAL
+     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL='성공', BATCH_EXEC_RSLT_VAL, null)) SUCS_CNT
+     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL='실패', BATCH_EXEC_RSLT_VAL, null)) FALR_CNT
+     , COUNT(IF(A.BATCH_EXEC_RSLT_VAL=''   , BATCH_EXEC_RSLT_VAL, null)) NULL_CNT
+  FROM TBMSD319 A
+ GROUP BY STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s') /* 배치프로그램시작일시 */
+        , BATCH_NM /* 배치프로그램명 */
+        , BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
+;
+쿼리실행시간 : 5.6s
+
+배치프로그램시작일시에서 분, 초 정보를 제거한 조회기준정보로 가공(gorup by)하여 조회하는 과정에서
+연산작업이 필요하여 풀스켄이 불가피해 보입니다. 
+서비스 초기 테스트데이터만으로 5초가 넘어가는 상황이라 조치가 필요해 보입니다. 
+
+검토1. 인덱스 : 계산정보를 포함한 index 설정
+ - STR_TO_DATE( DATE_FORMAT(A.BATCH_STRT_DTTM, '%Y-%m-%d %H:00:00'),'%Y-%m-%d %H:%i:%s')
+ - BATCH_NM /* 배치프로그램명 */
+ - BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
+
+검토2. 가공데이터를 별도 필드로 추가하고 추가필드를 포함한 index 설정
+ - BATCH_DTTM /* 가공데이터(추가) */
+ - BATCH_NM /* 배치프로그램명 */
+ - BATCH_EXEC_RSLT_VAL /* 배치처리결과 */
+
+
+짧은 소건으로 검토한 두가지 방안 외에 더 효율적인 대응방안을 검토해주시면 더욱 좋을 것 같습니다. 
+쿼리 말도고 서비스 관점에서 개선방안의 의견을 주시면 참고하겠습니다 .
+
+(메일로 이슈요청한 방법에도 보완이 필요하면 피드백 부탁드립니다.)
 
