@@ -19,7 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+주차장 정보 기본테이블 (Master)
+주차장의 물리적 형태 목록 관리
+주차장의 이미지 목록관리
+주차장의 휴일관리
+주차장의 현재 상태관리
+주차장과 연계된 제휴사 정보 기본테이블
+주차장과 연계된 제휴사의 이미지 목록관리
+주차장별 요금테이블 관리
+주차장별 요금테이블 이력관리
+주차장별 이용상품관리
+주차장별 이용상품 이력관리
+주차 서비스 차량관리
+주차 서비스 차량이력관리
+차랑별 주차 이용상품관리
+차량별 주차 이용상품이력관리
 
-알림발송	TBMSD072	072	발송요청등록일시	SEND_RQST_RGST_DTTM	2			Not Null		일시TS3	TIMESTAMP(3)	2022.11.03	신규컬럼추가
-알림발송	TBMSD072	072	발송대상채널코드	SEND_TRGT_CHNL_CD	8			Not Null		발송대상채널코드	VARCHAR(10)	2022.11.03	컬럼속성,컬럼명 변경
-알림발송이력	TBMSH072	072	발송순번	EXEC_SQNO	3					순번N15	BIGINT(15)	2022.11.03	컬럼속성,컬럼명 변경
