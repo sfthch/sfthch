@@ -20,17 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-배치프로그램실행내역	TBMSD319	319	배치프로그램실행구분코드	BATCH_EXEC_CLSS_CD	7			Not Null		배치실행구분코드	VARCHAR(10)	2022.11.15	신규컬럼추가
-배치프로그램실행내역	TBMSD319	319	실행파라미터	EXEC_PARAM	8					내용V1000	VARCHAR(1000)	2022.11.15	신규컬럼추가
-배치프로그램재실행	TBMSM320	320	배치프로그램재실행순번	BATCH_REXE_SQNO	1	Y		Not Null		순번N15	BIGINT(15)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	배치프로그램명	BATCH_NM	2			Not Null		명V100	VARCHAR(100)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	배치프로그램재실행클래스명	BATCH_CLAS_NM	3			Not Null		명V100	VARCHAR(100)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	실행파라미터	EXEC_PARAM	4					내용V1000	VARCHAR(1000)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	배치프로그램재실행요청일시	BATCH_REXE_RQST_DTTM	5			Not Null		일시TS3	TIMESTAMP(3)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	생성자순번	CRTR_SQNO	9			Not Null		순번N15	BIGINT(15)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	생성일시	CRET_DTTM	10			Not Null		일시TS3	TIMESTAMP(3)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	수정자순번	MODFR_SQNO	11			Not Null		순번N15	BIGINT(15)	2022.11.15	신규테이블 생성
-배치프로그램재실행	TBMSM320	320	수정일시	ALTR_DTTM	12			Not Null		일시TS3	TIMESTAMP(3)	2022.11.15	신규테이블 생성
-배치프로그램	TBMSM319	319	배치프로그램재실행가능여부	BATCH_REXE_ABLE_YN	6			Not Null		여부	CHAR(1)	2022.11.15	신규컬럼추가
-배치프로그램	TBMSM319	319	배치프로그램재실행클래스	BATCH_REXE_CLAS	6					값V100	VARCHAR(100)	2022.11.15	신규컬럼추가
+배치프로그램재실행	TBMSD320	320	배치프로그램재실행요청일시	BATCH_REXE_RQST_DTTM	5			Not Null		일시TS3	TIMESTAMP(3)		
+배치프로그램재실행	TBMSD320	320	배치프로그램재실행상태코드	BATCH_REXE_STAT_CD	6			Not Null		배치프로그램재실행상태코드	VARCHAR(10)	2022.11.16	신규컬럼추가
 
