@@ -20,28 +20,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-"       SELECT /* mrserver.mapper.parking.PkplcMapper.inquiryOpHourList */
-              ( SELECT Y.CMMN_CD_NM
-                  FROM TBMSM311 X
-                 INNER JOIN TBMSM312 Y
-                    ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                 WHERE X.USE_YN         = 'Y'
-                   AND Y.USE_YN         = 'Y'
-                   AND X.CMMN_CD_GRP_ID = ""PRKG_DYWK_CLSS_CD""
-                   AND Y.CMMN_CD_ID     = A.PRKG_DYWK_CLSS_CD
-               ) AS OP_STRT_HOUR_LABL
-            , substring(IFNULL(MIN(A.OP_STRT_TIME_VAL),'0000'),1,4) AS OP_STRT_HOUR
-            , substring(IFNULL(MAX(A.OP_END_TIME_VAL),'2400'),1,4) AS OP_END_HOUR
-            , A.PRKG_DYWK_CLSS_CD
-         FROM TBMSD608 A
-        WHERE A.USE_YN              = 'Y'
-          AND A.PKPLC_ID            = #{pkplcId}
-          AND A.AFFI_CLSS_CD        = #{affiClssCd}
-        GROUP BY  A.PKPLC_ID
-            , A.AFFI_CLSS_CD
-            , A.PRKG_DYWK_CLSS_CD
-        ORDER BY A.PRKG_DYWK_CLSS_CD"	"#{affiliateCode}: 05 (필수)
-#{pkplcId}: 680 (필수)
-"
-
-
+주차장이미지	TBMSD603	603	주차장이미지URL주소	PKPLC_IMG_URL_ADDR	6					주소V100	VARCHAR(100)
