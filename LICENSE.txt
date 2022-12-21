@@ -20,100 +20,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-"       SELECT /* mrserver.mapper.parking.PkplcMapper.inquiryPkplcDetlInfo */
-              A.PKPLC_CLSS_CD                                                                   /* 주차장 구분 코드 */
-            , A.AFFI_CLSS_CD  AS AFFILIATE_CODE                                                 /* 제휴사 코드 */
-            , ( SELECT Y.CMMN_CD_NM
+"       SELECT /* mrserver.mapper.parking.PkplcMapper.inquiryOpHourList */
+              ( SELECT Y.CMMN_CD_NM
                   FROM TBMSM311 X
                  INNER JOIN TBMSM312 Y
                     ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                 WHERE X.USE_YN           = 'Y'
-                   AND Y.USE_YN           = 'Y'
-                   AND X.CMMN_CD_GRP_ID   = ""AFFI_CLSS_CD""
-                   AND Y.CMMN_CD_ID       = A.AFFI_CLSS_CD
-              ) AS AFFILIATE_CODE_NM                                                            /* 제휴사명 */
-            , A.PKPLC_ID                                                                        /* 주차장ID */
-            , A.PKPLC_NM                                                                        /* 주차장명 */
-            , A.PKPLC_ADDR                                                                      /* 주차장 기본주소 */
-            , A.PKPLC_DETL_ADDR                                                                 /* 주차장 상세주소 */
-            , A.PKPLC_CNPL                                                                      /* 주차장 유선 연락처 */
-            , CONCAT( IF(A.ATMT_STLM_SUPT_YN  ='Y', '자동결제,', '')
-                    , IF(A.PKPLC_RSEV_SUPT_YN ='Y', '예약가능,', '')
-                    , (SELECT GROUP_CONCAT(CC.CMMN_CD_NM  SEPARATOR ',')
-                         FROM TBMSD602 AA
-                            , TBMSM311 BB
-                            , TBMSM312 CC
-                        WHERE AA.PKPLC_ID           = A.PKPLC_ID
-                          AND AA.AFFI_CLSS_CD       = A.AFFI_CLSS_CD
-                          AND AA.USE_YN             = 'Y'
-                          AND BB.USE_YN             = 'Y'
-                          AND CC.USE_YN             = 'Y'
-                          AND BB.CMMN_CD_GRP_ID     = ""PKPLC_FORM_CD""
-                          AND AA.PKPLC_FORM_CD      = CC.CMMN_CD_ID
-                          AND BB.CMMN_CD_GRP_SQNO   = CC.CMMN_CD_GRP_SQNO)
-                    , IF(A.FEML_PRKSP_EXST_YN       ='Y', ',여성 주차', '')
-                    , IF(A.ECAR_CHRGG_PRKSP_EXST_YN ='Y', ',전기차', '')
-                    ) AS PKPLC_ATRB_INFO                                                        /* 주차장 속성정보 */
-             , IF(PKPLC_LEAD_CNTRL_SUPT_YN='Y','주차 가능면','전체 주차면') AS PKPLC_PRKSP_LABL
-             , IFNULL((SELECT PSNT_ABLE_PRKSP_CNT
-                         FROM TBMSD605 AA
-                        WHERE AA.PKPLC_ID           = A.PKPLC_ID
-                          AND AA.AFFI_CLSS_CD       = A.AFFI_CLSS_CD)
-                      , '0') AS PSNT_PRKG_ABLE_PRKSP_CNT                                        /* 현재 가능 주차면수 */
-            , IFNULL(A.WHOL_PRKSP_CNT_VAL, '0') AS WHOL_PRKSP_CNT_VAL                           /* 전체주차면수 */
-            , (SELECT PSNT_PKPLC_CNGST_STAT_CD
-                 FROM TBMSD605 AA
-                WHERE AA.PKPLC_ID       = A.PKPLC_ID
-                  AND AA.AFFI_CLSS_CD   = A.AFFI_CLSS_CD
-               ) AS PSNT_PKPLC_CNGST_STAT_CD                                                    /* 주차장 혼잡 상태코드 */
-            , (SELECT CC.CMMN_CD_NM
-                 FROM TBMSD605 AA
-                    , TBMSM311 BB
-                    , TBMSM312 CC
-                WHERE AA.PKPLC_ID                  = A.PKPLC_ID
-                  AND AA.AFFI_CLSS_CD              = A.AFFI_CLSS_CD
-                  AND BB.USE_YN                    = 'Y'
-                  AND CC.USE_YN                    = 'Y'
-                  AND BB.CMMN_CD_GRP_ID            = ""PSNT_PKPLC_CNGST_STAT_CD""
-                  AND AA.PSNT_PKPLC_CNGST_STAT_CD  = CC.CMMN_CD_ID
-                  AND BB.CMMN_CD_GRP_SQNO          = CC.CMMN_CD_GRP_SQNO
-               ) AS PSNT_PKPLC_CNGST_STAT_CD_NM                                                 /* 주차장 혼잡 상태코드명 */
-            , IF(PKPLC_LEAD_CNTRL_SUPT_YN='Y', PKPLC_LEAD_CNTRL_SUPT_YN,'N') AS PSNT_PKPLC_STAT_SGNS_YN
-            , IF( A.ATMT_STLM_SUPT_YN='Y', 'Y', 'N') AS PKPLC_ENTCAR_RSEV_ABLE_YN              /* 주차장 입차예약 가능여부 */
-            , IF( A.ATMT_STLM_SUPT_YN='Y', '입차 예약', '') AS PKPLC_ENTCAR_RSEV_ABLE_YN_NM      /* 주차장 입차예약 가능여부 명칭 */
-            , A.PKPLC_LEAD_CNTRL_SUPT_YN AS NVG_ABLE_YN                                       /* 길안내가능 여부 */
-            , IF(A.PKPLC_LEAD_CNTRL_SUPT_YN='Y', '길 안내', '') AS NVG_ABLE_YN_NM                 /* 길안내가능 여부 명칭 */
-            , (SELECT PRKG_RSEV_ABLE_YN
-                   FROM TBMSD605 AA
-                  WHERE AA.PKPLC_ID         = A.PKPLC_ID
-                    AND AA.AFFI_CLSS_CD     = A.AFFI_CLSS_CD
-                ) AS PKPLC_RSEV_ABLE_YN                                                          /* 주차장예약가능여부 */
-            , (SELECT GROUP_CONCAT(distinct ( SELECT Y.CMMN_CD_NM
-                                                FROM TBMSM311 X
-                                               INNER JOIN TBMSM312 Y
-                                                  ON X.CMMN_CD_GRP_SQNO = Y.CMMN_CD_GRP_SQNO
-                                               WHERE 1 = 1
-                                                 AND X.USE_YN = 'Y'
-                                                 AND Y.USE_YN = 'Y'
-                                                 AND X.CMMN_CD_GRP_ID = ""PRKG_DYWK_CLSS_CD""
-                                                 AND Y.CMMN_CD_ID = AA.PRKG_DYWK_CLSS_CD
-                                            ) ORDER BY AA.PRKG_DYWK_CLSS_CD SEPARATOR '/') AS NCH_FARE_DYWK_LABL
-                 FROM (SELECT PRKG_DYWK_CLSS_CD
-                            , MAX(PRKG_BASC_UTLZ_FARE) AS PRKG_BASC_UTLZ_FARE
-                            , MAX(PRKG_SPLM_UTLZ_FARE) AS PRKG_SPLM_UTLZ_FARE
-                         FROM TBMSD608
-                        WHERE PKPLC_ID      = A.PKPLC_ID
-                          AND AFFI_CLSS_CD  = A.AFFI_CLSS_CD
-                        GROUP BY PRKG_DYWK_CLSS_CD) AA
-                WHERE AA.PRKG_BASC_UTLZ_FARE = 0
-                  AND AA.PRKG_SPLM_UTLZ_FARE = 0) AS NCH_FARE_DYWK_LABL
-            , '' AS NCH_FARE_EXRS_VAL
-            , 'N' AS NCH_FARE_INFO_EXRS_YN
-            , 'N' AS NCH_OP_DYWK_EXRS_YN
-         FROM TBMSM601 A
-        WHERE A.USE_YN       = 'Y'
-          AND A.AFFI_CLSS_CD = #{affiliateCode}
-          AND A.PKPLC_ID     = #{pkplcId}"	"#{affiliateCode}: 05 (필수)
+                 WHERE X.USE_YN         = 'Y'
+                   AND Y.USE_YN         = 'Y'
+                   AND X.CMMN_CD_GRP_ID = ""PRKG_DYWK_CLSS_CD""
+                   AND Y.CMMN_CD_ID     = A.PRKG_DYWK_CLSS_CD
+               ) AS OP_STRT_HOUR_LABL
+            , substring(IFNULL(MIN(A.OP_STRT_TIME_VAL),'0000'),1,4) AS OP_STRT_HOUR
+            , substring(IFNULL(MAX(A.OP_END_TIME_VAL),'2400'),1,4) AS OP_END_HOUR
+            , A.PRKG_DYWK_CLSS_CD
+         FROM TBMSD608 A
+        WHERE A.USE_YN              = 'Y'
+          AND A.PKPLC_ID            = #{pkplcId}
+          AND A.AFFI_CLSS_CD        = #{affiClssCd}
+        GROUP BY  A.PKPLC_ID
+            , A.AFFI_CLSS_CD
+            , A.PRKG_DYWK_CLSS_CD
+        ORDER BY A.PRKG_DYWK_CLSS_CD"	"#{affiliateCode}: 05 (필수)
 #{pkplcId}: 680 (필수)
 "
+
 
