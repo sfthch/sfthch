@@ -337,3 +337,20 @@ SELECT B.TABLE_SCHEMA
                THEN 1 ELSE 2 END
         , B.CONSTRAINT_NAME
 ;
+
+
+/usr/local/mysql/bin/mysql -h ifota-stg.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com -P 5506 -ufota_sys -pifotastg#123 fotadbbr01 --prompt="[\d/\u@\h]=> "
+cfota는
+/usr/local/mysql/bin/mysql -h cfota-stg-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com -P 5506 -ufota_sys -pifotastg#123 fotadbbr01 --prompt="[\d/\u]=> "
+/usr/local/mysql/bin/mysql -h ifota-stg.cluster-cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com -P 5506 -ufota_sys -pifotastg#123 fotadbbr01 --prompt="[\d/\u]=> "
+
+/usr/local/mysql/bin/mysql -h cfota-stg-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com --defaults-extra-file=cfotadb_fota_stg.cnf --prompt="[\d/\u]=> " fotadbbr01 
+
+alias dbc='/usr/local/mysql/bin/mysql    -h cfota-stg-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com                         -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
+alias dbi='/usr/local/mysql/bin/mysql    -h ifota-stg.cluster-cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com                         -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
+
+alias dbi1='/usr/local/mysql/bin/mysql   -h ifota-stg.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com                                 -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
+alias dbir='/usr/local/mysql/bin/mysql   -h ifota-stg-temp.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com                            -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
+alias dbeks='/usr/local/mysql/bin/mysql  -h cfota-eks-test-stg-cluster-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com        -P 5506 -ufota_sys -pTofhdnsqlqjs!3 fotadbbr01'
+alias dbmsk='/usr/local/mysql/bin/mysql  -h cfota-stg-msk-test-cluster.cluster-cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com        -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
+alias dbmsks='/usr/local/mysql/bin/mysql -h cfota-stg-msk-source-test-cluster-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com -P 5506 -ufota_sys -pifotastg#123   fotadbbr01'
