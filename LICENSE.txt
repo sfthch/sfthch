@@ -40,3 +40,42 @@ source    , \.              SQL 스크립트 파일을 실행하십시오. 파�
 status    , \s              서버에서 상태 정보를 가져옵니다.
 system    , \!              시스템 쉘 명령을 실행하십시오. 유닉스 계열 시스템에서만 작동합니다.
 tee       , \T              출력 파일 [to_outfile]을 설정하십시오. 주어진 아웃 파일에 모든 것을 추가하십시오.
+
+---------------
+-- mysqldump --
+---------------
+
+--no-data                                       DDL 정보만 dump 합니다.
+--no-create [디비명] [테이블명]                 테이블구조를 제외한 데이터만 dump 합니다. 여러개의 테이블이 가능 합니다.
+
+--host=host name, -h host name                  접속 하려는 서버의 host 정보를 입력 합니다. default값은 localhost 입니다.
+--password[=password], -p[password]             접속 하려는 서버의 user의 패스워드를 입력 합니다.
+--port=port num,-P port num                     접속 하려는 서버의 port를 지정 합니다.
+--user=user name, -u user name                  접속 하려는 서버의 user명을 기술 합니다.
+
+--no-data, -d                                   데이터를 입력하지 않습니다. create 구문을 전부 제외 합니다.
+--where="1=1 and a = 'a'", -w'where condition'  데이터를 dump할 때 where구문에 맞는 데이터만 dump받고 싶은 경우에 사용합니다.
+--add-drop-table                                Create table 구문 전에 drop table 구문을 추가 합니다.
+--create-options                                Create table 구문 안에 모든 테이블 옵션을 추가 합니다.
+--no-create-info, -t                            Create table 구문을 작성하지 않습니다.
+--replace                                       insert 구문 대신에 replace 구문을 사용하여 insert하게 설정합니다.
+
+--flush-privileges                              mysql database를 dump한 후 dump파일에 FLUSH PRIVILEGES구문이 추가 됩니다.
+--no-autocommit                                 각각의 dump되는 table의 앞 뒤에 SET autocommit=0 과 COMMIT 구문을 넣어 작성 합니다.
+
+--complete-insert, -c                           INSERT 구문 작성시 컬럼 이름을 전부 포함하여 작성하도록 합니다.
+--quote-names, -O                               식별자를 "'"를 사용하여 모두 감쌉니다. 만약, ANSI_QUOTES SQL MODE인 경우네는 """를 사용하여 감쌉니다. enable 이 기본 입니다.
+
+--default-character-set=charset name            기본 character set으로 charset_name을 사용하도록 설정합니다. default는 utf8로 사용 됩니다.
+--force, -f                                     에러가 발생해도 계속 작업이 진행되게 합니다.
+--dump-date                                     dump 파일의 생성 일자를 comment로 추가합니다.
+--insert-ignore                                 INSERT 문 대신 INSERT IGNORE 문을 작성하세요.
+
+/usr/local/mysql/bin/mysqldump -h cfota-stg-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com \
+                               -P 5506 -ufota_sys -p'ifotastg#123' fotadbbr01 tcdm_mgt_blck_case_wrk \
+                               --where="crt_dt >= '20200609050943' and crt_dt < '20230529070246'" \
+                               | sed 's/tcdm_mgt_blck_case_wrk/z8_tcdm_mgt_blck_case_wrk_230614/g' \
+                               > z8_tcdm_mgt_blck_case_wrk_230614.dmp
+
+/usr/local/mysql/bin/mysql -h cfota-stg-msk-test-cluster.cluster-cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com \
+                           -P 5506 -ufota_sys -p'ifotastg#123' fotadbbr01 --force < z8_tcdm_mgt_blck_case_wrk_230614.dmp
