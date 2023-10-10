@@ -79,3 +79,21 @@ tee       , \T              출력 파일 [to_outfile]을 설정하십시오. �
 
 /usr/local/mysql/bin/mysql -h cfota-stg-msk-test-cluster.cluster-cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com \
                            -P 5506 -ufota_sys -p'ifotastg#123' fotadbbr01 --force < z8_tcdm_mgt_blck_case_wrk_230614.dmp
+
+----------------
+-- mysqladmin --
+----------------
+
+- 5초마다 한번씩 보여주기       : -i 옵션을 이용하면 몇초마다 한번씩 정기적으로 processlist 를 보여준다.
+- 변경된 사항 차이점만 보여주기 : -r 옵션은 정보를 갱신항를 경우 차이점만 보여준다.
+
+/usr/local/mysql/bin/mysqladmin -h cfota-stg-cluster.cxnwrb9gjdfm.ap-northeast-1.rds.amazonaws.com -P 5506 -ufota_sys -pifotastg#123 -i10 -r processlist
+
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf processlist status extended-status --sleep=10 --count=100 --relative
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf processlist --sleep=10 --count=100 --relative
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf processlist --sleep=10 --count=3 --relative
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf -i5 -c3 -r processlist
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf -i10 proc stat
+mysqladmin --defaults-extra-file=mylogin_masdr.cnf status
+
+mysqlshow --defaults-extra-file=mylogin_masdr.cnf maas tbmsm001 -k
