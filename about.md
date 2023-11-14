@@ -7,8 +7,9 @@
 ``` 2016.11 ~ 2020.08 ``` **한국이디에스** -- IT 사업부 / 수석
 
 <br>
- * 담당업무
-   - DBA
-     + DDL, DML
-   - SQL Tuning
-     + 개발자 SQL
+
+* 담당업무
+  - DBA
+    + DDL, DML
+  - SQL Tuning
+    + 개발자 SQL
