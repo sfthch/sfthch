@@ -16,3 +16,5 @@
     + DDL, DML
   - SQL Tuning
     + 개발자 SQL
+  - MIG
+    + ROW DATA
