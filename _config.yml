@@ -16,7 +16,7 @@ sass:
   sass_dir: _sass
 plainwhite:
   name: 한창희
-  name: ChangHee Han
+  tagline: ChangHee Han
   tagline: Data Base Admin
 # date_format: "%b %-d, %Y"
   date_format: "%Y.%m.%d"
