@@ -10,7 +10,7 @@
 * 담당업무
   - DBA
     + DDL, DML
-  - SQL Tuning
-    + 개발자 SQL
   - ETL
     + DATA MIG
+  - SQL Tuning
+    + 개발자 SQL
