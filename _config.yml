@@ -15,8 +15,7 @@ show_excerpts: true # set to true to show excerpts on the homepage
 sass:
   sass_dir: _sass
 plainwhite:
-  name: <p>한   창   희</p>
-        <br><br>
+  name: 한 창 희<br><br>
         Chang-Hee Han
   tagline: Data Base Admin
 # date_format: "%b %-d, %Y"
