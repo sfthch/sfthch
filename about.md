@@ -61,7 +61,7 @@
     + SQL
 
 * CLOUD
-  - AWS Arora
+  - AWS Aurora
     + MySQL
     + PostgreSQL
 
