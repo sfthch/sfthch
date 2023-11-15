@@ -60,6 +60,7 @@
     + Oracle
     + MySQL
     + PostgreSQL
+    + Tibero
   - PL/SQL
     + SQL
 
