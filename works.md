@@ -50,6 +50,12 @@
 * SQL Tuning
   - 개발자 SQL
 
+- - -
+
+<br>
+
+> **㈜썸모빌리티**
+
 >   > **하나저축은행 신시스템 구축**                    `2020.10 ~ 2020.11`
 
 >   >   > **담당 포지션** `DBA`
@@ -60,6 +66,12 @@
   - DATA MIG
 * SQL Tuning
   - 개발자 SQL
+
+- - -
+
+<br>
+
+> **한국이디에스**
 
 >   > **서울신용보증재단 & 사회보장원 보육시스템**      `2019.10 ~ 2020.05`
 
@@ -83,6 +95,28 @@
 * ETL
   - AWS DMS(Data Mig System)
     + Oracle 11g -> PostgreSQL DATA 이관
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **근로복지공단 일자리 안정자금 시스템 구축**      `2018.01 ~ 2018.10`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - Oracle 11g
+* ETL
+  - DATA MIG
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **서울신용보증재단 & 사회보장원 보육시스템**      `2019.10 ~ 2020.05`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - Oracle 11g
+* ETL
+  - DATA MIG
 * SQL Tuning
   - 개발자 SQL
 
