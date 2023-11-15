@@ -1,3 +1,3 @@
 > #### ㈜StarLabs
 
-[x] 삼성전자 FOTA-SYSTEM
+* [x] 삼성전자 FOTA-SYSTEM
