@@ -32,28 +32,31 @@
 ## - 기 술 사 항
 - - -
 
-* DBMS
+* RDBMS
   - DATABSE
     + Oracle
     + MySQL
     + PostgreSQL
+  - PL/SQL
 * CLOUD
-  - AWS
-    + Rds
-    + Arora
+  - AWS Arora
+    + MySQL
+    + PostgreSQL
 
 <br>
 
 ## - 학 력 사 항
 - - -
 
-
+```1990.03 ```              -- 한미전산원 정보처리과 입학
+```1991.01 ~ 1993.07 ```    -- 군복무 / 육군
+```1995.02 ```              -- 한미전산원 정보처리과 졸업
 
 <br>
 
 ## - 자 격 사 항
 - - -
 
-
+```1994.12.26 ```           -- 정보처리기사2급 / 인력관리공단
 
 <br>
