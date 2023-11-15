@@ -66,7 +66,7 @@
 * CLOUD
   - AWS RDS
     + MySQL
-  - AWS Aurora
+  - AWS `Aurora`
     + MySQL
     + PostgreSQL
 
