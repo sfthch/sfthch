@@ -15,11 +15,11 @@
 
 >   > **세종시 스마트 시티**                  `2022.02 ~ 2022.12`
 
->   >   > **담당 포지션** `DA, DBA`
+>   >   > **담당 포지션** `DBA`
 
 * DBMS
   - MySQL
-  - MogoDB
+  - MongoDB
 * ETL
   - DATA MIG
 * ERD
