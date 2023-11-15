@@ -15,14 +15,15 @@
 
 >   > **세종시 스마트 시티**                  `2022.02 ~ 2022.12`
 
->   >   > **담당 포지션** `DBA`
+>   >   > **담당 포지션** `DA, DBA`
 
 * DBMS
-  - AWS Aurora
-    + MySQL
-    + PostgreSQL
+  - MySQL
+  - MogoDB
 * ETL
   - DATA MIG
+* ERD
+  - MySQL WorkBench
 * SQL Tuning
   - 개발자 SQL
 
