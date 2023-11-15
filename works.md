@@ -33,7 +33,7 @@
 >   >   > **담당 포지션** `DBA`
 
 * DBMS
-  - Oracle 19c
+  - Oracle 12c
 * ERD
   - DA#
 * SQL Tuning
@@ -47,6 +47,42 @@
   - AWS Aurora
     + MySQL 5.7
     + PostgreSQL
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **하나저축은행 신시스템 구축**                    `2020.10 ~ 2020.11`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - Oracle 12c
+* ETL
+  - DATA MIG
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **서울신용보증재단 & 사회보장원 보육시스템**      `2019.10 ~ 2020.05`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - Oracle 11g
+* ETL
+  - DATA MIG
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **NS홈쇼핑 협력업체 연동 시스템 구축**            `2018.10 ~ 2019.10`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - Oracle 11g
+  - AWS Aurora
+    + PostgreSQL
+* ETL
+  - AWS DMS(Data Mig System)
+    + Oracle 11g -> PostgreSQL DATA 이관
 * SQL Tuning
   - 개발자 SQL
 
