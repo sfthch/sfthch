@@ -44,8 +44,11 @@
 * 담당업무
   - 개발
     + DELPHI
+    + JAVA/JSP
+    + PowerBuilder
   - 운영
     + COBOL
+    + CLIPPER
 
 <br>
 
