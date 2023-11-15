@@ -1,4 +1,4 @@
-## - 경 력
+## - 경 력 사 항
 - - -
 
 ```2020.12 ~ 재직중 ```     **㈜StarLabs**          -- 엔터프라이즈 사업부 / 수석
@@ -26,3 +26,34 @@
     + DATA MIG
   - SQL Tuning
     + 개발자 SQL
+
+<br>
+
+## - 기 술 사 항
+- - -
+
+* DBMS
+  - DATABSE
+    + Oracle
+    + MySQL
+    + PostgreSQL
+* CLOUD
+  - AWS
+    + Rds
+    + Arora
+
+<br>
+
+## - 학 력 사 항
+- - -
+
+
+
+<br>
+
+## - 자 격 사 항
+- - -
+
+
+
+<br>
