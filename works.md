@@ -19,7 +19,8 @@
 
 * DBMS
   - MySQL 8.0
-  - MongoDB
+  - Log Data
+    + MongoDB
 * ETL
   - DATA MIG
 * ERD
@@ -27,7 +28,7 @@
 * SQL Tuning
   - 개발자 SQL
 
->   > **현대면세점 홈페이지 리뉴얼**                    `2022.02 ~ 2022.12`
+>   > **현대면세점 홈페이지 리뉴얼**                    `2021.06 ~ 2021.10`
 
 >   >   > **담당 포지션** `DBA`
 
@@ -35,6 +36,17 @@
   - Oracle 19c
 * ERD
   - DA#
+* SQL Tuning
+  - 개발자 SQL
+
+>   > **롯데 ON 홈쇼핑 구축**                           `2021.06 ~ 2021.10`
+
+>   >   > **담당 포지션** `DBA`
+
+* DBMS
+  - AWS Aurora
+    + MySQL 5.7
+    + PostgreSQL
 * SQL Tuning
   - 개발자 SQL
 
