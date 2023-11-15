@@ -38,6 +38,8 @@
     + MySQL
     + PostgreSQL
   - PL/SQL
+    + SQL
+
 * CLOUD
   - AWS Arora
     + MySQL
