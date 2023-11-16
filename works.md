@@ -508,10 +508,8 @@
 >   > TEST [`2003.01 ~ 2005.03`]
 
 >   >   >   담당 포지션 : `개발`
+{: .no_toc}
 
-<center>            가운데              </center>
-<div style="text-align: left">               왼쪽          </div>
-<div style="text-align: right">               오른쪽    </div>
 
 * 담당업무
   - 개발
