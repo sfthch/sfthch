@@ -15,7 +15,8 @@ show_excerpts: true # set to true to show excerpts on the homepage
 sass:
   sass_dir: _sass
 plainwhite:
-  name: 한 창희(ChangHee Han)
+  name: 한 창희{: style="text-align: center;"}
+        (ChangHee Han){: style="text-align: center;"}
   tagline: Data Base Admin
 # date_format: "%b %-d, %Y"
   date_format: "%Y.%m.%d"
