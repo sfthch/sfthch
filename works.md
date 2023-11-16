@@ -509,7 +509,7 @@
 
 >   >   >   담당 포지션 : `개발`
 
-담당 포지션
+:heavy_check_mark: 담당 포지션
 
 {: style="text-align: center;"}
 
