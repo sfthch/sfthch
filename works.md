@@ -509,8 +509,8 @@
 
 >   >   >   담당 포지션 : `개발`
 
-:heavy_check_mark: 담당 포지션
 {: style="text-align: center;"}
+:heavy_check_mark: 담당 포지션
 
 * 담당업무
   - 개발
