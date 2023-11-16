@@ -509,8 +509,7 @@
 
 >   >   >   담당 포지션 : `개발`
 
-담당 포지션
-{: style="text-align: right;"}
+담당 포지션{: style="text-align: center;"}
 
 * 담당업무
   - 개발
