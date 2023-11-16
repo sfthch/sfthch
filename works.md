@@ -509,7 +509,9 @@
 
 >   >   >   담당 포지션 : `개발`
 
-<dl><dt>레시피</dt><dd>1.레시피를 표현하는 방법</dd></dl>
+<center>가운데</center>
+<div style="text-align: left"> 왼쪽 </div>
+<div style="text-align: right"> 오른쪽 </div>
 
 * 담당업무
   - 개발
