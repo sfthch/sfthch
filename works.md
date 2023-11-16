@@ -8,6 +8,11 @@
   - AWS Aurora
     + MySQL 5.7
     + PostgreSQL
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -21,6 +26,14 @@
   - MySQL 8.0
   - Log Data
     + MongoDB
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * ERD
@@ -34,6 +47,10 @@
 
 * DBMS
   - Oracle 12c
+* DB Object
+  - Table
+    + Index
+    + Partition
 * ERD
   - DA#
 * SQL Tuning
@@ -47,6 +64,9 @@
   - AWS Aurora
     + MySQL 5.7
     + PostgreSQL
+* DB Object
+  - Table
+    + Index
 * SQL Tuning
   - 개발자 SQL
 
@@ -62,6 +82,14 @@
 
 * DBMS
   - Oracle 12c
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -79,6 +107,11 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -92,6 +125,11 @@
   - Oracle 11g
   - AWS Aurora
     + PostgreSQL
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - Procedure
 * ETL
   - AWS DMS(Data Mig System)
     + Oracle 11g DATA -> PostgreSQL DATA 이관
@@ -104,6 +142,14 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -115,6 +161,12 @@
 
 * DBMS
   - Tibero 6
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -126,6 +178,10 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
 * ERD
   - ERWin
 * ETL
@@ -139,6 +195,14 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -150,6 +214,10 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
 * SQL Tuning
   - BAT SQL
   - 통계 SQL
@@ -166,6 +234,14 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -183,6 +259,10 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -201,6 +281,9 @@
 * DBMS
   - Oracle 11g
   - SYSBASE
+* DB Object
+  - Table
+    + Index
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -218,6 +301,10 @@
 
 * DBMS
   - Oracle 11g
+* DB Object
+  - Table
+    + Index
+    + Partition
 * 품질진단
   - ERD 표준화
   - DATA 표준화
@@ -235,6 +322,11 @@
 
 * DBMS
   - SYSBASE
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
 * DB 분석
   - SQL 분석
   - Index 분석
@@ -245,6 +337,14 @@
 
 * DBMS
   - Oracle 10g
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -262,6 +362,10 @@
 
 * DBMS
   - SYSBASE
+* DB Object
+  - Table
+    + Index
+    + Partition
 * ETL
   - DATA MIG
 * DM
@@ -281,6 +385,10 @@
 
 * DBMS
   - Oracle 10g
+* DB Object
+  - Table
+    + Index
+    + Partition
 * SQL Tuning
   - 개발자 SQL
 
@@ -296,6 +404,14 @@
 
 * DBMS
   - Oracle 9i
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -313,6 +429,14 @@
 
 * DBMS
   - Oracle 9i
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
@@ -330,6 +454,14 @@
 
 * DBMS
   - Oracle 9i
+* DB Object
+  - Table
+    + Index
+    + Partition
+  - View
+  - Sequence
+  - Function
+  - Procedure
 * ETL
   - DATA MIG
 * SQL Tuning
