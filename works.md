@@ -509,10 +509,9 @@
 
 >   >   >   담당 포지션 : `개발`
 
-
-{: .text-right }
-              한창희
-
+한창희{: .text-right }
+TEST
+{: style="text-align: left;"}
 
 * 담당업무
   - 개발
