@@ -15,7 +15,7 @@ show_excerpts: true # set to true to show excerpts on the homepage
 sass:
   sass_dir: _sass
 plainwhite:
-  name: <!--한 창희(ChangHee Han)-->
+  name: 무 명 시 민<!--한 창희(ChangHee Han)-->
   tagline: Data Base Admin
 # date_format: "%b %-d, %Y"
   date_format: "%Y.%m.%d"
@@ -53,7 +53,7 @@ plainwhite:
     # soundcloud: sfthch
     # telegram: sfthch
     # gitlab: sfthch
-    email: sfthch@daum.net
+    email: doksanim@gmail.com  <!--sfthch@daum.net-->
 
     # Mastodon instances
     # mastodon:
