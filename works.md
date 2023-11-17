@@ -280,7 +280,7 @@
 
 * DBMS
   - Oracle 11g
-  - SYSBASE
+  - SYBASE
 * DB Object
   - Table
     + Index
@@ -321,7 +321,7 @@
 >   >   >   담당 포지션 : `DBA`
 
 * DBMS
-  - SYSBASE
+  - SYBASE
 * DB Object
   - Table
     + Index
@@ -361,7 +361,7 @@
 >   >   >   담당 포지션 : `DBA`
 
 * DBMS
-  - SYSBASE
+  - SYBASE
 * DB Object
   - Table
     + Index
