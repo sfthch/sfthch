@@ -104,6 +104,10 @@ plainwhite:
 plugins:
   - jekyll-seo-tag
 # - jekyll-feed
+  - jekyll-paginate
+paginate: 3
+paginate_path: "/posts/page/:num"
+
 # plugins:
 #   - jekyll-feed
 #   - jekyll-paginate-v2
