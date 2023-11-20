@@ -13,7 +13,7 @@ show_excerpts: true # set to true to show excerpts on the homepage
 # Outputting
 permalink: /:categories/:title/
 # permalink: /:categories/:year-:month-:day-:title/
-paginate: 5 # Defaults : 5
+# paginate: 5 # Defaults : 5
 paginate_path: /page:num/
 timezone: Asia/Seoul # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
