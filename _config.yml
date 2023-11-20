@@ -10,6 +10,12 @@ description: > # this means to ignore newlines until "show_exerpts:"
   Google search results) and in your feed.xml site description.
 show_excerpts: true # set to true to show excerpts on the homepage
 
+# Outputting
+permalink: /:categories/:title/
+paginate: 5 # Defaults : 5
+paginate_path: /page:num/
+timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 sass:
@@ -34,7 +40,7 @@ plainwhite:
                  # the path from the base directory of the site to the image to display (no / at the start)
   html_lang: "ko" 
            # set the lang attribute of the <html> tag for the pages. See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
-  post_label: 데이타베이스
+  post_label: Data Base
   condensed_mobile:
   # - home
     - page
