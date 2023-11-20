@@ -28,7 +28,7 @@
 
 [`2005.07 ~ 2008.03`]       **㈜네모소프트**            -- DBA / 과장
 
-* 담당업무
+* #### 담당업무
   - DBA
     + DDL, DML
   - ETL
@@ -42,7 +42,7 @@
 
 [`1995.01 ~ 1999.05`]       **㈜아이티월드**            -- 개발 / 사원
 
-* 담당업무
+* #### 담당업무
   - 개발
     + PHP
     + DELPHI
@@ -57,7 +57,7 @@
 ## - 기 술 사 항
 - - -
 
-* RDBMS
+* #### RDBMS
   - DATABSE
     + Oracle
     + MySQL
@@ -66,7 +66,7 @@
   - PL/SQL
     + SQL
 
-* CLOUD
+* #### CLOUD
   - AWS RDS
     + MySQL
   - AWS Aurora
