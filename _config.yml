@@ -101,12 +101,12 @@ plainwhite:
 # Build settings
 # theme: plainwhite
 
-# plugins:
-#   - jekyll-seo-tag
-# # - jekyll-feed
 plugins:
-  - jekyll-feed
-  - jekyll-paginate-v2
   - jekyll-seo-tag
-  - jekyll-postfiles
-  - jemoji
+# - jekyll-feed
+# plugins:
+#   - jekyll-feed
+#   - jekyll-paginate-v2
+#   - jekyll-seo-tag
+#   - jekyll-postfiles
+#   - jemoji
