@@ -1,34 +1,94 @@
----
-layout: page
-title: About
----
+## - 경 력 사 항
+- - -
 
-##### GitHub Blog 서비스인 github.io 블로그 시작하기로 했다.
+[`2020.12 ~ 재직중`]        ****************
+                        <!--**㈜STARLABS**-->           -- DBA / 수석
 
-* GitHub Blog 서비스의 이름은 Pages이다.
+[`2020.10 ~ 2020.11`]       **㈜썸모빌리티**            -- DBA / 부장
 
-* Pages가 다른 블로그 플랫폼 보다 편한 것 같아서 마음에 든다.  
-다른 사람들도 같이 많이 사용했으면 좋겠다는 생각이 든다.
+[`2016.11 ~ 2020.08`]       **한국이디에스**            -- DBA / 부장
 
-* YFM에서 정의한 제목을 이중 괄호 구문으로 본문에 추가할 수 있다.  
-이 글의 제목은 {{ page.title }}이고  
-마지막으로 수정된 시간은 {{ page.last_modified_at }}이다.
+[`2016.08 ~ 2016.10`]       **유니온아이엔씨**          -- DBA / 부장
 
-##### YFM에 대한 간단한 설명 * YFM(YAML Front Matter) 포맷은 markdown 파일의 최상단에 위치하며 3개의 하이픈으로 시작과 끝을 표시한다.
-YAML은 오픈 소스 프로젝트에서 많이 사용하는 구조화된 데이터 형식이라고만 알고 넘어가자.  
-YFM은 이 YAML을 사용해서 글의 제목, 날짜, 카테고리, 태그, 레이아웃 등을 정의할 수 있다.
+[`2015.12 ~ 2016.02`]       **㈜피엔피컨설팅**          -- DBA / 차장
 
-* YFM에서 정의한 제목인 title을 이중 괄호 구문으로 본문에 추가할 수 있다.  
-예를 들어 위에서 등록한 makrdown 파일 본문에는 이중 괄호 구문을 사용하여 표기하였다.  
-이를 지킬은 page.title를 YFM에서 정의한 문구로 교체하여 html로 변환한다.  
-따라서 이 markdown 글이 표시될때는 github.io 블로그 시작하기에서 보듯이 글 제목으로 치환되어 있다.
+[`2014.08 ~ 2015.08`]       **엑스지엠**                -- DBA / 차장
 
-* 이렇게 YFM는 페이지 내부에서의 변수 역할을 하며, layout에 대한 오버라이딩 설정 등에도 사용된다.
+[`2013.10 ~ 2013.12`]       **하성CNI**                 -- DBA / 차장
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll.   
-File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh].   
-If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+[`2012.02 ~ 2012.11`]       **케이디테크**              -- DBA / 차장
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+[`2010.12 ~ 2012.01`]       **데이터밸류정보통신**      -- DBA / 차장
+
+[`2010.04 ~ 2010.11`]       **㈜엠프러스정보통신**      -- DBA / 과장
+
+[`2009.12 ~ 2010.03`]       **㈜인성디노**              -- DBA / 과장
+
+[`2008.05 ~ 2009.04`]       **㈜에센티스**              -- DBA / 과장
+
+[`2005.07 ~ 2008.03`]       **㈜네모소프트**            -- DBA / 과장
+
+* #### 담당업무
+  - DBA
+    + DDL, DML
+  - ETL
+    + DATA MIG
+  - SQL Tuning
+    + 개발자 SQL
+
+[`2003.01 ~ 2005.03`]       **서울인포텍**              -- 개발 / 대리
+
+[`1999.07 ~ 2002.11`]       **㈜아이테크피아**          -- 개발 / 대리
+
+[`1995.01 ~ 1999.05`]       **㈜아이티월드**            -- 개발 / 사원
+
+* #### 담당업무
+  - 개발
+    + PHP
+    + DELPHI
+    + JAVA/JSP
+    + PowerBuilder
+  - 운영
+    + COBOL
+    + CLIPPER
+
+<br>
+
+## - 기 술 사 항
+- - -
+
+* #### RDBMS
+  - DATABSE
+    + Oracle
+    + MySQL
+    + PostgreSQL
+    + Tibero
+  - PL/SQL
+    + SQL
+
+* #### CLOUD
+  - AWS RDS
+    + MySQL
+  - AWS Aurora
+    + MySQL
+    + PostgreSQL
+
+<br>
+
+## - 학 력 사 항
+- - -
+
+[`1990.03`]                 <!-- 한미전산원 -->입학 / 정보처리과
+
+[`1991.01 ~ 1993.07`]       -- 군복무 / 육군
+
+[`1995.02`]                 <!-- 한미전산원 -->졸업 / 정보처리과
+
+<br>
+
+## - 자 격 사 항
+- - -
+
+[`1994.12.26`]              -- 정보처리기사2급 / 인력관리공단
+
+<!--{: style="text-align: center;"}-->

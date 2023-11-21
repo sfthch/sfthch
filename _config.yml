@@ -1,28 +1,28 @@
 # minimal_mistakes_skin: dark # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+url : https://sfthch.github.io # GitBlog 호스트 주소
 
-# site Setting
-
-local			: "ko-kr"
-title			: "ChangHee Blog"
-title_separator         : "&#124;" # 타이틀 사이 구분자 <title>Welcome to Jekyll | Minimal Mistakes</title> 해당 형식으로 들어갑니다.
-subtitle                : "Version 1.0" # 타이틀 아래에 나올 작은 글씨 
-name			: "한창희"
+title: ChangHee Blog
+author: GitHub User
+email: doksanim@gmail.com  # sfthch@daum.net
 description: > # this means to ignore newlines until "show_exerpts:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-show_excerpts		: true # set to true to show excerpts on the homepage
-url			: "https://sfthch.github.io" # GitBlog 호스트 주소
-baseurl			: # subPath https://sfthch.github.io/blog라고 하고 싶을 시 "/blog" 라고 적는다.
-author			: "GitHub User"
-email			: "sfthch@daum.net"
+show_excerpts: true # set to true to show excerpts on the homepage
+
+# Outputting
+# permalink: /:categories/:title/
+# permalink: /:categories/:year-:month-:day-:title/
+# paginate: 5 # Defaults : 5
+# paginate_path: /page:num/
+# timezone: Asia/Seoul # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 sass:
   sass_dir: _sass
 plainwhite:
-  name: ChangHee Han
+  name: # 한 창희(ChangHee Han)
   tagline: Data Base Admin
 # date_format: "%b %-d, %Y"
   date_format: "%Y.%m.%d"
@@ -35,13 +35,37 @@ plainwhite:
       url: "works"
   search: true
         # set to true to enable searchbar
+  # search_enabled: true
+  # search:
+  #   # Split pages into sections that can be searched individually
+  #   # Supports 1 - 6, default: 2
+  #   heading_level: 2
+  #   # Maximum amount of previews per search result
+  #   # Default: 3
+  #   previews: 3
+  #   # Maximum amount of words to display before a matched word in the preview
+  #   # Default: 5
+  #   preview_words_before: 5
+  #   # Maximum amount of words to display after a matched word in the preview
+  #   # Default: 10
+  #   preview_words_after: 10
+  #   # Set the search token separator
+  #   # Default: /[\s\-/]+/
+  #   # Example: enable support for hyphenated search words
+  #   tokenizer_separator: /[\s/]+/
+  #   # Display the relative url in search results
+  #   # Supports true (default) or false
+  #   rel_url: true
+  #   # Enable or disable the search button that appears in the bottom right corner of every page
+  #   # Supports true or false (default)
+  #   button: false
   dark_mode: true 
            # set to true to add dark mode toggle
   portfolio_image: "assets/dbeaver256.png" 
                  # the path from the base directory of the site to the image to display (no / at the start)
   html_lang: "ko" 
            # set the lang attribute of the <html> tag for the pages. See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
-  post_label: 데이타베이스
+  post_label: Data Base
   condensed_mobile:
   # - home
     - page
@@ -60,7 +84,7 @@ plainwhite:
     # soundcloud: sfthch
     # telegram: sfthch
     # gitlab: sfthch
-    email: sfthch@daum.net
+    email: doksanim@gmail.com  # sfthch@daum.net
 
     # Mastodon instances
     # mastodon:
@@ -80,6 +104,13 @@ plainwhite:
 plugins:
   - jekyll-seo-tag
 # - jekyll-feed
-  - jekyll-paginate
-paginate: 1
-paginate_path: "/posts/page/:num"
+# - jekyll-paginate
+# paginate: 3
+# paginate_path: "/posts/page/:num"
+
+# plugins:
+#   - jekyll-feed
+#   - jekyll-paginate-v2
+#   - jekyll-seo-tag
+#   - jekyll-postfiles
+#   - jemoji
