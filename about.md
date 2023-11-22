@@ -58,7 +58,7 @@
 - - -
 
 * #### RDBMS
-  - DATABSE
+  - DATABASE
     + Oracle
     + MySQL
     + PostgreSQL
